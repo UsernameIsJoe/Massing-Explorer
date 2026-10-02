@@ -962,6 +962,225 @@ def _relationship_features(
     }
 
 
+# Compatibility helpers for the earlier relationship-cell selector.
+# Active selection uses the descriptor portfolio above.
+_RELATIONSHIP_FEATURES: tuple[str, ...] = (
+    "art",
+    "media",
+    "admin",
+    "gym_dining",
+    "academic",
+)
+
+# Placement roles: their joint motif is the cell the four coarse families
+# collapsed, so it earns a coverage pass of its own on top of singles/pairs.
+_ROLE_FEATURES: tuple[str, ...] = ("art", "media", "admin")
+
+
+def _coverage_keys(
+    atoms: list[dict[str, Any]], assign: list[int]
+) -> tuple[tuple[str, ...], ...]:
+    """
+    Individual feature values, pairwise combinations, and the art/media/admin
+    motif triple (the cell that used to collapse under four coarse families).
+    """
+    feats = _relationship_features(atoms, assign)
+    names = [f for f in _RELATIONSHIP_FEATURES if feats.get(f)]
+    keys: list[tuple[str, ...]] = [(f, feats[f]) for f in names]
+    for i, left in enumerate(names):
+        for right in names[i + 1 :]:
+            keys.append((left, feats[left], right, feats[right]))
+    if all(feats.get(f) for f in _ROLE_FEATURES):
+        keys.append(("motif", feats["art"], feats["media"], feats["admin"]))
+    return tuple(keys)
+
+
+def _round_robin(
+    bags: dict[Any, list[Any]], order: list[Any]
+) -> list[Any]:
+    """
+    One entry per group per round, so no feature (or pair) hogs the seats.
+
+    Rare values of a feature rank late; without this the walk would spend the
+    quota on whichever feature happened to vary first.
+    """
+    keys = [k for k in order if bags.get(k)]
+    out: list[Any] = []
+    depth = 0
+    while True:
+        added = False
+        for key in keys:
+            bag = bags[key]
+            if depth < len(bag):
+                out.append(bag[depth])
+                added = True
+        if not added:
+            return out
+        depth += 1
+
+
+# Within a coverage cell: S = -school_index + λ * feas_potential.
+# λ=0.5 lets a clear geometry edge reorder near school neighbors without
+# jumping far down the school list (feas-first previously starved yield).
+FEAS_BLEND_IN_CELL = 0.5
+
+
+def _feasibility_potential(
+    atoms: list[dict[str, Any]], assign: list[int]
+) -> float:
+    """
+    Cheap geometric promise for ranking *inside* a coverage cell.
+
+    Does not replace relationship diversity — callers use this only among
+    candidates that already carry the same coverage target.
+    """
+    if not atoms or not assign or len(atoms) != len(assign):
+        return 0.0
+    feats = _relationship_features(atoms, assign)
+    score = 0.0
+    if feats.get("gym_dining") == "isolated":
+        score += 3.0
+    elif feats.get("gym_dining") == "shared":
+        score -= 1.0
+    if feats.get("academic") == "together":
+        score += 2.0
+    elif feats.get("academic") == "split":
+        score -= 1.5
+
+    counts: dict[int, int] = defaultdict(int)
+    for b in assign:
+        counts[b] += 1
+    sizes = list(counts.values()) or [1]
+    n_blocks = len(sizes)
+    total = sum(sizes) or 1
+    mean = total / n_blocks
+    var = sum((s - mean) ** 2 for s in sizes) / n_blocks
+    score -= 0.35 * var
+    score -= max(0.0, max(sizes) / total - 0.55) * 4.0
+
+    ground_tokens = (
+        "administration",
+        "guidance",
+        "dining",
+        "athletics",
+        "medical",
+        "custodial",
+    )
+    ground_blocks: dict[int, int] = defaultdict(int)
+    for i, atom in enumerate(atoms):
+        text = " ".join(str(d).lower() for d in (atom.get("departments") or []))
+        if any(tok in text for tok in ground_tokens):
+            ground_blocks[assign[i]] += 1
+    if ground_blocks:
+        score -= max(0, max(ground_blocks.values()) - 2) * 1.25
+
+    art = feats.get("art")
+    if art in ("alone", "with_academic", "other"):
+        score += 0.5
+    elif art == "with_athletics":
+        score -= 0.5
+    return score
+
+
+def _feature_coverage_order(
+    atoms: list[dict[str, Any]],
+    pool: list[list[int]],
+    *,
+    limit: int,
+    skip: set[frozenset[frozenset[str]]] | None = None,
+    covered: set[tuple[str, ...]] | None = None,
+) -> list[list[int]]:
+    """
+    Seat relationship-feature coverage before any school-prior refill.
+
+    Targets: feature values, art×media×admin motifs, then pairs. Within each
+    coverage cell, pick by S = -school_index + λ * feasibility_potential so
+    geometry can reorder near school neighbors without overriding coverage
+    or the school list. Motif triples are not retired by collateral singles/pairs.
+    """
+    if limit <= 0 or not pool:
+        return []
+    taken = set(skip or ())
+    cands: list[tuple[list[int], tuple[tuple[str, ...], ...], float]] = []
+    for assign in pool:
+        if _assign_signature(atoms, assign) in taken:
+            continue
+        cands.append(
+            (
+                assign,
+                _coverage_keys(atoms, assign),
+                _feasibility_potential(atoms, assign),
+            )
+        )
+    if not cands:
+        return []
+
+    by_feature: dict[str, list[tuple[str, ...]]] = {}
+    by_pair: dict[tuple[str, str], list[tuple[str, ...]]] = {}
+    motifs: list[tuple[str, ...]] = []
+    known: set[tuple[str, ...]] = set()
+    for _assign, keys, _feas in cands:
+        for key in keys:
+            if key in known:
+                continue
+            known.add(key)
+            if key and key[0] == "motif":
+                motifs.append(key)
+            elif len(key) == 2:
+                by_feature.setdefault(key[0], []).append(key)
+            else:
+                by_pair.setdefault((key[0], key[2]), []).append(key)
+
+    role_pairs = [
+        (left, right)
+        for i, left in enumerate(_ROLE_FEATURES)
+        for right in _ROLE_FEATURES[i + 1 :]
+    ]
+    other_pairs = [
+        (left, right)
+        for i, left in enumerate(_RELATIONSHIP_FEATURES)
+        for right in _RELATIONSHIP_FEATURES[i + 1 :]
+        if (left, right) not in role_pairs
+    ]
+
+    motifs_by_art: dict[str, list[tuple[str, ...]]] = {}
+    for key in motifs:
+        motifs_by_art.setdefault(key[1], []).append(key)
+
+    targets = _round_robin(by_feature, list(_RELATIONSHIP_FEATURES))
+    targets += _round_robin(motifs_by_art, list(motifs_by_art))
+    targets += _round_robin(by_pair, role_pairs)
+    targets += _round_robin(by_pair, other_pairs)
+
+    done = set(covered or ())
+    picked: list[list[int]] = []
+    used: set[int] = set()
+    for target in targets:
+        if len(picked) >= limit:
+            break
+        if target in done:
+            continue
+        best_i = -1
+        best_score: float | None = None
+        for i, (_assign, keys, feas) in enumerate(cands):
+            if i in used or target not in keys:
+                continue
+            score = -float(i) + float(FEAS_BLEND_IN_CELL) * float(feas)
+            if best_score is None or score > best_score:
+                best_score = score
+                best_i = i
+        if best_i < 0:
+            continue
+        assign, keys, _feas = cands[best_i]
+        used.add(best_i)
+        for key in keys:
+            if key and key[0] == "motif" and key != target:
+                continue
+            done.add(key)
+        picked.append(assign)
+    return picked
+
+
 def _relationship_family(atoms: list[dict[str, Any]], assign: list[int]) -> str:
     """
     Coarse organizational label for reports and diagnostics.
