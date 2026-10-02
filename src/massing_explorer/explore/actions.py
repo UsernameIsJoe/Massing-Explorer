@@ -10,8 +10,8 @@ from __future__ import annotations
 from typing import Any
 
 from ..group import match_department
-from ..study_state import MassGrouping
-from .strategy import grouping_is_required, required_mass_count, required_together
+from .strategy import grouping_is_required
+from .strategy_contract import ENVELOPE_VALUES, LOADING_VALUES
 
 SUPPORTED = (
     "COLOCATE",
@@ -78,81 +78,16 @@ def _resolve_depts(session: Any, names: list[Any]) -> tuple[list[str] | None, st
     return out, ""
 
 
-def _home(session: Any, department: str) -> Any:
-    return next((m for m in session.masses if department in m.departments), None)
-
-
-def _must_share(session: Any, a: str, b: str) -> bool:
-    pair = frozenset({a, b})
-    for group in required_together(session):
-        if pair <= group or (a in group and b in group):
-            return True
-    return False
-
-
 def _colocate(session: Any, action: dict[str, Any]) -> dict[str, Any]:
-    if not grouping_is_required(session):
-        return _reject("COLOCATE", CSP_OWNS_P)
-    depts, err = _resolve_depts(session, list(action.get("programs") or action.get("departments") or []))
-    if err:
-        return _reject("COLOCATE", err)
-    if len(depts) < 2:
-        return _reject("COLOCATE", "COLOCATE needs at least two programs.")
-    host = _home(session, depts[0])
-    if host is None:
-        return _reject("COLOCATE", f"{depts[0]} is not in a mass.")
-    for dept in depts[1:]:
-        other = _home(session, dept)
-        if other is None:
-            return _reject("COLOCATE", f"{dept} is not in a mass.")
-        if other.id == host.id:
-            continue
-        if grouping_is_required(session) and required_mass_count(session) == len(session.masses):
-            return _reject(
-                "COLOCATE",
-                "Mass count is a requirement, so masses cannot be merged.",
-            )
-        other.departments = [d for d in other.departments if d != dept]
-        if dept not in host.departments:
-            host.departments.append(dept)
-        if not other.departments:
-            session.masses = [m for m in session.masses if m.id != other.id]
-    if hasattr(session, "save"):
-        session.save()
-    return _ok("COLOCATE", f"{', '.join(depts)} share {host.name}.")
+    if grouping_is_required(session):
+        return _reject("COLOCATE", "Program organization was required by the brief.")
+    return _reject("COLOCATE", CSP_OWNS_P)
 
 
 def _keep_apart(session: Any, action: dict[str, Any]) -> dict[str, Any]:
-    if not grouping_is_required(session):
-        return _reject("KEEP_APART", CSP_OWNS_P)
-    depts, err = _resolve_depts(session, list(action.get("programs") or action.get("departments") or []))
-    if err:
-        return _reject("KEEP_APART", err)
-    if len(depts) < 2:
-        return _reject("KEEP_APART", "KEEP_APART needs two programs.")
-    a, b = depts[0], depts[1]
-    if _must_share(session, a, b):
-        return _reject("KEEP_APART", f"{a} and {b} are required to share a mass.")
-    mass_a = _home(session, a)
-    mass_b = _home(session, b)
-    if mass_a is None or mass_b is None:
-        return _reject("KEEP_APART", "Both programs must already belong to a mass.")
-    if mass_a.id != mass_b.id:
-        return _ok("KEEP_APART", "Already in different masses.")
-    if grouping_is_required(session) and required_mass_count(session) == len(session.masses):
-        return _reject(
-            "KEEP_APART",
-            "Mass count is a requirement, so a new mass cannot be opened.",
-        )
-    mover = b if len(mass_a.departments) > 1 else a
-    mass_a.departments = [d for d in mass_a.departments if d != mover]
-    new_id = _fresh_id(session, mover)
-    session.masses.append(
-        MassGrouping(id=new_id, name=new_id.replace("_", " ").title(), departments=[mover], story_count=mass_a.story_count)
-    )
-    if hasattr(session, "save"):
-        session.save()
-    return _ok("KEEP_APART", f"{mover} is now its own mass.")
+    if grouping_is_required(session):
+        return _reject("KEEP_APART", "Program organization was required by the brief.")
+    return _reject("KEEP_APART", CSP_OWNS_P)
 
 
 def _split_mass(session: Any, action: dict[str, Any]) -> dict[str, Any]:
@@ -172,6 +107,12 @@ def _pin_ground(session: Any, action: dict[str, Any]) -> dict[str, Any]:
         return _reject("PIN_GROUND", err)
     notes = []
     for dept in depts:
+        existing = (session.floor_pins or {}).get(dept)
+        if existing is not None and int(existing) != 0:
+            return _reject(
+                "PIN_GROUND",
+                f"{dept} is already pinned to level {int(existing)} by the brief or strategy.",
+            )
         out = pin_department_to_floor(session, dept, 0)
         if not out.get("ok"):
             return _reject("PIN_GROUND", str(out.get("error") or "pin failed"))
@@ -198,7 +139,7 @@ def _set_stories(session: Any, action: dict[str, Any]) -> dict[str, Any]:
 
 def _set_loading(session: Any, action: dict[str, Any]) -> dict[str, Any]:
     mode = str(action.get("type") or action.get("loading") or "").lower()
-    if mode not in {"single", "double"}:
+    if mode not in LOADING_VALUES:
         return _reject("SET_LOADING", "Loading must be single or double.")
     if session.constraints.get("loading_required") and session.constraints.get("loading") != mode:
         return _reject("SET_LOADING", "Loading was required by the brief.")
@@ -305,7 +246,7 @@ def _set_width(session: Any, action: dict[str, Any]) -> dict[str, Any]:
 
 def _set_envelope(session: Any, action: dict[str, Any]) -> dict[str, Any]:
     env = str(action.get("envelope") or action.get("type") or "").lower()
-    if env not in {"balanced", "compact", "elongated"}:
+    if env not in ENVELOPE_VALUES:
         return _reject("SET_ENVELOPE", "Envelope must be balanced, compact, or elongated.")
     session.constraints["cover_envelope"] = env
     if hasattr(session, "save"):
@@ -347,14 +288,3 @@ def _width_from_last(session: Any, mass_id: str) -> float | None:
             except (TypeError, ValueError, AttributeError):
                 return None
     return None
-
-
-def _fresh_id(session: Any, seed: str) -> str:
-    base = "".join(ch.lower() if ch.isalnum() else "_" for ch in str(seed)).strip("_") or "mass"
-    used = {m.id for m in session.masses}
-    if base not in used:
-        return base
-    n = 2
-    while f"{base}_{n}" in used:
-        n += 1
-    return f"{base}_{n}"

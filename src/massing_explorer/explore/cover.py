@@ -44,6 +44,11 @@ from .p_pool import (
     unsaturated_feasible_partition_indices,
 )
 from .strategy import grouping_is_required, partition_id
+from .strategy_contract import (
+    ENVELOPE_VALUES,
+    LOADING_VALUES,
+    PLATE_PROFILE_VALUES,
+)
 from .topology import paired_bars_drawable, pairing_proposals, stated_frontage_ft, topology_is_required
 
 COVER_START = 40
@@ -57,11 +62,11 @@ PER_PARTITION_STORY_FLOOR = 8
 COVER_STAGNANT_FRAC = 0.08
 # COVER search pool size is adaptive (12–20); UI presentation stays separate.
 
-ENVELOPES = ("balanced", "compact", "elongated")  # elongated → search low_rise
-LOADINGS = ("double", "single")
+ENVELOPES = ENVELOPE_VALUES  # elongated → search low_rise
+LOADINGS = LOADING_VALUES
 TOPOLOGIES = ("independent", "paired")
 # Floor-plate profiles COVER will try. "step" = ≤2 types, biggest→smallest.
-PLATE_PROFILES = ("uniform", "step")
+PLATE_PROFILES = PLATE_PROFILE_VALUES
 STEP_PLATE_TAPER = 0.80
 
 

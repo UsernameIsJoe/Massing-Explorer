@@ -16,6 +16,7 @@ from .actions import SUPPORTED, UNSUPPORTED, apply_action
 from .planner import parse_plan
 from .saturate import MCTS_DEPTH, MCTS_ROOTS, MCTS_SIMS, Saturation, read_explore_budget
 from .strategy import grouping_is_required
+from .strategy_contract import ENVELOPE_VALUES, LOADING_VALUES
 
 # Production caps. Session explore_budget may lower them.
 SIM_CAP = MCTS_SIMS
@@ -366,10 +367,10 @@ def catalog_actions(session: Any, include_unsupported: bool = False) -> list[dic
                 actions.append({"op": "SET_STORIES", "mass": mass.id, "stories": stories})
     loading = str(session.constraints.get("loading") or "double")
     if not session.constraints.get("loading_required"):
-        other = "single" if loading != "single" else "double"
+        other = LOADING_VALUES[1] if loading != LOADING_VALUES[1] else LOADING_VALUES[0]
         actions.append({"op": "SET_LOADING", "loading": other})
     current_env = str(session.constraints.get("cover_envelope") or "balanced")
-    for env in ("balanced", "compact", "elongated"):
+    for env in ENVELOPE_VALUES:
         if env != current_env:
             actions.append({"op": "SET_ENVELOPE", "envelope": env})
     pins = session.floor_pins or {}

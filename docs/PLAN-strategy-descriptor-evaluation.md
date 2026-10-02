@@ -24,6 +24,19 @@ roles that were previously mixed:
 The four evaluation formulas, legal gate, search budgets, and CSP ordering are
 unchanged. Focus now moves to the strategy-space contract described below.
 
+### Work after this checkpoint
+
+The first strategy-contract implementation now lives in
+`explore/strategy_contract.py`. It exposes the active domain, current value,
+lock rule, generator, typed actions, pruning rules, and identity rule for each
+search control. COVER and typed actions share its finite loading, envelope,
+and plate-profile domains; planner context receives only actions currently
+available under the contract.
+
+The audit also recorded one remaining traversal gap: COVER samples plate
+profiles, but MCTS has no typed plate-profile neighbor action. Exact widths
+remain realization/repair variables rather than strategy controls.
+
 ---
 
 ## Goal

@@ -12,6 +12,7 @@ from typing import Any
 
 from .actions import SUPPORTED, UNSUPPORTED, apply_action
 from .strategy import grouping_is_required, read_strategy
+from .strategy_contract import strategy_space_contract
 
 MAX_ACTIONS = 5
 FEET_KEYS = (
@@ -39,9 +40,18 @@ def plan_context(session: Any, archive: dict[str, Any] | None = None) -> dict[st
     infeasible = [
         k for k, e in (archive.get("cells") or {}).items() if not e.get("fits_limitations")
     ]
+    contract = strategy_space_contract(session)
+    allowed_ops = sorted(
+        {
+            str(action)
+            for control in contract.get("controls") or []
+            for action in (control.get("actions") or [])
+        }
+    )
     return {
         "locked_p": grouping_is_required(session),
         "strategy": read_strategy(session),
+        "strategy_contract": contract,
         "masses": [
             {
                 "id": m.id,
@@ -64,7 +74,8 @@ def plan_context(session: Any, archive: dict[str, Any] | None = None) -> dict[st
         "failed_checks": failed,
         "empty_cells": _empty_cell_lines(session, archive),
         "topology": describe_topology(session),
-        "allowed_ops": list(SUPPORTED),
+        "allowed_ops": allowed_ops,
+        "known_ops": list(SUPPORTED),
         "unsupported_ops": list(UNSUPPORTED),
         "rule": (
             "At most five typed actions. Do not invent feet or GSF. "
