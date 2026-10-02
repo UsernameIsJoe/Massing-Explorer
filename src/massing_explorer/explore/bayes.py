@@ -14,7 +14,12 @@ from typing import Any
 
 from . import archive as archive_mod
 from .actions import apply_action
-from .axes import PROBE_AXIS_NAMES, encode_named, encode_strategy  # noqa: F401
+from .axes import (  # noqa: F401
+    PROBE_AXIS_NAMES,
+    encode_named,
+    encode_search_projection,
+    encode_strategy,
+)
 from .mcts import action_key, catalog_actions, cover_roots
 from .saturate import BO_CAP, BO_MIN, Saturation, encodings_from_archive, feature_is_novel, read_explore_budget, search_reward
 from .strategy import cell_key, read_strategy
@@ -137,7 +142,7 @@ def run_bayes(
 
         result, performance = realize(session)
         key = cell_key(session)
-        feat = encode_strategy(read_strategy(session))
+        feat = encode_search_projection(read_strategy(session))
         if key in seen_cells:
             picked.append({"op": _label(action), "kind": "duplicate", "ei": item["ei"], "reason": "Cell already in the archive.", "key": item["key"]})
             sat.observe(False)
@@ -261,7 +266,7 @@ def _candidates_from_snap(
             continue
         if not applied.get("ok"):
             continue
-        feat = encode_strategy(read_strategy(session))
+        feat = encode_search_projection(read_strategy(session))
         out.append(
             {
                 "action": action,
@@ -280,7 +285,10 @@ def _observations(archive: dict[str, Any], weights: dict[str, float] | None = No
     rows = []
     for entry in (archive.get("cells") or {}).values():
         rows.append(
-            (encode_strategy(entry.get("strategy")), evaluation_reward(entry.get("performance") or {}, weights))
+            (
+                encode_search_projection(entry.get("strategy")),
+                evaluation_reward(entry.get("performance") or {}, weights),
+            )
         )
     return rows
 

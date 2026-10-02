@@ -8,17 +8,41 @@ from types import SimpleNamespace
 from massing_explorer.explore.axes import (
     P_BLOCK_SIZE,
     PROBE_AXIS_NAMES,
+    SEARCH_PROJECTION_DIM,
+    SEARCH_PROJECTION_NAMES,
     STRATEGY_DIM,
     encode_named,
+    encode_named_search_projection,
+    encode_search_projection,
     encode_strategy,
     pairwise_partition_block,
 )
-from massing_explorer.explore.performance import EVAL_AXIS_NAMES, eval_composites, measure
+from massing_explorer.explore.descriptors import DESCRIPTOR_FIELDS, describe_result
+from massing_explorer.explore.performance import (
+    EVAL_AXIS_NAMES,
+    eval_composites,
+    evaluate_descriptors,
+    measure,
+)
 from massing_explorer.explore.preference import TRAIT_NAMES
 from massing_explorer.explore.saturate import feature_distance
 
 
 class TestProbeAxes(unittest.TestCase):
+    def test_explicit_search_projection_preserves_legacy_encoding(self) -> None:
+        strategy = {
+            "P": {"mass_count": 2, "partition": {"a": ["A"], "b": ["B"]}},
+            "T": {"kind": "independent_bars"},
+            "V": {},
+            "G": {"stories": {"a": 2, "b": 3}},
+        }
+        self.assertIs(PROBE_AXIS_NAMES, SEARCH_PROJECTION_NAMES)
+        self.assertEqual(STRATEGY_DIM, SEARCH_PROJECTION_DIM)
+        self.assertEqual(encode_strategy(strategy), encode_search_projection(strategy))
+        self.assertEqual(
+            encode_named(strategy), encode_named_search_projection(strategy)
+        )
+
     def test_encode_has_pairwise_block_plus_scalars(self) -> None:
         strategy = {
             "P": {
@@ -120,6 +144,36 @@ class TestProbeAxes(unittest.TestCase):
 
 
 class TestEvalAxes(unittest.TestCase):
+    def test_realized_descriptors_are_separate_from_evaluation(self) -> None:
+        floor = SimpleNamespace(
+            level=0,
+            width_ft=40.0,
+            length_ft=100.0,
+            usable_area_sf=4000.0,
+            allocated_gsf=3000.0,
+            allocations=[SimpleNamespace(department="CORE ACADEMIC", gsf=3000.0)],
+        )
+        result = SimpleNamespace(
+            masses=[SimpleNamespace(id="m1", name="Mass 1", floors=[floor])],
+            validation=[],
+        )
+        descriptors = describe_result(result, preference_distance=0.2)
+        self.assertTrue(set(DESCRIPTOR_FIELDS).issubset(descriptors))
+        self.assertFalse(set(EVAL_AXIS_NAMES) & set(descriptors))
+        self.assertEqual(descriptors["mass_count"], 1)
+        self.assertEqual(descriptors["ground_footprint_area"], 4000.0)
+        self.assertEqual(descriptors["leftover_area"], 0.25)
+
+        evaluation = evaluate_descriptors(descriptors)
+        self.assertEqual(set(evaluation), set(EVAL_AXIS_NAMES))
+        self.assertEqual(evaluation, eval_composites({"descriptors": descriptors}))
+
+        performance = measure(result)
+        self.assertIn("descriptors", performance)
+        for name in DESCRIPTOR_FIELDS:
+            self.assertIn(name, performance["descriptors"])
+            self.assertIn(name, performance)  # compatibility view
+
     def test_learn_traits_are_the_four_composites(self) -> None:
         self.assertEqual(TRAIT_NAMES, EVAL_AXIS_NAMES)
         self.assertEqual(len(TRAIT_NAMES), 4)

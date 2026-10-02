@@ -741,10 +741,11 @@ def _refine(session: Any, archive: dict[str, Any]) -> dict[str, Any]:
             taken += 1
             kinds.add(str(action.get("op") or ""))
             from .strategy import cell_key, read_strategy
-            from .bayes import encode_strategy, evaluation_reward
+            from .axes import encode_search_projection
+            from .bayes import evaluation_reward
 
             key = cell_key(session)
-            feat = encode_strategy(read_strategy(session))
+            feat = encode_search_projection(read_strategy(session))
             new_legal = archive_mod.legal_cells(archive)
             better = any(
                 e.get("cell") == elite.get("cell")

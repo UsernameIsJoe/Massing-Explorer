@@ -1,5 +1,5 @@
 """
-COVER probe encoding — the strategy feature space for novelty and BO.
+COVER search projection — the compact feature space for novelty and BO.
 
 Product language still names nine axes. Internally, program organization is a
 pairwise same-mass block (not a SHA scalar), followed by normalized scalars.
@@ -13,8 +13,9 @@ from __future__ import annotations
 
 from typing import Any
 
-# Ordered product names. encode_named keeps this map; encode_strategy is longer.
-PROBE_AXIS_NAMES = (
+# Ordered search dimensions. This is a projection of requested strategy, not a
+# description of the realized building and not an evaluation score.
+SEARCH_PROJECTION_NAMES = (
     "program_organization",
     "mass_count",
     "distribution_balance",
@@ -26,13 +27,17 @@ PROBE_AXIS_NAMES = (
     "geometric_character",
 )
 
+# Compatibility name used by existing UI payloads and stored studies.
+PROBE_AXIS_NAMES = SEARCH_PROJECTION_NAMES
+
 # Pad to C(12, 2) so every GP row shares a length.
 P_BLOCK_DEPTS = 12
 P_BLOCK_SIZE = P_BLOCK_DEPTS * (P_BLOCK_DEPTS - 1) // 2
-STRATEGY_DIM = P_BLOCK_SIZE + (len(PROBE_AXIS_NAMES) - 1)
+SEARCH_PROJECTION_DIM = P_BLOCK_SIZE + (len(SEARCH_PROJECTION_NAMES) - 1)
+STRATEGY_DIM = SEARCH_PROJECTION_DIM
 
 
-def encode_strategy(strategy: dict[str, Any] | None) -> list[float]:
+def encode_search_projection(strategy: dict[str, Any] | None) -> list[float]:
     """
     Strategy vector: pairwise P-block + eight normalized scalars.
 
@@ -119,15 +124,25 @@ def encode_strategy(strategy: dict[str, Any] | None) -> list[float]:
     ]
 
 
-def encode_named(strategy: dict[str, Any] | None) -> dict[str, float]:
-    """Nine product axes. program_organization is a compact id of the P-block."""
-    vals = encode_strategy(strategy)
+def encode_named_search_projection(strategy: dict[str, Any] | None) -> dict[str, float]:
+    """Nine search dimensions; program organization summarizes the P-block."""
+    vals = encode_search_projection(strategy)
     block = vals[:P_BLOCK_SIZE]
     scalars = vals[P_BLOCK_SIZE:]
     named = {"program_organization": round(_p_block_id(block), 4)}
-    for i, name in enumerate(PROBE_AXIS_NAMES[1:]):
+    for i, name in enumerate(SEARCH_PROJECTION_NAMES[1:]):
         named[name] = round(scalars[i], 4) if i < len(scalars) else 0.0
     return named
+
+
+def encode_strategy(strategy: dict[str, Any] | None) -> list[float]:
+    """Compatibility wrapper for the former search-projection name."""
+    return encode_search_projection(strategy)
+
+
+def encode_named(strategy: dict[str, Any] | None) -> dict[str, float]:
+    """Compatibility wrapper for existing UI payloads and callers."""
+    return encode_named_search_projection(strategy)
 
 
 def pairwise_partition_block(partition: dict[str, Any] | None) -> list[float]:

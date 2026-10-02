@@ -480,7 +480,7 @@ def _silhouette(entry: dict[str, Any]) -> list[tuple[int, int, int]]:
 
 
 def _probe_l1(entry_a: dict[str, Any], entry_b: dict[str, Any]) -> float:
-    from .axes import encode_strategy
+    from .axes import encode_search_projection
 
     def prep(entry: dict[str, Any]) -> dict[str, Any]:
         strategy = dict(entry.get("strategy") or {})
@@ -490,8 +490,8 @@ def _probe_l1(entry_a: dict[str, Any], entry_b: dict[str, Any]) -> float:
             strategy["G"] = geom
         return strategy
 
-    va = encode_strategy(prep(entry_a))
-    vb = encode_strategy(prep(entry_b))
+    va = encode_search_projection(prep(entry_a))
+    vb = encode_search_projection(prep(entry_b))
     return sum(abs(a - b) for a, b in zip(va, vb))
 
 

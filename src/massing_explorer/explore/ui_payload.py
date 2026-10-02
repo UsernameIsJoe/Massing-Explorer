@@ -63,14 +63,14 @@ def _cell_label(entry: dict[str, Any]) -> str:
 
 def _probe_axes_for_entry(entry: dict[str, Any]) -> dict[str, float]:
     """Nine COVER strategy coordinates for radar / BO (not LEARN taste)."""
-    from massing_explorer.explore.axes import encode_named
+    from massing_explorer.explore.axes import encode_named_search_projection
 
     strategy = dict(entry.get("strategy") or {})
     geom = dict(strategy.get("G") or {})
     if not geom.get("stories") and entry.get("stories"):
         geom["stories"] = dict(entry["stories"])
         strategy["G"] = geom
-    return encode_named(strategy)
+    return encode_named_search_projection(strategy)
 
 
 def _eval_axes_for_entry(entry: dict[str, Any]) -> dict[str, float]:
@@ -306,7 +306,7 @@ def _space_distribution(
     top_candidates: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """Archive points in 9 probe + 4 eval axes for the Space tab."""
-    from massing_explorer.explore.axes import PROBE_AXIS_NAMES
+    from massing_explorer.explore.axes import SEARCH_PROJECTION_NAMES
     from massing_explorer.explore.performance import EVAL_AXIS_NAMES
 
     elite_why = {str(c.get("cell_id") or ""): str(c.get("why") or "") for c in top_candidates}
@@ -333,7 +333,7 @@ def _space_distribution(
         )
     pca = _attach_pca_clouds(
         points,
-        probe_names=list(PROBE_AXIS_NAMES),
+        probe_names=list(SEARCH_PROJECTION_NAMES),
         eval_names=list(EVAL_AXIS_NAMES),
     )
     legal = [p for p in points if p.get("fits")]
@@ -350,7 +350,9 @@ def _space_distribution(
     elif not legal:
         note = "No legal cells yet — cloud shows illegal COVER samples only."
     return {
-        "probe_axes": list(PROBE_AXIS_NAMES),
+        # Payload key stays stable; values are now explicitly the compact
+        # search projection, not realized descriptors.
+        "probe_axes": list(SEARCH_PROJECTION_NAMES),
         "eval_axes": list(EVAL_AXIS_NAMES),
         "points": points,
         "pca": pca,

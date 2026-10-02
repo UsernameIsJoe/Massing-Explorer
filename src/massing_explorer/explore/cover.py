@@ -930,7 +930,7 @@ def run_cover(
     or `max_attempts`. New illegal cell labels alone do not extend COVER.
     """
     from . import archive as archive_mod
-    from .bayes import encode_strategy
+    from .axes import encode_search_projection
     from .saturate import encodings_from_archive, feature_is_novel
     from .strategy import cell_key, read_strategy
 
@@ -1014,7 +1014,7 @@ def run_cover(
             all_regions.add(sig)
             key = cell_key(session)
             entry = (archive.get("cells") or {}).get(key)
-            feat = encode_strategy(read_strategy(session))
+            feat = encode_search_projection(read_strategy(session))
             if feature_is_novel(feat, known_feat):
                 new_feat += 1
             known_feat.append(feat)

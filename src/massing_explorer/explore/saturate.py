@@ -75,11 +75,11 @@ def feature_is_novel(
 
 
 def encodings_from_archive(archive: dict[str, Any]) -> list[list[float]]:
-    from .bayes import encode_strategy
+    from .axes import encode_search_projection
 
     out = []
     for entry in (archive.get("cells") or {}).values():
-        out.append(encode_strategy(entry.get("strategy")))
+        out.append(encode_search_projection(entry.get("strategy")))
     return out
 
 

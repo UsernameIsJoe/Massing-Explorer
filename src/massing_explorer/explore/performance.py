@@ -12,8 +12,25 @@ drawing can report them. search.py's weighted sum is experimental only.
 
 from __future__ import annotations
 
-from statistics import pstdev
 from typing import Any
+
+from .descriptors import (
+    DESCRIPTOR_FIELDS,
+    MIN_SPLIT_PART_SF,
+    MIN_SPLIT_PART_SQM,
+    OPTIONAL_DESCRIPTOR_FIELDS,
+    PUBLIC_TOKENS,
+    _anchor_fit,
+    _awkward_floor_splits,
+    _fragmentation,
+    _leftover,
+    _likeness,
+    _public_on_grade,
+    _spread,
+    _street_edge,
+    awkward_split_violations,
+    describe_result,
+)
 
 # LEARN / BT axes — soft only; never unlock a must.
 EVAL_AXIS_NAMES = (
@@ -25,16 +42,6 @@ EVAL_AXIS_NAMES = (
 
 # Back-compat alias used by novelty_versus_archive / older callers.
 TRAIT_KEYS = EVAL_AXIS_NAMES
-
-PUBLIC_TOKENS = ("health", "physical", "dining", "food", "art", "music", "gym")
-
-# Deal-breaker for multi-floor departments: every floor slice of that
-# department must be at least this large. Stated in m²; engine stores SF.
-# Shared floors with other programs are allowed. No ratio remnant rule.
-MIN_SPLIT_PART_SQM = 70.0
-_SQM_TO_SF = 10.76391041671
-MIN_SPLIT_PART_SF = MIN_SPLIT_PART_SQM * _SQM_TO_SF
-
 
 def _is_hard_gate_check(check: str) -> bool:
     """Site caps, exact requirements, and program-split deal-breakers."""
@@ -95,26 +102,12 @@ def prefer_clean_splits(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def measure(result: Any, session: Any = None, archive: dict[str, Any] | None = None) -> dict[str, Any]:
     failed = [c for c in (getattr(result, "validation", None) or []) if not c.passed]
     limit_fails = [c for c in failed if _is_hard_gate_check(str(c.check))]
-    masses = list(getattr(result, "masses", None) or [])
-    areas: list[float] = []
-    stories: list[float] = []
-    aspects: list[float] = []
-    lengths: list[float] = []
-    for mass in masses:
-        floors = list(getattr(mass, "floors", None) or [])
-        if not floors:
-            continue
-        ground = floors[0]
-        width = float(ground.width_ft or 0)
-        length = float(ground.length_ft or 0)
-        areas.append(max(0.0, width * length))
-        stories.append(float(len(floors)))
-        aspects.append(length / width if width else 0.0)
-        lengths.append(length)
-
-    leftover = _leftover(masses)
-    fragmentation = _fragmentation(masses)
-    awkward = _awkward_floor_splits(masses)
+    descriptors = describe_result(
+        result,
+        session,
+        preference_distance=preference_distance(result, session),
+    )
+    awkward = float(descriptors["awkward_splits"])
     # Deal breaker: any awkward program split is illegal, even if an older
     # solve path omitted the program_split validation row.
     awkward_fail = awkward > 1e-9
@@ -124,12 +117,6 @@ def measure(result: Any, session: Any = None, archive: dict[str, Any] | None = N
     hard_ok = effective_limit_fails == 0
     # One acceptance gate: hard limits + anchors + no remaining validation fails.
     accepted = bool(hard_ok and not anchor_fail and not failed and not awkward_fail)
-    likeness = _likeness(aspects)
-    anchor = _anchor_fit(failed, getattr(result, "validation", None) or [])
-    pref_dist = preference_distance(result, session)
-    edge = _street_edge(masses, session)
-    public = _public_on_grade(masses)
-
     vector: dict[str, Any] = {
         "feasible": accepted,
         "accepted": accepted,
@@ -142,25 +129,18 @@ def measure(result: Any, session: Any = None, archive: dict[str, Any] | None = N
             {str(c.check).split(":")[0] for c in failed}
             | ({"program_split"} if awkward_fail else set())
         ),
-        # Diagnostic / composite inputs (not LEARN axes).
-        "spread": _spread(areas),
-        "height_variance": float(pstdev(stories)) if len(stories) > 1 else 0.0,
-        "footprint_likeness": likeness,
-        "lengths": [round(v, 1) for v in lengths],
-        "preference_distance": pref_dist,
-        "leftover_area": leftover,
-        "fragmentation": fragmentation,
-        "awkward_splits": awkward,
-        "anchor_fit": anchor,
+        # Canonical nested record. Flat fields below remain for stored-study,
+        # UI, and plugin compatibility during the layer migration.
+        "descriptors": descriptors,
+        **descriptors,
     }
-    if edge is not None:
+    if "street_edge" in descriptors:
         # Diagnostic only — a length/frontage cap is not a fill target.
-        vector["street_edge"] = edge
         vector["street_edge_role"] = "diagnostic"
-    if public is not None:
-        vector["public_on_grade"] = public
 
-    vector.update(eval_composites(vector, session))
+    vector.update(evaluate_descriptors(descriptors, session))
+    if descriptors.get("robustness_status") is not None:
+        vector["robustness_status"] = descriptors["robustness_status"]
     vector["novelty"] = novelty_versus_archive(vector, archive)
     from .feasibility import attach_feasibility
 
@@ -168,23 +148,29 @@ def measure(result: Any, session: Any = None, archive: dict[str, Any] | None = N
     return {k: (round(v, 4) if isinstance(v, float) else v) for k, v in vector.items()}
 
 
-def eval_composites(vector: dict[str, Any], session: Any = None) -> dict[str, float]:
-    """Four soft evaluation axes in [0, 1]. Hard gate is separate — do not re-score it."""
+def evaluate_descriptors(
+    descriptors: dict[str, Any], session: Any = None
+) -> dict[str, float]:
+    """Map realized descriptors to four soft axes; legality stays separate."""
     # Fragmentation here means disrupted (non-contiguous) stacks only.
-    frag = float(vector.get("fragmentation") or 0.0)
-    public = vector.get("public_on_grade")
+    frag = float(descriptors.get("fragmentation") or 0.0)
+    public = descriptors.get("public_on_grade")
     public_score = float(public) if public is not None else 0.7
     program_coherence = 0.40 * (1.0 - min(1.0, frag)) + 0.60 * public_score
 
-    pref_dist = float(vector.get("preference_distance") or 0.0)
+    pref_dist = float(descriptors.get("preference_distance") or 0.0)
     preference_alignment = 1.0 - min(1.0, max(0.0, pref_dist))
 
-    leftover = float(vector.get("leftover_area") or 0.0)
-    likeness = float(vector.get("footprint_likeness") if vector.get("footprint_likeness") is not None else 0.5)
+    leftover = float(descriptors.get("leftover_area") or 0.0)
+    likeness = float(
+        descriptors.get("footprint_likeness")
+        if descriptors.get("footprint_likeness") is not None
+        else 0.5
+    )
     # Frontage fill is diagnostic only — a length cap is not a target.
     performance_efficiency = 0.65 * (1.0 - leftover) + 0.35 * likeness
 
-    robustness = _robustness_score(vector, session)
+    robustness = _robustness_score(descriptors, session)
 
     return {
         "program_coherence": max(0.0, min(1.0, program_coherence)),
@@ -192,6 +178,20 @@ def eval_composites(vector: dict[str, Any], session: Any = None) -> dict[str, fl
         "performance_efficiency": max(0.0, min(1.0, performance_efficiency)),
         "robustness": max(0.0, min(1.0, robustness)),
     }
+
+
+def eval_composites(vector: dict[str, Any], session: Any = None) -> dict[str, float]:
+    """Compatibility entry point accepting flat or nested descriptor records."""
+    nested = vector.get("descriptors")
+    descriptors = nested if isinstance(nested, dict) else vector
+    # Preserve explicit probe metadata supplied on the legacy flat record.
+    for key in ("_robustness_probe", "robustness_status"):
+        if key in vector and key not in descriptors:
+            descriptors[key] = vector[key]
+    evaluated = evaluate_descriptors(descriptors, session)
+    if descriptors.get("robustness_status") is not None:
+        vector["robustness_status"] = descriptors["robustness_status"]
+    return evaluated
 
 
 def preference_distance(result: Any, session: Any = None) -> float:
@@ -332,199 +332,6 @@ def _robustness_score(vector: dict[str, Any], session: Any = None) -> float:
     if status != "probed":
         vector["robustness_status"] = "untested"
     return proxy
-
-
-def _spread(areas: list[float]) -> float:
-    total = sum(areas)
-    if total <= 0 or len(areas) < 2:
-        return 0.0
-    return 1.0 - (max(areas) / total)
-
-
-def _likeness(values: list[float]) -> float:
-    if len(values) < 2:
-        return 1.0
-    mean = sum(values) / len(values)
-    if abs(mean) <= 1e-9:
-        return 1.0
-    mad = sum(abs(v - mean) for v in values) / len(values)
-    return max(0.0, 1.0 - mad / mean)
-
-
-def _street_edge(masses: list[Any], session: Any) -> float | None:
-    if session is None:
-        return None
-    frontage = session.constraints.get("max_total_length_ft")
-    if not frontage:
-        return None
-    used = 0.0
-    for mass in masses:
-        floors = list(getattr(mass, "floors", None) or [])
-        if floors:
-            used += float(floors[0].length_ft or 0)
-    return min(1.0, used / float(frontage)) if float(frontage) > 0 else None
-
-
-def _leftover(masses: list[Any]) -> float:
-    """Unused share of usable floor. Measured, not a quality score."""
-    usable = 0.0
-    allocated = 0.0
-    for mass in masses:
-        for floor in getattr(mass, "floors", None) or []:
-            usable += float(getattr(floor, "usable_area_sf", 0) or 0)
-            allocated += float(getattr(floor, "allocated_gsf", 0) or 0)
-    if usable <= 0:
-        return 0.0
-    return max(0.0, 1.0 - allocated / usable)
-
-
-def _fragmentation(masses: list[Any]) -> float:
-    """
-    Share of departments with a *disrupted* multi-floor presence.
-
-    Contiguous stacking (L0–L1–L2) is legitimate and scores 0. Only gaps
-    (L0+L2 with nothing on L1) count here; thin-slice awkwardness is separate.
-    """
-    floors_of: dict[str, set[int]] = {}
-    for mass in masses:
-        for floor in getattr(mass, "floors", None) or []:
-            level = int(getattr(floor, "level", 0) or 0)
-            for alloc in getattr(floor, "allocations", None) or []:
-                floors_of.setdefault(str(alloc.department), set()).add(level)
-    if not floors_of:
-        return 0.0
-    disrupted = 0
-    for levels in floors_of.values():
-        if len(levels) <= 1:
-            continue
-        ordered = sorted(levels)
-        if ordered[-1] - ordered[0] + 1 != len(ordered):
-            disrupted += 1
-    return disrupted / len(floors_of)
-
-
-def _awkward_floor_splits(masses: list[Any]) -> float:
-    """
-    Share of multi-floor departments with a deal-breaking vertical split.
-
-    0 = clean. 1 = every multi-floor dept is illegal.
-
-    Deal-breakers:
-    - non-contiguous floors (program on L0 and L2 with nothing on L1)
-    - any floor slice of the department below MIN_SPLIT_PART_SF (~70 m²)
-
-    Sharing a floor with another program is allowed. No %-of-program remnant rule.
-    """
-    awkward = 0
-    multi = 0
-    for mass in masses:
-        by_dept: dict[str, dict[int, float]] = {}
-        for floor in getattr(mass, "floors", None) or []:
-            level = int(getattr(floor, "level", 0) or 0)
-            for alloc in getattr(floor, "allocations", None) or []:
-                dept = str(alloc.department)
-                gsf = float(alloc.gsf or 0)
-                if gsf <= 0:
-                    continue
-                by_dept.setdefault(dept, {})[level] = (
-                    by_dept.setdefault(dept, {}).get(level, 0.0) + gsf
-                )
-        for dept, levels in by_dept.items():
-            if len(levels) < 2:
-                continue
-            multi += 1
-            ordered = sorted(levels)
-            contiguous = ordered[-1] - ordered[0] + 1 == len(ordered)
-            thin = any(gsf + 1e-6 < MIN_SPLIT_PART_SF for gsf in levels.values())
-            if not contiguous or thin:
-                awkward += 1
-    if multi == 0:
-        return 0.0
-    return awkward / multi
-
-
-def awkward_split_violations(masses: list[Any]) -> list[dict[str, Any]]:
-    """Per-department deal-breaker details for validation / UI."""
-    out: list[dict[str, Any]] = []
-    for mass in masses:
-        mass_id = str(getattr(mass, "id", "") or "")
-        mass_name = str(getattr(mass, "name", "") or mass_id or "Mass")
-        by_dept: dict[str, dict[int, float]] = {}
-        for floor in getattr(mass, "floors", None) or []:
-            level = int(getattr(floor, "level", 0) or 0)
-            for alloc in getattr(floor, "allocations", None) or []:
-                dept = str(alloc.department)
-                gsf = float(alloc.gsf or 0)
-                if gsf <= 0:
-                    continue
-                by_dept.setdefault(dept, {})[level] = (
-                    by_dept.setdefault(dept, {}).get(level, 0.0) + gsf
-                )
-        for dept, levels in by_dept.items():
-            if len(levels) < 2:
-                continue
-            ordered = sorted(levels)
-            contiguous = ordered[-1] - ordered[0] + 1 == len(ordered)
-            reasons: list[str] = []
-            if not contiguous:
-                reasons.append(
-                    "non-contiguous floors "
-                    + "+".join(f"L{lvl}" for lvl in ordered)
-                )
-            thin_levels = [
-                (lvl, gsf)
-                for lvl, gsf in sorted(levels.items())
-                if gsf + 1e-6 < MIN_SPLIT_PART_SF
-            ]
-            if thin_levels:
-                bits = ", ".join(
-                    f"L{lvl}={gsf:,.0f} SF ({gsf / _SQM_TO_SF:.0f} m²)"
-                    for lvl, gsf in thin_levels
-                )
-                reasons.append(
-                    f"split slice under {MIN_SPLIT_PART_SQM:g} m² ({bits})"
-                )
-            if not reasons:
-                continue
-            out.append(
-                {
-                    "mass_id": mass_id,
-                    "mass_name": mass_name,
-                    "department": dept,
-                    "levels": ordered,
-                    "reasons": reasons,
-                }
-            )
-    return out
-
-
-def _public_on_grade(masses: list[Any]) -> float | None:
-    total = 0.0
-    ground = 0.0
-    found = False
-    for mass in masses:
-        for floor in getattr(mass, "floors", None) or []:
-            level = int(getattr(floor, "level", 0) or 0)
-            for alloc in getattr(floor, "allocations", None) or []:
-                name = str(alloc.department).lower()
-                if not any(tok in name for tok in PUBLIC_TOKENS):
-                    continue
-                found = True
-                gsf = float(alloc.gsf or 0)
-                total += gsf
-                if level == 0:
-                    ground += gsf
-    if not found or total <= 0:
-        return None
-    return ground / total
-
-
-def _anchor_fit(failed: list[Any], all_checks: list[Any]) -> float:
-    anchors = [c for c in all_checks if str(getattr(c, "check", "")).startswith("anchor")]
-    if not anchors:
-        return 1.0
-    passed = sum(1 for c in anchors if getattr(c, "passed", False))
-    return passed / len(anchors)
 
 
 def _department_levels(result: Any) -> dict[str, int]:
