@@ -8,6 +8,22 @@ law until it is explicitly accepted as a new milestone.
 The project remains strategy-first. Form is the deterministic realization of
 strategy, not the primary object being optimized.
 
+## Current implementation status — 2 Oct 2026
+
+The strategy → descriptor → evaluation flow is now active at the P-landscape
+boundary. CSP builds a deterministic landscape of program organizations,
+records cheap descriptor coordinates, and the initial-P selector admits a
+portfolio. The selector protects mass-count strata and a small archetype floor,
+then uses marginal descriptor/relationship coverage, partition difference,
+capacity plausibility, and information value. Brief relevance is a light
+tie-break because the brief already guides landscape attention. Each admitted P
+records its selection rationale.
+
+This implementation is committed in `604e711`. The focused landscape and
+shortlist suite passes `33/33`, including the Underwood 3–4-mass legal-yield
+regression. The downstream evaluation layer and full repository regression
+suite remain separate follow-up work.
+
 ## Checkpoint: explicit representation boundaries
 
 Accepted 1 Oct 2026 and tagged `checkpoint-three-layer-contracts-2026-10-01`.
@@ -152,9 +168,16 @@ cheap capacity/story envelope derived from:
 - site and length capacity;
 - large-volume concentration.
 
-Use those facts to order and allocate probes. Remove a branch only when it is
-provably impossible. A weak prior is a reason for fewer probes, not zero
-coverage.
+Use those facts to order and allocate probes. The current CSP landscape keeps a
+coverage floor across allowed mass-count strata, then spends remaining sample
+capacity using brief relevance, bounded capacity plausibility, uncertainty,
+rarity, and diminishing returns. Remove a branch only when it is provably
+impossible. A weak prior is a reason for fewer probes, not zero coverage.
+
+The initial-P shortlist applies a separate portfolio policy. It does not simply
+repeat the landscape score: it protects mass-count coverage, preserves a
+limited archetype floor when seats permit, and fills remaining seats by
+marginal information and organizational difference.
 
 ### First work item
 
