@@ -21,6 +21,7 @@ from collections.abc import Callable
 from typing import Any
 
 from ..group import _family_of, _title
+from .csp_landscape import build_partition_landscape
 from .strategy import (
     grouping_is_required,
     preferred_mass_count,
@@ -77,8 +78,11 @@ def describe_csp(session: Any, cap: int = UI_PARTITION_CAP) -> dict[str, Any]:
             "mass_bounds": list(bounds) if bounds else None,
             "preferred_mass_count": preferred,
             "feasible_count": 0,
+            "feasible_count_exact": True,
+            "estimated_feasible_count": 0,
             "enumerated": 0,
             "truncated": False,
+            "landscape": None,
             "shown": 0,
             "chosen": [],
             "rejected": [],
@@ -97,8 +101,16 @@ def describe_csp(session: Any, cap: int = UI_PARTITION_CAP) -> dict[str, Any]:
             "mass_bounds": list(bounds) if bounds else None,
             "preferred_mass_count": preferred,
             "feasible_count": 1,
+            "feasible_count_exact": True,
+            "estimated_feasible_count": 1,
             "enumerated": 1,
             "truncated": False,
+            "landscape": {
+                "method": "locked",
+                "deterministic": True,
+                "sampled": 1,
+                "stopping_reason": "the brief locked P",
+            },
             "shown": 1,
             "chosen": chosen,
             "rejected": [],
@@ -115,6 +127,7 @@ def describe_csp(session: Any, cap: int = UI_PARTITION_CAP) -> dict[str, Any]:
         cap=cap,
         mass_bounds=bounds,
         preferred_mass_count=preferred,
+        session=session,
     )
     return {
         "ran": True,
@@ -127,8 +140,11 @@ def describe_csp(session: Any, cap: int = UI_PARTITION_CAP) -> dict[str, Any]:
         "mass_bounds": list(bounds) if bounds else None,
         "preferred_mass_count": preferred,
         "feasible_count": solved["feasible_count"],
+        "feasible_count_exact": solved["feasible_count_exact"],
+        "estimated_feasible_count": solved["estimated_feasible_count"],
         "enumerated": solved["enumerated"],
         "truncated": solved["truncated"],
+        "landscape": solved["landscape"],
         "shown": len(solved["chosen"]),
         "chosen": solved["chosen"],
         "rejected": solved["rejected"],
@@ -160,6 +176,7 @@ def ordered_partition_candidates(
         mass_bounds=inputs["bounds"],
         preferred_mass_count=inputs["preferred"],
         exclude=exclude,
+        session=session,
     )
     return list(solved["chosen"])
 
@@ -172,8 +189,9 @@ def solve_partitions(
     mass_bounds: tuple[int, int] | None = None,
     preferred_mass_count: int | None = None,
     exclude: Callable[[list[dict[str, Any]]], bool] | None = None,
+    session: Any | None = None,
 ) -> dict[str, Any]:
-    """Enumerate feasible partitions, then diversity-select up to `cap`."""
+    """Construct the feasible P landscape, then diversity-select up to `cap`."""
     glued = _glue(atoms, together or [])
     n = len(glued)
     apart_pairs = _atom_apart_pairs(glued, apart or [])
@@ -190,25 +208,24 @@ def solve_partitions(
             pref = 0
         if pref > 0:
             preferred = max(k_min, min(k_max, pref))
-    feasible: list[list[int]] = []
-    rejected: list[dict[str, Any]] = []
-    enumerated = 0
-    truncated = False
-
-    for assign in _restricted_growth_bounded(n, k_min, k_max):
-        enumerated += 1
-        if enumerated > MAX_ENUM:
-            truncated = True
-            break
-        if _respects_apart(assign, apart_pairs):
-            feasible.append(assign)
-        elif len(rejected) < 4:
-            rejected.append(
-                {
-                    "label": _assignment_label(glued, assign),
-                    "why": "broke keep-apart",
-                }
-            )
+    feasible, rejected_assignments, landscape = build_partition_landscape(
+        glued,
+        k_min=k_min,
+        k_max=k_max,
+        apart_pairs=apart_pairs,
+        budget=MAX_ENUM,
+        preferred_mass_count=preferred,
+        session=session,
+    )
+    rejected = [
+        {
+            "label": _assignment_label(glued, assign),
+            "why": "broke keep-apart",
+        }
+        for assign in rejected_assignments[:4]
+    ]
+    truncated = not bool(landscape["feasible_count_exact"])
+    enumerated = len(feasible)
 
     ranked = sorted(
         feasible,
@@ -225,7 +242,12 @@ def solve_partitions(
         exclude=exclude,
     )
 
-    extra = " Enumeration stopped early." if truncated else ""
+    extra = (
+        " The feasible count is an estimate; the shortlist input is a "
+        "deterministic, space-wide landscape sample rather than a DFS prefix."
+        if truncated
+        else ""
+    )
     bound = f" with |P| in {k_min}–{k_max}" if mass_bounds else ""
     pref_note = (
         f" Preferred |P|={preferred} from the brief."
@@ -233,7 +255,8 @@ def solve_partitions(
         else " No preferred mass count, so higher |P| is not ranked above lower |P|."
     )
     note = (
-        f"CSP: {len(feasible)} feasible partition(s) of {n} atom(s){bound}; "
+        f"CSP: {len(feasible)} feasible partition(s) in the pre-shortlist "
+        f"landscape of {n} atom(s){bound}; "
         f"shortlist {len(chosen)} with |P| quotas then relationship-feature "
         f"coverage (art / media / admin placement, gym+dining isolation, "
         f"academic cohesion, and their pairs), quality refill after. "
@@ -243,8 +266,11 @@ def solve_partitions(
     return {
         "atoms": glued,
         "feasible_count": len(feasible),
-        "enumerated": min(enumerated, MAX_ENUM),
+        "feasible_count_exact": bool(landscape["feasible_count_exact"]),
+        "estimated_feasible_count": int(landscape["estimated_feasible_count"]),
+        "enumerated": enumerated,
         "truncated": truncated,
+        "landscape": landscape,
         "chosen": chosen,
         "rejected": rejected,
         "preferred_mass_count": preferred,
@@ -1005,60 +1031,9 @@ def _atom_apart_pairs(atoms: list[dict[str, Any]], apart: list[frozenset[str]]) 
     return pairs
 
 
-def _restricted_growth_bounded(n: int, k_min: int, k_max: int):
-    """Canonical assignments whose block count is in [k_min, k_max]."""
-    if n <= 0:
-        return
-    k_min = max(1, min(int(k_min), n))
-    k_max = max(k_min, min(int(k_max), n))
-    assign = [0] * n
-
-    def rec(i: int, blocks: int):
-        if blocks > k_max:
-            return
-        if blocks + (n - i) < k_min:
-            return
-        if i == n:
-            if k_min <= blocks <= k_max:
-                yield assign[:]
-            return
-        for b in range(blocks):
-            assign[i] = b
-            yield from rec(i + 1, blocks)
-        if blocks < k_max:
-            assign[i] = blocks
-            yield from rec(i + 1, blocks + 1)
-
-    yield from rec(1, 1)
-
-
-def _restricted_growth(n: int):
-    """Canonical assignments for the partitions of n labeled atoms."""
-    if n <= 0:
-        return
-    assign = [0] * n
-
-    def rec(i: int, blocks: int):
-        if i == n:
-            yield assign[:]
-            return
-        for b in range(blocks):
-            assign[i] = b
-            yield from rec(i + 1, blocks)
-        assign[i] = blocks
-        yield from rec(i + 1, blocks + 1)
-
-    yield from rec(1, 1)
-
-
-def _respects_apart(assign: list[int], pairs: list[tuple[int, int]]) -> bool:
-    for i, j in pairs:
-        if assign[i] == assign[j]:
-            return False
-    return True
-
-
-def _from_atoms(atoms: list[dict[str, Any]], assign: list[int], reason: str) -> dict[str, Any]:
+def _from_atoms(
+    atoms: list[dict[str, Any]], assign: list[int], reason: str
+) -> dict[str, Any]:
     blocks: dict[int, list[dict[str, Any]]] = defaultdict(list)
     for i, atom in enumerate(atoms):
         blocks[assign[i]].append(atom)

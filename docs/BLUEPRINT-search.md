@@ -245,8 +245,15 @@ than a product of story margins around the baseline.
 
 Open P uses an expanding **P pool** (`p_pool.py`): status is on the
 organization (feasible / unresolved / impossible), not one failed width.
-CSP shortlists with fair |P| shares and a family-aware shape prior so
-school-shaped bars are not lost among hundreds of flat-ranked partitions.
+CSP first builds a deterministic, space-wide **pre-shortlist landscape**. It
+samples every allowed |P| stratum beyond the old depth-first prefix, reads each
+proposal through cheap structure, GSF-distribution, constraint-pressure, and
+relationship coordinates, and groups those coordinates into readable regions.
+A coverage floor protects the range; remaining sample capacity follows brief
+relevance, bounded capacity plausibility, uncertainty, and diminishing returns.
+Only then does the unchanged shortlist apply fair |P| shares, relationship
+coverage, and the family-aware shape prior, so sampling and shortlisting remain
+distinct decisions.
 Soft `preferred_stories` biases story order without locking every mass to N.
 Changing P clears stale mass-width locks before `realize(s)`.
 

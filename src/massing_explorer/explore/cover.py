@@ -968,8 +968,23 @@ def run_cover(
 
         csp_meta = describe_csp(session, cap=1)
         archive["cover_plan"]["csp_feasible"] = int(csp_meta.get("feasible_count") or 0)
+        archive["cover_plan"]["csp_feasible_exact"] = bool(
+            csp_meta.get("feasible_count_exact")
+        )
+        archive["cover_plan"]["csp_estimated_feasible"] = int(
+            csp_meta.get("estimated_feasible_count") or 0
+        )
         archive["cover_plan"]["csp_truncated"] = bool(csp_meta.get("truncated"))
-        feas = max(1, int(csp_meta.get("feasible_count") or 1))
+        feas = max(
+            1,
+            int(
+                csp_meta.get("feasible_count")
+                if csp_meta.get("feasible_count_exact")
+                else csp_meta.get("estimated_feasible_count")
+                or csp_meta.get("feasible_count")
+                or 1
+            ),
+        )
         archive["cover_plan"]["partition_coverage"] = round(
             len(plan.partitions) / feas, 4
         )
@@ -1157,13 +1172,19 @@ def run_cover(
         "p_pool": p_pool_summary(archive),
         "csp_truncated": bool((archive.get("cover_plan") or {}).get("csp_truncated")),
         "csp_feasible": (archive.get("cover_plan") or {}).get("csp_feasible"),
+        "csp_feasible_exact": (archive.get("cover_plan") or {}).get(
+            "csp_feasible_exact"
+        ),
+        "csp_estimated_feasible": (archive.get("cover_plan") or {}).get(
+            "csp_estimated_feasible"
+        ),
         "partition_coverage": (archive.get("cover_plan") or {}).get("partition_coverage"),
         "note": (
             "COVER samples a stratified subset of the strategy product; "
             "the P pool may expand mid-run when outcomes repeat or gaps remain. "
             "incomplete means the adaptive budget stopped before saturation."
             + (
-                " CSP enumeration was truncated."
+                " CSP used a bounded, space-wide landscape sample."
                 if (archive.get("cover_plan") or {}).get("csp_truncated")
                 else ""
             )

@@ -169,12 +169,21 @@ def explain(archive: dict[str, Any], grouping_locked: bool) -> str:
             f"{' (map incomplete at cap)' if cover.get('incomplete') else ''}."
         )
         if cover.get("csp_truncated"):
-            bits.append("CSP partition enumeration was truncated.")
+            bits.append(
+                "CSP used a deterministic, space-wide landscape sample rather "
+                "than a depth-first prefix."
+            )
         cov = cover.get("partition_coverage")
         if isinstance(cov, (int, float)) and cov > 0:
+            feasible = (
+                cover.get("csp_feasible")
+                if cover.get("csp_feasible_exact")
+                else cover.get("csp_estimated_feasible")
+            )
+            qualifier = "" if cover.get("csp_feasible_exact") else "estimated "
             bits.append(
                 f"COVER searched {int((archive.get('cover_plan') or {}).get('partitions') or 0)} "
-                f"of ~{int(cover.get('csp_feasible') or 0)} feasible organizations."
+                f"of ~{int(feasible or 0)} {qualifier}feasible organizations."
             )
     return " ".join(bits)
 
