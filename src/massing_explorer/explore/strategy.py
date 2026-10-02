@@ -39,6 +39,9 @@ def p_constraints(session: Any) -> dict[str, Any] | None:
 def required_together(session: Any) -> list[frozenset[str]]:
     """Glue pairs the architect stated. Synthesized wings are not glue."""
     stated = p_constraints(session)
+    # The normalized P constraints are authoritative. Do not merge raw
+    # briefing clauses a second time; they may contain a stale broad
+    # same_mass interpretation and silently over-constrain the CSP.
     if stated is not None:
         return _pair_list(stated.get("together"))
     pairs: list[frozenset[str]] = []
@@ -47,16 +50,16 @@ def required_together(session: Any) -> list[frozenset[str]]:
         if clause.get("lever") in {"same_mass", "keep_together"}:
             depts = [str(d) for d in (clause.get("departments") or [])]
             if len(depts) >= 2:
-                pairs.append(frozenset(depts))
+                pair = frozenset(depts)
+                if pair not in pairs:
+                    pairs.append(pair)
     return pairs
 
 
 def required_alone(session: Any) -> list[str]:
     """Departments the architect said must be their own mass."""
     stated = p_constraints(session)
-    if stated is not None:
-        return [str(d) for d in (stated.get("alone") or []) if d]
-    out: list[str] = []
+    out = [str(d) for d in (stated.get("alone") or []) if d] if stated else []
     briefing = (getattr(session, "constraints", None) or {}).get("briefing") or {}
     for clause in briefing.get("requirements") or []:
         if clause.get("lever") != "alone":
@@ -149,18 +152,20 @@ def required_mass_count(session: Any) -> int | None:
 def required_apart(session: Any) -> list[frozenset[str]]:
     """Keep-apart pairs constrain P; they do not lock a single grouping."""
     stated = p_constraints(session)
-    if stated is not None:
-        return _pair_list(stated.get("apart"))
-    pairs: list[frozenset[str]] = []
+    pairs = _pair_list(stated.get("apart")) if stated is not None else []
     briefing = session.constraints.get("briefing") or {}
     for clause in briefing.get("requirements") or []:
         if clause.get("lever") == "keep_apart":
             depts = [str(d) for d in (clause.get("departments") or [])]
             if len(depts) >= 2:
-                pairs.append(frozenset(depts[:2]))
+                pair = frozenset(depts[:2])
+                if pair not in pairs:
+                    pairs.append(pair)
     for item in session.constraints.get("keep_apart") or []:
         if isinstance(item, (list, tuple)) and len(item) >= 2:
-            pairs.append(frozenset({str(item[0]), str(item[1])}))
+            pair = frozenset({str(item[0]), str(item[1])})
+            if pair not in pairs:
+                pairs.append(pair)
     return pairs
 
 

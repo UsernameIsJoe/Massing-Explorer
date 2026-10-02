@@ -60,6 +60,7 @@ def build_partition_landscape(
     budget: int,
     preferred_mass_count: int | None = None,
     session: Any | None = None,
+    records_out: list[dict[str, Any]] | None = None,
 ) -> tuple[list[list[int]], list[list[int]], dict[str, Any]]:
     """Return the pre-shortlist sample, rejected examples, and diagnostics.
 
@@ -98,6 +99,8 @@ def build_partition_landscape(
             _selection_record(atoms, assign, session, preferred_mass_count, seed_text)
             for assign in feasible
         ]
+        if records_out is not None:
+            records_out.extend(records)
         regions = _region_report(records, records)
         return feasible, rejected, {
             "method": "exhaustive",
@@ -159,6 +162,8 @@ def build_partition_landscape(
         for assign in proposals
     ]
     selected_records = _allocate_landscape(records, budget)
+    if records_out is not None:
+        records_out.extend(selected_records)
     selected = [record["assignment"] for record in selected_records]
     retained_by_k: dict[int, int] = defaultdict(int)
     for record in selected_records:
@@ -548,8 +553,14 @@ def _pressure_coordinates(
         sum(gsf_map.get(dept, 0.0) for dept in block if dept in double_height)
         for block in blocks
     ]
+    block_gsf = [sum(gsf_map.get(dept, 0.0) for dept in block) for block in blocks]
     ground_total = sum(ground_gsf)
     dh_total = sum(dh_gsf)
+    dh_rider_gsf = sum(
+        max(0.0, block_gsf[i] - dh_gsf[i])
+        for i in range(len(blocks))
+        if dh_gsf[i] > 0
+    )
 
     widths = {
         str(dept): float(value)
@@ -561,6 +572,20 @@ def _pressure_coordinates(
         values = {round(widths[dept], 6) for dept in block if dept in widths}
         if len(values) > 1:
             width_conflicts += 1
+    widths_by_value: dict[float, list[str]] = defaultdict(list)
+    for dept, value in widths.items():
+        widths_by_value[round(value, 6)].append(dept)
+    compatible_width_pairs = sum(
+        len(depts) * (len(depts) - 1) // 2
+        for depts in widths_by_value.values()
+    )
+    homes = {dept: i for i, block in enumerate(blocks) for dept in block}
+    compatible_width_pairs_colocated = 0
+    for depts in widths_by_value.values():
+        for i, left in enumerate(depts):
+            for right in depts[i + 1 :]:
+                if left in homes and right in homes and homes[left] == homes[right]:
+                    compatible_width_pairs_colocated += 1
 
     max_edge = _positive(constraints.get("max_edge_ft"))
     max_length = _minimum_positive(
@@ -606,8 +631,16 @@ def _pressure_coordinates(
         "ground_concentration": _round(max(ground_gsf) / ground_total) if ground_total else None,
         "double_height_gsf": _round(dh_total, 1),
         "double_height_concentration": _round(max(dh_gsf) / dh_total) if dh_total else None,
+        "double_height_rider_gsf": _round(dh_rider_gsf, 1),
+        "double_height_rider_share": (
+            _round(dh_rider_gsf / (dh_total + dh_rider_gsf))
+            if dh_total + dh_rider_gsf > 0
+            else None
+        ),
         "width_locked_departments": len(widths),
         "mixed_exact_width_masses": width_conflicts,
+        "compatible_width_pairs": compatible_width_pairs,
+        "compatible_width_pairs_colocated": compatible_width_pairs_colocated,
         "widths_over_global_limit": width_over_limit,
         "story_lower_bounds": sorted(story_lower_bounds, reverse=True),
         "max_story_lower_bound": max_story_lb,
@@ -669,7 +702,15 @@ def _region_of(factual: dict[str, Any]) -> dict[str, str]:
         area_band = "dominant-mass"
 
     ground_band = _concentration_band(pressure.get("ground_concentration"), "ground")
-    dh_band = _concentration_band(pressure.get("double_height_concentration"), "double-height")
+    dh_rider_share = pressure.get("double_height_rider_share")
+    if dh_rider_share is None:
+        dh_band = "no-double-height-demand"
+    elif float(dh_rider_share) <= 0.05:
+        dh_band = "isolated-double-height"
+    elif float(dh_rider_share) <= 0.35:
+        dh_band = "light-double-height-riders"
+    else:
+        dh_band = "heavy-double-height-riders"
     story_pressure = pressure.get("story_pressure")
     if pressure.get("proven_capacity_impossible"):
         capacity_band = "proven-capacity-conflict"
@@ -734,6 +775,13 @@ def _brief_lens(
         plausibility = max(0.0, min(1.0, 1.0 - max(0.0, story_pressure - 0.5)))
         if pressure.get("mixed_exact_width_masses"):
             plausibility *= 0.85
+        dh_rider_share = pressure.get("double_height_rider_share")
+        if dh_rider_share is not None:
+            plausibility *= max(0.45, 1.0 - 0.65 * float(dh_rider_share))
+        compatible = int(pressure.get("compatible_width_pairs") or 0)
+        if compatible:
+            colocated = int(pressure.get("compatible_width_pairs_colocated") or 0)
+            plausibility *= 0.90 + 0.10 * colocated / compatible
 
     area = factual["area_distribution"]
     total_departments = sum(factual["structure"]["department_counts"])

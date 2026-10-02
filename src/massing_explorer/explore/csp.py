@@ -21,7 +21,7 @@ from collections.abc import Callable
 from typing import Any
 
 from ..group import _family_of, _title
-from .csp_landscape import build_partition_landscape
+from .csp_landscape import build_partition_landscape, describe_partition
 from .strategy import (
     grouping_is_required,
     preferred_mass_count,
@@ -34,6 +34,17 @@ from .strategy import (
 PARTITION_CAP = 5  # back-compat alias for UI presentation
 UI_PARTITION_CAP = 5  # human-facing CSP board / report shortlist
 MAX_ENUM = 25000  # practical ceiling; truncated=True when hit
+
+SHORTLIST_WEIGHTS = {
+    "new_region": 0.22,
+    "relationship_coverage": 0.20,
+    "strategic_difference": 0.20,
+    "capacity_plausibility": 0.26,
+    "information_value": 0.08,
+    "brief_tiebreak": 0.04,
+}
+
+_ARCHETYPE_ORDER = ("arts_with_academic", "arts_separate", "other", "school_bars")
 
 
 def _csp_inputs(session: Any) -> dict[str, Any]:
@@ -83,6 +94,11 @@ def describe_csp(session: Any, cap: int = UI_PARTITION_CAP) -> dict[str, Any]:
             "enumerated": 0,
             "truncated": False,
             "landscape": None,
+            "shortlist": {
+                "method": "marginal_portfolio",
+                "requested": max(0, int(cap)),
+                "selected": 0,
+            },
             "shown": 0,
             "chosen": [],
             "rejected": [],
@@ -110,6 +126,11 @@ def describe_csp(session: Any, cap: int = UI_PARTITION_CAP) -> dict[str, Any]:
                 "deterministic": True,
                 "sampled": 1,
                 "stopping_reason": "the brief locked P",
+            },
+            "shortlist": {
+                "method": "locked",
+                "requested": max(0, int(cap)),
+                "selected": 1,
             },
             "shown": 1,
             "chosen": chosen,
@@ -145,6 +166,7 @@ def describe_csp(session: Any, cap: int = UI_PARTITION_CAP) -> dict[str, Any]:
         "enumerated": solved["enumerated"],
         "truncated": solved["truncated"],
         "landscape": solved["landscape"],
+        "shortlist": solved["shortlist"],
         "shown": len(solved["chosen"]),
         "chosen": solved["chosen"],
         "rejected": solved["rejected"],
@@ -208,6 +230,7 @@ def solve_partitions(
             pref = 0
         if pref > 0:
             preferred = max(k_min, min(k_max, pref))
+    landscape_records: list[dict[str, Any]] = []
     feasible, rejected_assignments, landscape = build_partition_landscape(
         glued,
         k_min=k_min,
@@ -216,6 +239,7 @@ def solve_partitions(
         budget=MAX_ENUM,
         preferred_mass_count=preferred,
         session=session,
+        records_out=landscape_records,
     )
     rejected = [
         {
@@ -240,7 +264,9 @@ def solve_partitions(
         k_max=k_max,
         preferred_mass_count=preferred,
         exclude=exclude,
+        landscape_records=landscape_records,
     )
+    shortlist = _shortlist_report(chosen, cap=cap)
 
     extra = (
         " The feasible count is an estimate; the shortlist input is a "
@@ -257,9 +283,10 @@ def solve_partitions(
     note = (
         f"CSP: {len(feasible)} feasible partition(s) in the pre-shortlist "
         f"landscape of {n} atom(s){bound}; "
-        f"shortlist {len(chosen)} with |P| quotas then relationship-feature "
-        f"coverage (art / media / admin placement, gym+dining isolation, "
-        f"academic cohesion, and their pairs), quality refill after. "
+        f"shortlist {len(chosen)} as a marginal-value portfolio with |P| "
+        f"coverage, descriptor regions, relationship evidence, partition "
+        f"difference, capacity plausibility, and information value. Brief fit "
+        f"is only a tie-break because it already guided landscape sampling. "
         f"Constraints filter P; they do not freeze it."
         f"{pref_note}{extra}"
     )
@@ -271,6 +298,7 @@ def solve_partitions(
         "enumerated": enumerated,
         "truncated": truncated,
         "landscape": landscape,
+        "shortlist": shortlist,
         "chosen": chosen,
         "rejected": rejected,
         "preferred_mass_count": preferred,
@@ -287,157 +315,193 @@ def _pick_shortlist(
     k_max: int,
     preferred_mass_count: int | None = None,
     exclude: Callable[[list[dict[str, Any]]], bool] | None = None,
+    landscape_records: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
-    """
-    Diversity-select up to `cap` from ranked feasible assignments.
+    """Build a small portfolio from the sampled P landscape.
 
-    Two-level quotas against selection compression:
-      1) fair shares across allowed |P|
-      2) within each |P|, greedy *relationship-feature coverage* — every
-         art / media / admin placement, gym+dining isolation and academic
-         cohesion value, plus the pairwise combinations of those values —
-         then semantic-rank refill for quality depth
-
-    School prior ranks *inside* a coverage cell and for post-coverage refill.
-    It does not choose which features appear on the shortlist.
+    Mass-count coverage is protected first.  Seats within each stratum are
+    selected by their *marginal* contribution: new descriptor region, new
+    relationship evidence, distance from organizations already represented,
+    bounded capacity plausibility, and information value.  Brief relevance is
+    intentionally only a light tie-break because it already guided landscape
+    sampling.  The older school-shaped score is now a final deterministic
+    tie-break, not a source of shortlist seats.
     """
     if cap <= 0:
         return []
 
-    buckets: dict[int, list[list[int]]] = {k: [] for k in range(k_min, k_max + 1)}
-    # Features the caller already holds still count as covered (pool growth).
-    seeded: dict[int, set[tuple[str, ...]]] = {k: set() for k in range(k_min, k_max + 1)}
-    for assign in ranked:
-        n_blocks = len(set(assign))
-        if n_blocks not in buckets:
+    descriptor_by_assignment = {
+        tuple(record.get("assignment") or []): record.get("descriptor") or {}
+        for record in landscape_records or []
+    }
+    buckets: dict[int, list[dict[str, Any]]] = {
+        k: [] for k in range(k_min, k_max + 1)
+    }
+    covered_regions: set[tuple[str, str]] = set()
+    covered_relationships: dict[int, set[tuple[str, ...]]] = {
+        k: set() for k in range(k_min, k_max + 1)
+    }
+    represented_pairs: dict[int, list[frozenset[frozenset[str]]]] = {
+        k: [] for k in range(k_min, k_max + 1)
+    }
+    represented_mass_counts: set[int] = set()
+
+    for rank_index, assign in enumerate(ranked):
+        mass_count = len(set(assign))
+        if mass_count not in buckets:
             continue
-        if exclude is not None and exclude(_from_atoms(atoms, assign, "")["groups"]):
-            seeded[n_blocks].update(_coverage_keys(atoms, assign))
+        descriptor = descriptor_by_assignment.get(tuple(assign))
+        if not descriptor:
+            descriptor = describe_partition(
+                atoms,
+                assign,
+                preferred_mass_count=preferred_mass_count,
+            )
+        signature = _assign_signature(atoms, assign)
+        candidate = {
+            "assignment": assign,
+            "descriptor": descriptor,
+            "signature": signature,
+            "pair_set": _coexist_pairs(signature),
+            "mass_count": mass_count,
+            "region": str((descriptor.get("region") or {}).get("id") or f"k{mass_count}"),
+            "region_keys": _portfolio_region_keys(descriptor),
+            "relationship_keys": _portfolio_relationship_keys(atoms, assign, descriptor),
+            "rank_index": rank_index,
+            "proven_impossible": bool(
+                (descriptor.get("constraint_pressure") or {}).get(
+                    "proven_capacity_impossible"
+                )
+            ),
+        }
+        groups = _from_atoms(atoms, assign, "")["groups"]
+        if exclude is not None and exclude(groups):
+            covered_regions.update(candidate["region_keys"])
+            covered_relationships[mass_count].update(candidate["relationship_keys"])
+            represented_pairs[mass_count].append(candidate["pair_set"])
+            represented_mass_counts.add(mass_count)
             continue
-        buckets[n_blocks].append(assign)
+        buckets[mass_count].append(candidate)
 
     active = [k for k in range(k_min, k_max + 1) if buckets.get(k)]
     if not active:
         return []
-    if preferred_mass_count is not None:
-        active.sort(key=lambda k: (abs(k - int(preferred_mass_count)), k))
-
     available = {k: len(buckets[k]) for k in active}
-    mass_quotas = _stratum_quotas(
-        active,
-        cap,
-        preferred=preferred_mass_count,
-        available=available,
-    )
+    if cap < len(active):
+        protected = _evenly_spaced_strata(active, cap)
+        mass_quotas = {k: (1 if k in protected else 0) for k in active}
+    else:
+        # No preferred-|P| bonus here: it already affected landscape sampling.
+        mass_quotas = _stratum_quotas(active, cap, available=available)
 
+    selected_candidates: list[dict[str, Any]] = []
     chosen: list[dict[str, Any]] = []
     seen: set[frozenset[frozenset[str]]] = set()
-    chosen_by_k: dict[int, list[frozenset[frozenset[str]]]] = {k: [] for k in active}
     taken: dict[int, int] = {k: 0 for k in active}
 
-    def push(assign: list[int]) -> bool:
-        item = _from_atoms(atoms, assign, _reason(atoms, assign))
-        key = _signature(item["groups"])
-        if key in seen:
+    def push(candidate: dict[str, Any], role: str, metrics: dict[str, Any]) -> bool:
+        signature = candidate["signature"]
+        if signature in seen:
             return False
-        k = len(set(assign))
-        seen.add(key)
+        assign = candidate["assignment"]
+        k = int(candidate["mass_count"])
+        item = _from_atoms(atoms, assign, _reason(atoms, assign))
+        seen.add(signature)
+        selected_candidates.append(candidate)
+        represented_pairs[k].append(candidate["pair_set"])
+        represented_mass_counts.add(int(candidate["mass_count"]))
+        covered_regions.update(candidate["region_keys"])
+        covered_relationships[k].update(candidate["relationship_keys"])
+        item["shortlist_selection"] = _selection_explanation(
+            candidate,
+            role=role,
+            metrics=metrics,
+        )
         chosen.append(item)
-        if k in chosen_by_k:
-            chosen_by_k[k].append(key)
-            taken[k] = taken.get(k, 0) + 1
+        taken[k] = taken.get(k, 0) + 1
         return True
 
-    # Stated grouping leads its stratum when feasible.
-    for k in list(active):
-        for i, assign in enumerate(buckets[k]):
-            if _reason(atoms, assign) != "stated grouping":
+    # Keep the base organization as a reference when it belongs to the bounded
+    # landscape.  It consumes a real seat and does not bypass mass-count balance.
+    for k in active:
+        for candidate in list(buckets[k]):
+            if _reason(atoms, candidate["assignment"]) != "stated grouping":
                 continue
-            buckets[k].pop(i)
-            push(assign)
-            break
-
-    def farthest_in_pool(
-        pool: list[list[int]], peers: list[frozenset[frozenset[str]]]
-    ) -> tuple[int, list[int]] | None:
-        best: tuple[float, float, int] | None = None
-        best_i = -1
-        best_assign: list[int] | None = None
-        for i, assign in enumerate(pool):
-            key = _assign_signature(atoms, assign)
-            if key in seen:
-                continue
-            novelty = (
-                min(_partition_distance(key, p) for p in peers) if peers else 1.0
+            buckets[k].remove(candidate)
+            metrics = _portfolio_metrics(
+                candidate,
+                represented_pairs=represented_pairs[k],
+                represented_mass_counts=represented_mass_counts,
+                covered_regions=covered_regions,
+                covered_relationships=covered_relationships[k],
             )
-            bal = _block_balance(assign)
-            score = (novelty, bal, -i)
-            if best is None or score > best:
-                best = score
-                best_i = i
-                best_assign = assign
-        if best_assign is None:
-            return None
-        return best_i, best_assign
+            push(candidate, "baseline", metrics)
+            break
 
     for k in active:
         quota = int(mass_quotas.get(k, 0) or 0)
-        if quota <= 0 or not buckets[k]:
-            continue
 
-        # Secondary strata: relationship-feature coverage (not coarse families,
-        # not geometric distance). Coverage runs before any rank refill so a
-        # school-bar basin cannot take every seat.
-        for assign in _feature_coverage_order(
-            atoms,
-            buckets[k],
-            limit=quota - taken[k],
-            skip=seen,
-            covered=seeded.get(k),
-        ):
-            if taken[k] >= quota:
-                break
-            push(assign)
+        # Protect broad organizational archetypes only when this stratum has
+        # enough seats.  The archetype is a floor, not the ranking objective:
+        # the remaining seats still use the marginal portfolio score below.
+        archetype_buckets: dict[str, list[dict[str, Any]]] = {}
+        for candidate in buckets[k]:
+            archetype_buckets.setdefault(
+                _relationship_family(atoms, candidate["assignment"]), []
+            ).append(candidate)
+        archetypes = [
+            family for family in _ARCHETYPE_ORDER if family in archetype_buckets
+        ] + sorted(family for family in archetype_buckets if family not in _ARCHETYPE_ORDER)
+        floor = min(len(archetypes), max(0, quota - taken[k]))
+        if floor and floor == len(archetypes):
+            for archetype in archetypes:
+                if taken[k] >= quota:
+                    break
+                pool = archetype_buckets[archetype]
+                if not pool:
+                    continue
+                candidate = pool[0]
+                metrics = _portfolio_metrics(
+                    candidate,
+                    represented_pairs=represented_pairs.get(k, []),
+                    represented_mass_counts=represented_mass_counts,
+                    covered_regions=covered_regions,
+                    covered_relationships=covered_relationships.get(k, set()),
+                )
+                buckets[k].remove(candidate)
+                pool.remove(candidate)
+                push(candidate, "archetype", metrics)
 
-        # Remaining seats: semantic-rank refill (quality depth), then distance.
-        for assign in buckets[k]:
-            if taken[k] >= quota:
-                break
-            push(assign)
-
-        leftovers = [a for a in buckets[k] if _assign_signature(atoms, a) not in seen]
-        while taken[k] < quota and leftovers:
-            picked = farthest_in_pool(leftovers, chosen_by_k.get(k) or [])
+        while taken[k] < quota and buckets[k]:
+            picked = _best_portfolio_candidate(
+                buckets[k],
+                represented_pairs=represented_pairs,
+                represented_mass_counts=represented_mass_counts,
+                covered_regions=covered_regions,
+                covered_relationships=covered_relationships,
+            )
             if picked is None:
                 break
-            idx, assign = picked
-            leftovers.pop(idx)
-            push(assign)
+            candidate, metrics = picked
+            buckets[k].remove(candidate)
+            push(candidate, _selection_role(metrics), metrics)
 
-        buckets[k] = leftovers
-
-    # Spillover across |P| if some strata ran dry.
+    # Spill only when a protected stratum ran dry.  The same marginal portfolio
+    # value chooses the replacement; dense sampled regions receive no bonus.
     while len(chosen) < cap:
-        best_k: int | None = None
-        best_i = -1
-        best_score: tuple[float, int, float, int] | None = None
-        for k in active:
-            peers = chosen_by_k.get(k) or []
-            for i, cand in enumerate(buckets[k]):
-                key = _assign_signature(atoms, cand)
-                if key in seen:
-                    continue
-                novelty = (
-                    min(_partition_distance(key, p) for p in peers) if peers else 1.0
-                )
-                score = (novelty, -taken.get(k, 0), _block_balance(cand), -i)
-                if best_score is None or score > best_score:
-                    best_score = score
-                    best_k = k
-                    best_i = i
-        if best_k is None or best_i < 0:
+        pool = [candidate for k in active for candidate in buckets[k]]
+        picked = _best_portfolio_candidate(
+            pool,
+            represented_pairs=represented_pairs,
+            represented_mass_counts=represented_mass_counts,
+            covered_regions=covered_regions,
+            covered_relationships=covered_relationships,
+        )
+        if picked is None:
             break
-        push(buckets[best_k].pop(best_i))
+        candidate, metrics = picked
+        buckets[int(candidate["mass_count"])].remove(candidate)
+        push(candidate, _selection_role(metrics), metrics)
 
     chosen.sort(
         key=lambda item: (
@@ -446,6 +510,229 @@ def _pick_shortlist(
         )
     )
     return chosen
+
+
+def _portfolio_relationship_keys(
+    atoms: list[dict[str, Any]],
+    assign: list[int],
+    descriptor: dict[str, Any],
+) -> set[tuple[str, ...]]:
+    """Generic stated/gross relationships plus current readable school roles."""
+    # Cover each readable relationship value once.  Pairwise combinations and
+    # full motifs are left to partition distance; treating every combination as
+    # a separate quota recreates thousands of micro-regions and wastes seats.
+    features = _relationship_features(atoms, assign)
+    keys = {
+        ("role", name, value)
+        for name, value in features.items()
+        if value
+    }
+    # Keep a small, interpretable set of cross-relations: where a placement
+    # sits versus the two structural relationships.  Do not restore every
+    # pairwise combination or the full motif cube.
+    for placement in _ROLE_FEATURES:
+        for structural in ("gym_dining", "academic"):
+            if features.get(placement) and features.get(structural):
+                keys.add(
+                    (
+                        "role_pair",
+                        placement,
+                        features[placement],
+                        structural,
+                        features[structural],
+                    )
+                )
+    relationships = descriptor.get("relationships") or {}
+    share = float(relationships.get("colocation_share") or 0.0)
+    band = "sparse" if share <= 0.25 else "mixed" if share <= 0.50 else "dense"
+    keys.add(("colocation", band))
+    for relation in relationships.get("stated_relationships") or []:
+        departments = tuple(sorted(str(d) for d in relation.get("departments") or []))
+        keys.add(
+            (
+                "stated",
+                str(relation.get("kind") or ""),
+                str(relation.get("lever") or ""),
+                *departments,
+                f"realized={relation.get('realized')}",
+            )
+        )
+    return keys
+
+
+def _portfolio_region_keys(descriptor: dict[str, Any]) -> set[tuple[str, str]]:
+    """Coordinate values, not composite micro-regions, earn coverage credit."""
+    region_id = str((descriptor.get("region") or {}).get("id") or "")
+    parts = region_id.split("|")
+    axes = ("mass_count", "area", "ground", "double_height", "capacity", "mix")
+    return {
+        (axis, value)
+        for axis, value in zip(axes, parts)
+        if axis != "mass_count" and value
+    }
+
+
+def _portfolio_metrics(
+    candidate: dict[str, Any],
+    *,
+    represented_pairs: list[frozenset[frozenset[str]]],
+    represented_mass_counts: set[int],
+    covered_regions: set[tuple[str, str]],
+    covered_relationships: set[tuple[str, ...]],
+) -> dict[str, Any]:
+    descriptor = candidate["descriptor"]
+    lens = descriptor.get("brief_lens") or {}
+    new_keys = candidate["relationship_keys"] - covered_relationships
+    relationship_gain = min(
+        1.0,
+        len(new_keys) / max(1, min(6, len(candidate["relationship_keys"]))),
+    )
+    novelty = (
+        min(_pair_set_distance(candidate["pair_set"], pairs) for pairs in represented_pairs)
+        if represented_pairs
+        else 1.0
+    )
+    new_region_keys = candidate["region_keys"] - covered_regions
+    parts = {
+        "new_region": len(new_region_keys) / max(1, len(candidate["region_keys"])),
+        "relationship_coverage": relationship_gain,
+        "strategic_difference": novelty,
+        "capacity_plausibility": float(lens.get("capacity_plausibility") or 0.0),
+        "information_value": float(lens.get("uncertainty") or 0.0),
+        "brief_tiebreak": float(lens.get("relevance") or 0.0),
+    }
+    marginal = sum(SHORTLIST_WEIGHTS[name] * value for name, value in parts.items())
+    return {
+        **parts,
+        "new_mass_count": int(candidate["mass_count"]) not in represented_mass_counts,
+        "new_region_keys": len(new_region_keys),
+        "new_relationship_keys": len(new_keys),
+        "marginal_value": round(marginal, 6),
+    }
+
+
+def _best_portfolio_candidate(
+    pool: list[dict[str, Any]],
+    *,
+    represented_pairs: dict[int, list[frozenset[frozenset[str]]]],
+    represented_mass_counts: set[int],
+    covered_regions: set[tuple[str, str]],
+    covered_relationships: dict[int, set[tuple[str, ...]]],
+) -> tuple[dict[str, Any], dict[str, Any]] | None:
+    best: tuple[Any, ...] | None = None
+    winner: dict[str, Any] | None = None
+    winner_metrics: dict[str, Any] | None = None
+    for candidate in pool:
+        metrics = _portfolio_metrics(
+            candidate,
+            represented_pairs=represented_pairs.get(
+                int(candidate["mass_count"]), []
+            ),
+            represented_mass_counts=represented_mass_counts,
+            covered_regions=covered_regions,
+            covered_relationships=covered_relationships.get(
+                int(candidate["mass_count"]), set()
+            ),
+        )
+        score = (
+            not candidate["proven_impossible"],
+            metrics["marginal_value"],
+            metrics["new_region"],
+            metrics["relationship_coverage"],
+            metrics["strategic_difference"],
+            -int(candidate["rank_index"]),
+            tuple(candidate["assignment"]),
+        )
+        if best is None or score > best:
+            best = score
+            winner = candidate
+            winner_metrics = metrics
+    if winner is None or winner_metrics is None:
+        return None
+    return winner, winner_metrics
+
+
+def _selection_role(metrics: dict[str, Any]) -> str:
+    if metrics.get("new_mass_count") or int(metrics.get("new_region_keys") or 0) > 0:
+        return "coverage"
+    if int(metrics.get("new_relationship_keys") or 0) > 0:
+        return "relationship"
+    if float(metrics.get("information_value") or 0.0) >= 0.60:
+        return "information"
+    if float(metrics.get("capacity_plausibility") or 0.0) >= 0.75:
+        return "plausibility"
+    return "portfolio"
+
+
+def _selection_explanation(
+    candidate: dict[str, Any],
+    *,
+    role: str,
+    metrics: dict[str, Any],
+) -> dict[str, Any]:
+    additions = []
+    if metrics.get("new_mass_count"):
+        additions.append(f"new |P|={candidate['mass_count']}")
+    new_region_keys = int(metrics.get("new_region_keys") or 0)
+    if new_region_keys:
+        additions.append(f"{new_region_keys} new descriptor coordinates")
+    new_relationships = int(metrics.get("new_relationship_keys") or 0)
+    if new_relationships:
+        additions.append(f"{new_relationships} new relationship features")
+    if not additions:
+        additions.append(
+            f"partition distance {float(metrics.get('strategic_difference') or 0.0):.2f}"
+        )
+    return {
+        "role": role,
+        "why": "; ".join(additions),
+        "region": candidate["region"],
+        "marginal_value": metrics.get("marginal_value"),
+        "contributions": {
+            name: round(float(metrics.get(name) or 0.0), 4)
+            for name in SHORTLIST_WEIGHTS
+        },
+        "proven_capacity_impossible": bool(candidate["proven_impossible"]),
+    }
+
+
+def _evenly_spaced_strata(strata: list[int], seats: int) -> set[int]:
+    """Protect the whole allowed |P| range when seats are fewer than strata."""
+    ordered = sorted(set(int(value) for value in strata))
+    if seats <= 0 or not ordered:
+        return set()
+    if seats >= len(ordered):
+        return set(ordered)
+    if seats == 1:
+        return {ordered[len(ordered) // 2]}
+    indexes = {
+        round(i * (len(ordered) - 1) / (seats - 1))
+        for i in range(seats)
+    }
+    return {ordered[index] for index in indexes}
+
+
+def _shortlist_report(chosen: list[dict[str, Any]], *, cap: int) -> dict[str, Any]:
+    roles: dict[str, int] = defaultdict(int)
+    mass_counts: dict[int, int] = defaultdict(int)
+    regions: set[str] = set()
+    for item in chosen:
+        selection = item.get("shortlist_selection") or {}
+        roles[str(selection.get("role") or "unknown")] += 1
+        mass_counts[len(item.get("groups") or [])] += 1
+        if selection.get("region"):
+            regions.add(str(selection["region"]))
+    return {
+        "method": "marginal_portfolio",
+        "requested": max(0, int(cap)),
+        "selected": len(chosen),
+        "mass_counts": dict(sorted(mass_counts.items())),
+        "regions": len(regions),
+        "roles": dict(sorted(roles.items())),
+        "weights": dict(SHORTLIST_WEIGHTS),
+        "brief_is_tiebreak_only": True,
+        "density_is_not_quality": True,
+    }
 
 
 def _stratum_quotas(
@@ -533,9 +820,15 @@ def _partition_distance(
     a: frozenset[frozenset[str]], b: frozenset[frozenset[str]]
 ) -> float:
     """Jaccard distance on which department pairs share a mass."""
-    left, right = _coexist_pairs(a), _coexist_pairs(b)
+    return _pair_set_distance(_coexist_pairs(a), _coexist_pairs(b))
+
+
+def _pair_set_distance(
+    left: frozenset[frozenset[str]], right: frozenset[frozenset[str]]
+) -> float:
+    """Jaccard distance on precomputed co-location pairs."""
     if not left and not right:
-        return 0.0 if a == b else 1.0
+        return 0.0
     union = left | right
     if not union:
         return 0.0
@@ -643,16 +936,7 @@ def _academic_cohesion(atoms: list[dict[str, Any]], assign: list[int]) -> str:
     return "together" if len({assign[i] for i in idxs}) == 1 else "split"
 
 
-_RELATIONSHIP_FEATURES: tuple[str, ...] = (
-    "art",
-    "media",
-    "admin",
-    "gym_dining",
-    "academic",
-)
-
-# Placement roles: their joint motif is the cell the four coarse families
-# collapsed, so it earns a coverage pass of its own on top of singles/pairs.
+# Placement roles retained as readable coordinates for current school programs.
 _ROLE_FEATURES: tuple[str, ...] = ("art", "media", "admin")
 
 
@@ -676,205 +960,6 @@ def _relationship_features(
         "gym_dining": _gym_dining_role(atoms, assign),
         "academic": _academic_cohesion(atoms, assign),
     }
-
-
-def _coverage_keys(
-    atoms: list[dict[str, Any]], assign: list[int]
-) -> tuple[tuple[str, ...], ...]:
-    """
-    Individual feature values, pairwise combinations, and the art/media/admin
-    motif triple (the cell that used to collapse under four coarse families).
-    """
-    feats = _relationship_features(atoms, assign)
-    names = [f for f in _RELATIONSHIP_FEATURES if feats.get(f)]
-    keys: list[tuple[str, ...]] = [(f, feats[f]) for f in names]
-    for i, left in enumerate(names):
-        for right in names[i + 1 :]:
-            keys.append((left, feats[left], right, feats[right]))
-    if all(feats.get(f) for f in _ROLE_FEATURES):
-        keys.append(("motif", feats["art"], feats["media"], feats["admin"]))
-    return tuple(keys)
-
-
-def _round_robin(
-    bags: dict[Any, list[Any]], order: list[Any]
-) -> list[Any]:
-    """
-    One entry per group per round, so no feature (or pair) hogs the seats.
-
-    Rare values of a feature rank late; without this the walk would spend the
-    quota on whichever feature happened to vary first.
-    """
-    keys = [k for k in order if bags.get(k)]
-    out: list[Any] = []
-    depth = 0
-    while True:
-        added = False
-        for key in keys:
-            bag = bags[key]
-            if depth < len(bag):
-                out.append(bag[depth])
-                added = True
-        if not added:
-            return out
-        depth += 1
-
-
-def _feasibility_potential(
-    atoms: list[dict[str, Any]], assign: list[int]
-) -> float:
-    """
-    Cheap geometric promise for ranking *inside* a coverage cell.
-
-    Does not replace relationship diversity — callers use this only among
-    candidates that already carry the same coverage target.
-    """
-    if not atoms or not assign or len(atoms) != len(assign):
-        return 0.0
-    feats = _relationship_features(atoms, assign)
-    score = 0.0
-    if feats.get("gym_dining") == "isolated":
-        score += 3.0
-    elif feats.get("gym_dining") == "shared":
-        score -= 1.0
-    if feats.get("academic") == "together":
-        score += 2.0
-    elif feats.get("academic") == "split":
-        score -= 1.5
-
-    counts: dict[int, int] = defaultdict(int)
-    for b in assign:
-        counts[b] += 1
-    sizes = list(counts.values()) or [1]
-    n_blocks = len(sizes)
-    total = sum(sizes) or 1
-    mean = total / n_blocks
-    var = sum((s - mean) ** 2 for s in sizes) / n_blocks
-    score -= 0.35 * var
-    score -= max(0.0, max(sizes) / total - 0.55) * 4.0
-
-    ground_tokens = (
-        "administration",
-        "guidance",
-        "dining",
-        "athletics",
-        "medical",
-        "custodial",
-    )
-    ground_blocks: dict[int, int] = defaultdict(int)
-    for i, atom in enumerate(atoms):
-        text = " ".join(str(d).lower() for d in (atom.get("departments") or []))
-        if any(tok in text for tok in ground_tokens):
-            ground_blocks[assign[i]] += 1
-    if ground_blocks:
-        score -= max(0, max(ground_blocks.values()) - 2) * 1.25
-
-    art = feats.get("art")
-    if art in ("alone", "with_academic", "other"):
-        score += 0.5
-    elif art == "with_athletics":
-        score -= 0.5
-    return score
-
-
-def _feature_coverage_order(
-    atoms: list[dict[str, Any]],
-    pool: list[list[int]],
-    *,
-    limit: int,
-    skip: set[frozenset[frozenset[str]]] | None = None,
-    covered: set[tuple[str, ...]] | None = None,
-) -> list[list[int]]:
-    """
-    Seat relationship-feature coverage before any school-prior refill.
-
-    Targets: feature values, art×media×admin motifs, then pairs. Within each
-    coverage cell, pick by feasibility potential (school rank as tie-break).
-    Motif triples are not retired by collateral singles/pairs.
-    """
-    if limit <= 0 or not pool:
-        return []
-    taken = set(skip or ())
-    cands: list[tuple[list[int], tuple[tuple[str, ...], ...], float]] = []
-    for assign in pool:
-        if _assign_signature(atoms, assign) in taken:
-            continue
-        cands.append(
-            (
-                assign,
-                _coverage_keys(atoms, assign),
-                _feasibility_potential(atoms, assign),
-            )
-        )
-    if not cands:
-        return []
-
-    by_feature: dict[str, list[tuple[str, ...]]] = {}
-    by_pair: dict[tuple[str, str], list[tuple[str, ...]]] = {}
-    motifs: list[tuple[str, ...]] = []
-    known: set[tuple[str, ...]] = set()
-    for _assign, keys, _feas in cands:
-        for key in keys:
-            if key in known:
-                continue
-            known.add(key)
-            if key and key[0] == "motif":
-                motifs.append(key)
-            elif len(key) == 2:
-                by_feature.setdefault(key[0], []).append(key)
-            else:
-                by_pair.setdefault((key[0], key[2]), []).append(key)
-
-    role_pairs = [
-        (left, right)
-        for i, left in enumerate(_ROLE_FEATURES)
-        for right in _ROLE_FEATURES[i + 1 :]
-    ]
-    other_pairs = [
-        (left, right)
-        for i, left in enumerate(_RELATIONSHIP_FEATURES)
-        for right in _RELATIONSHIP_FEATURES[i + 1 :]
-        if (left, right) not in role_pairs
-    ]
-
-    motifs_by_art: dict[str, list[tuple[str, ...]]] = {}
-    for key in motifs:
-        motifs_by_art.setdefault(key[1], []).append(key)
-
-    targets = _round_robin(by_feature, list(_RELATIONSHIP_FEATURES))
-    targets += _round_robin(motifs_by_art, list(motifs_by_art))
-    targets += _round_robin(by_pair, role_pairs)
-    targets += _round_robin(by_pair, other_pairs)
-
-    done = set(covered or ())
-    picked: list[list[int]] = []
-    used: set[int] = set()
-    for target in targets:
-        if len(picked) >= limit:
-            break
-        if target in done:
-            continue
-        best_i = -1
-        best_score: tuple[float, int] | None = None
-        for i, (_assign, keys, feas) in enumerate(cands):
-            if i in used or target not in keys:
-                continue
-            # School rank (earlier pool index) primary; feasibility as tie-break
-            # so diversity cells stay school-shaped without ignoring geometry.
-            score = (-i, feas)
-            if best_score is None or score > best_score:
-                best_score = score
-                best_i = i
-        if best_i < 0:
-            continue
-        assign, keys, _feas = cands[best_i]
-        used.add(best_i)
-        for key in keys:
-            if key and key[0] == "motif" and key != target:
-                continue
-            done.add(key)
-        picked.append(assign)
-    return picked
 
 
 def _relationship_family(atoms: list[dict[str, Any]], assign: list[int]) -> str:

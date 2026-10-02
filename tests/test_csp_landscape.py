@@ -152,7 +152,7 @@ class TestCspLandscape(unittest.TestCase):
         self.assertTrue(all(assign[0] != assign[1] for assign in selected))
         self.assertFalse(report["feasible_count_exact"])
 
-    def test_solve_partitions_passes_landscape_to_unchanged_shortlist(self) -> None:
+    def test_solve_partitions_builds_a_reportable_portfolio(self) -> None:
         atoms = _atoms(8)
         with patch.object(csp, "MAX_ENUM", 40):
             first = csp.solve_partitions(atoms, cap=8, preferred_mass_count=4)
@@ -165,6 +165,68 @@ class TestCspLandscape(unittest.TestCase):
             "deterministic_stratified_landscape",
         )
         self.assertEqual(len(first["chosen"]), 8)
+        self.assertEqual(first["shortlist"]["method"], "marginal_portfolio")
+        self.assertTrue(first["shortlist"]["brief_is_tiebreak_only"])
+        self.assertTrue(
+            all(item.get("shortlist_selection") for item in first["chosen"])
+        )
+
+    def test_preferred_mass_count_is_not_counted_twice_in_shortlist_quotas(self) -> None:
+        atoms = _atoms(7)
+        solved = csp.solve_partitions(
+            atoms,
+            cap=8,
+            mass_bounds=(2, 5),
+            preferred_mass_count=3,
+            session=_session(),
+        )
+        counts: dict[int, int] = {}
+        for item in solved["chosen"]:
+            k = len(item["groups"])
+            counts[k] = counts.get(k, 0) + 1
+        self.assertEqual(set(counts), {2, 3, 4, 5})
+        self.assertLessEqual(max(counts.values()) - min(counts.values()), 1)
+
+    def test_brief_preference_does_not_erase_counterexamples_from_portfolio(self) -> None:
+        atoms = _atoms(7)
+        session = _session(
+            preferences=[{"lever": "same_mass", "departments": ["D0", "D1"]}]
+        )
+        solved = csp.solve_partitions(
+            atoms,
+            cap=8,
+            mass_bounds=(3, 3),
+            session=session,
+        )
+        colocated = []
+        for item in solved["chosen"]:
+            homes = {
+                dept: i
+                for i, group in enumerate(item["groups"])
+                for dept in group["departments"]
+            }
+            colocated.append(homes["D0"] == homes["D1"])
+        self.assertIn(True, colocated)
+        self.assertIn(False, colocated)
+
+    def test_double_height_riders_reduce_cheap_capacity_plausibility(self) -> None:
+        atoms = _atoms(4)
+        session = _session()
+        session.constraints["double_height_departments"] = ["D0"]
+        isolated = describe_partition(atoms, [0, 1, 1, 2], session=session)
+        shared = describe_partition(atoms, [0, 0, 1, 2], session=session)
+        self.assertEqual(
+            isolated["constraint_pressure"]["double_height_rider_gsf"],
+            0.0,
+        )
+        self.assertGreater(
+            shared["constraint_pressure"]["double_height_rider_gsf"],
+            0.0,
+        )
+        self.assertGreater(
+            isolated["brief_lens"]["capacity_plausibility"],
+            shared["brief_lens"]["capacity_plausibility"],
+        )
 
 
 if __name__ == "__main__":

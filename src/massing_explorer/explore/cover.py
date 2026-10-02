@@ -758,17 +758,33 @@ def _stories_are_school_critical(stories: tuple[int, ...] | list[int] | None) ->
 
 def _order_by_diversity(samples: list[CoverSample], *, pool_size: int) -> list[CoverSample]:
     """
-    Greedy farthest-point order with a per-partition floor up front.
+    Greedy farthest-point order with topology anchors and a per-partition floor.
 
-    The stated sample stays first. Then each seated P gets a school-critical
-    story sample (when present) before mid-heavy seeds, so start-40 actually
-    evaluates the stacks that unlock alternate orgs. Remaining floor slots and
-    farthest-point fill the rest.
+    The stated sample stays first. Each available topology gets one early
+    anchor before partition deepening, so a wide P portfolio cannot consume
+    the whole start budget while another structural axis remains untouched.
+    Then each seated P gets a school-critical story sample (when present)
+    before mid-heavy seeds. Remaining floor slots and farthest-point fill the
+    rest.
     """
     if len(samples) <= 2:
         return samples[:pool_size]
     chosen = [samples[0]]
     rest = list(samples[1:])
+
+    # Protect structural-axis coverage before spending multiple seats per P.
+    # This is coordinate coverage, not a preference for either topology.
+    represented_topologies = {chosen[0].topology}
+    for topology in dict.fromkeys(sample.topology for sample in samples):
+        if len(chosen) >= pool_size or topology in represented_topologies:
+            continue
+        anchor = next((sample for sample in rest if sample.topology == topology), None)
+        if anchor is None:
+            continue
+        chosen.append(anchor)
+        rest.remove(anchor)
+        represented_topologies.add(topology)
+
     by_p: dict[int, list[CoverSample]] = defaultdict(list)
     for sample in rest:
         by_p[sample.partition_index].append(sample)

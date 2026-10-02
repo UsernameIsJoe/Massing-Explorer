@@ -251,9 +251,12 @@ proposal through cheap structure, GSF-distribution, constraint-pressure, and
 relationship coordinates, and groups those coordinates into readable regions.
 A coverage floor protects the range; remaining sample capacity follows brief
 relevance, bounded capacity plausibility, uncertainty, and diminishing returns.
-Only then does the unchanged shortlist apply fair |P| shares, relationship
-coverage, and the family-aware shape prior, so sampling and shortlisting remain
-distinct decisions.
+The init-P shortlist then builds a **marginal-value portfolio**: fair |P|
+coverage first, followed by descriptor-coordinate coverage, relationship
+evidence, partition difference, cheap capacity plausibility, and information
+value. Brief relevance receives only a small tie-break weight because it already
+guided landscape sampling. Composite micro-regions and sample density do not
+earn seats by themselves; every admitted P records what it adds to the portfolio.
 Soft `preferred_stories` biases story order without locking every mass to N.
 Changing P clears stale mass-width locks before `realize(s)`.
 
