@@ -27,7 +27,7 @@ from massing_explorer.tools import (
 from massing_explorer.visual import render_site_plan
 
 ROOT = Path(__file__).resolve().parents[1]
-UNDERWOOD = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+TEST_ELEMENTARY = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 
@@ -180,7 +180,7 @@ class TestSessionIntegration(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         session_mod.STUDIES_DIR = Path(self.tmp.name) / "studies"
 
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.session = StudySession(
             study_id="phase4_demo",
             program=program,

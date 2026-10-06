@@ -20,7 +20,7 @@ class TestPreview3D(unittest.TestCase):
     def setUpClass(cls) -> None:
         config = str(ROOT / "config" / "project.example.yaml")
         program = load_program_file(
-            ROOT / "examples" / "underwood_elementary_space_summary.xlsx",
+            ROOT / "examples" / "test_elementary_space_summary.xlsx",
             config_path=config,
         )
         session = StudySession(

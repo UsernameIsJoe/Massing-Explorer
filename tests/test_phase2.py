@@ -19,7 +19,7 @@ from massing_explorer.tools import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-UNDERWOOD = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+TEST_ELEMENTARY = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 
@@ -38,7 +38,7 @@ class TestPhase2(unittest.TestCase):
         self.tmp.cleanup()
 
     def _make_session(self) -> StudySession:
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         return StudySession(
             study_id="test_school",
             program=program,
@@ -46,7 +46,7 @@ class TestPhase2(unittest.TestCase):
         )
 
     def test_slugify(self) -> None:
-        self.assertEqual(slugify_study_id("Underwood Elementary"), "underwood_elementary")
+        self.assertEqual(slugify_study_id("Test Elementary"), "test_elementary")
 
     def test_department_summary_from_engine(self) -> None:
         session = self._make_session()

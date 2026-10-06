@@ -14,7 +14,7 @@ from massing_explorer.reading import DesignReading, validate_reading
 from massing_explorer.session import StudySession
 
 ROOT = Path(__file__).resolve().parents[1]
-UNDERWOOD = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+TEST_ELEMENTARY = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 DINING = "DINING & FOOD SERVICE"
@@ -35,7 +35,7 @@ class _FakeClient:
 
 class TestValidateReading(unittest.TestCase):
     def setUp(self) -> None:
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.names = [d.name for d in program.departments]
 
     def test_keeps_legal_choices_and_drops_dimensions(self) -> None:
@@ -116,7 +116,7 @@ class TestApplyReading(unittest.TestCase):
         self._orig = session_mod.STUDIES_DIR
         self.tmp = tempfile.TemporaryDirectory()
         session_mod.STUDIES_DIR = Path(self.tmp.name) / "studies"
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.session = StudySession(
             study_id="reading", program=program, config_path=str(CONFIG)
         )
@@ -164,7 +164,7 @@ class TestNamedMasses(unittest.TestCase):
         self._orig = session_mod.STUDIES_DIR
         self.tmp = tempfile.TemporaryDirectory()
         session_mod.STUDIES_DIR = Path(self.tmp.name) / "studies"
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.session = StudySession(
             study_id="named_masses", program=program, config_path=str(CONFIG)
         )
@@ -277,7 +277,7 @@ class TestChatCommitUsesReading(unittest.TestCase):
         self._orig = session_mod.STUDIES_DIR
         self.tmp = tempfile.TemporaryDirectory()
         session_mod.STUDIES_DIR = Path(self.tmp.name) / "studies"
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.session = StudySession(
             study_id="reading_chat", program=program, config_path=str(CONFIG)
         )

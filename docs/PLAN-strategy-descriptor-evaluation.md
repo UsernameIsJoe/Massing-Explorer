@@ -20,7 +20,7 @@ tie-break because the brief already guides landscape attention. Each admitted P
 records its selection rationale.
 
 This implementation is committed in `604e711`. The focused landscape and
-shortlist suite passes `33/33`, including the Underwood 3–4-mass legal-yield
+shortlist suite passes `33/33`, including the test elementary school 3–4-mass legal-yield
 regression. The downstream evaluation layer and full repository regression
 suite remain separate follow-up work.
 

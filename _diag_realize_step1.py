@@ -29,7 +29,7 @@ from massing_explorer.session import StudySession
 from massing_explorer.solver import solve_massing_study
 
 ROOT = Path(__file__).resolve().parent
-GSF = ROOT / "examples" / "Underwood_Elementary_Space_Summary_GSF_Tweaked.xlsx"
+GSF = ROOT / "examples" / "Test_Elementary_Space_Summary_GSF_Tweaked.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 BRIEF_3 = (

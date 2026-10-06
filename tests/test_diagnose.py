@@ -23,7 +23,7 @@ from massing_explorer.study_state import MassGrouping
 from massing_explorer.tools import set_grouping
 
 ROOT = Path(__file__).resolve().parents[1]
-UNDERWOOD = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+TEST_ELEMENTARY = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 CORE = "CORE ACADEMIC"
@@ -116,7 +116,7 @@ class DiagnoseIntegrationTests(unittest.TestCase):
         self._orig = session_mod.STUDIES_DIR
         self.tmp = tempfile.TemporaryDirectory()
         session_mod.STUDIES_DIR = Path(self.tmp.name) / "studies"
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.session = StudySession(
             study_id="diagnose_zero", program=program, config_path=str(CONFIG)
         )

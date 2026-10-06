@@ -1,4 +1,4 @@
-"""Run the user's Underwood 3-mass regression brief on current code."""
+"""Run the user's test elementary school 3-mass regression brief on current code."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from massing_explorer.load import load_program_file
 from massing_explorer.session import StudySession
 
 ROOT = Path(__file__).resolve().parent
-GSF = ROOT / "examples" / "Underwood_Elementary_Space_Summary_GSF_Tweaked.xlsx"
+GSF = ROOT / "examples" / "Test_Elementary_Space_Summary_GSF_Tweaked.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 BRIEF = (
@@ -34,7 +34,7 @@ def main() -> None:
     try:
         program = load_program_file(GSF, config_path=CONFIG)
         session = StudySession(
-            study_id="underwood_3mass_regress",
+            study_id="test_elementary_3mass_regress",
             program=program,
             config_path=str(CONFIG),
         )
@@ -102,7 +102,7 @@ def main() -> None:
             "legal_reasons": [c.get("reason") for c in three[:8]],
             "legal_stories": [c.get("stories") for c in three[:8]],
         }
-        out_path = ROOT / "studies" / "_underwood_3mass_regress_report.json"
+        out_path = ROOT / "studies" / "_test_elementary_3mass_regress_report.json"
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
         print(json.dumps(report, indent=2))

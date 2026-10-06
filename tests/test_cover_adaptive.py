@@ -21,7 +21,7 @@ from massing_explorer.study_state import MassGrouping
 from massing_explorer.tools import set_grouping
 
 ROOT = Path(__file__).resolve().parents[1]
-UNDERWOOD = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+TEST_ELEMENTARY = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 
@@ -49,7 +49,7 @@ class AdaptiveCoverTests(unittest.TestCase):
         self._orig = session_mod.STUDIES_DIR
         self.tmp = tempfile.TemporaryDirectory()
         session_mod.STUDIES_DIR = Path(self.tmp.name) / "studies"
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.session = StudySession(
             study_id="cover_adaptive", program=program, config_path=str(CONFIG)
         )
@@ -211,7 +211,7 @@ class AdaptiveCoverTests(unittest.TestCase):
         self.assertEqual(PER_PARTITION_STORY_FLOOR, 5)
 
 
-GSF_TWEAKED = ROOT / "examples" / "Underwood_Elementary_Space_Summary_GSF_Tweaked.xlsx"
+GSF_TWEAKED = ROOT / "examples" / "Test_Elementary_Space_Summary_GSF_Tweaked.xlsx"
 BRIEF_34 = (
     "3-4 masses, max 3 floors. length max 60 meters. gym and dining together and "
     "double height. art and music prefer on ground floor. media prefer on top "
@@ -221,7 +221,7 @@ BRIEF_34 = (
 )
 
 
-@unittest.skipUnless(GSF_TWEAKED.is_file(), "tweaked Underwood GSF not available")
+@unittest.skipUnless(GSF_TWEAKED.is_file(), "tweaked test elementary school GSF not available")
 class PerPartitionFloorGuaranteeTests(unittest.TestCase):
     """Round-robin floor must land in the capped plan, not just be intended."""
 

@@ -21,7 +21,7 @@ from massing_explorer.modality import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-UNDERWOOD = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+TEST_ELEMENTARY = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 CORE = "CORE ACADEMIC"
@@ -34,7 +34,7 @@ ART = "ART & MUSIC"
 
 
 def _names() -> list[str]:
-    program = load_program_file(UNDERWOOD, config_path=CONFIG)
+    program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
     return sorted({d.name for d in program.departments})
 
 
@@ -55,7 +55,7 @@ def _dept_pairs(briefing: dict, bucket: str, lever: str) -> set[frozenset[str]]:
     return out
 
 
-class IntentSmokeUnderwood(unittest.TestCase):
+class IntentSmokeTestElementary(unittest.TestCase):
     """Canonical Studio brief: must interpret cleanly and not pause generate."""
 
     BRIEF = (
@@ -283,7 +283,7 @@ class IntentSmokeAmbiguity(unittest.TestCase):
         )
 
     def test_reparse_stable_no_new_questions(self) -> None:
-        brief = IntentSmokeUnderwood.BRIEF
+        brief = IntentSmokeTestElementary.BRIEF
         qs1, p1 = find_brief_questions(brief, use_llm=False, department_names=self.names)
         qs2, p2 = find_brief_questions(brief, use_llm=False, department_names=self.names)
         self.assertEqual(qs1, [])
@@ -293,7 +293,7 @@ class IntentSmokeAmbiguity(unittest.TestCase):
 
 
 class IntentSmokeAlternateBriefs(unittest.TestCase):
-    """A few non-Underwood shapes still interpret without a generate pause."""
+    """A few non-test elementary school shapes still interpret without a generate pause."""
 
     @classmethod
     def setUpClass(cls) -> None:

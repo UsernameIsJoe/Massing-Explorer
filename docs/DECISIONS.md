@@ -28,7 +28,7 @@ nearest legal twin of that idea; it does not regroup a must.
 
 **Direction lock (24 Sep 2026):** next structural work is a **region ledger**
 and a **search controller** that chooses probe / deepen / step-back / stop.
-Do not accumulate more Underwood-only scheduling heuristics without pulling
+Do not accumulate more test elementary school-only scheduling heuristics without pulling
 them under that policy. See
 [BLUEPRINT-search.md § Evaluation](BLUEPRINT-search.md#evaluation-fit-and-drift).
 

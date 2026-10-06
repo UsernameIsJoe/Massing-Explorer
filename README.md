@@ -129,7 +129,7 @@ massing-explorer/
 ├── tests/
 ├── docs/                   # BLUEPRINT, CONCEPT, WORKFLOW, UI, …
 ├── config/
-├── examples/               # incl. Underwood tweaked GSF + 3-mass brief
+├── examples/               # incl. test elementary school tweaked GSF + 3-mass brief
 └── run_ui.bat
 ```
 
@@ -157,23 +157,23 @@ run_ui.bat
 # → http://127.0.0.1:8765/  — restart after git pull so code reloads
 
 # CLI ingest / chat / solve / search
-python -m massing_explorer ingest examples/underwood_elementary_space_summary.xlsx -c config/project.example.yaml
-python -m massing_explorer chat --study underwood -p examples/underwood_elementary_space_summary.xlsx -c config/project.example.yaml
+python -m massing_explorer ingest examples/test_elementary_space_summary.xlsx -c config/project.example.yaml
+python -m massing_explorer chat --study test_elementary -p examples/test_elementary_space_summary.xlsx -c config/project.example.yaml
 ```
 
 Regression fixture for a tight three-mass brief:
 
-- `examples/Underwood_Elementary_Space_Summary_GSF_Tweaked.xlsx`
-- `examples/underwood_3mass_brief.txt`
+- `examples/Test_Elementary_Space_Summary_GSF_Tweaked.xlsx`
+- `examples/test_elementary_3mass_brief.txt`
 
 ### More CLI
 
 ```bash
-python -m massing_explorer solve --study underwood_checkpoint ^
-  -p examples/underwood_elementary_space_summary.xlsx ^
+python -m massing_explorer solve --study test_elementary_checkpoint ^
+  -p examples/test_elementary_space_summary.xlsx ^
   -c config/project.example.yaml --demo-grouping --visual output/massing.png
 
-python -m massing_explorer search --study underwood_checkpoint ^
+python -m massing_explorer search --study test_elementary_checkpoint ^
   -c config/project.example.yaml --max-total-length 300 --max-length 200 ^
   --max-width 100 --max-stories 5 --preference low_rise --apply 0
 

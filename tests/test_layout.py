@@ -216,13 +216,13 @@ class TestLayoutRetry(unittest.TestCase):
         from massing_explorer.tools import set_grouping
 
         root = Path(__file__).resolve().parents[1]
-        underwood = root / "examples" / "underwood_elementary_space_summary.xlsx"
+        test_elementary = root / "examples" / "test_elementary_space_summary.xlsx"
         config = root / "config" / "project.example.yaml"
         tmp = tempfile.TemporaryDirectory()
         orig = session_mod.STUDIES_DIR
         session_mod.STUDIES_DIR = Path(tmp.name) / "studies"
         try:
-            program = load_program_file(underwood, config_path=config)
+            program = load_program_file(test_elementary, config_path=config)
             session = StudySession(
                 study_id="layout_retry", program=program, config_path=str(config)
             )
@@ -348,7 +348,7 @@ class TestLengthCapIsNotATarget(unittest.TestCase):
         )
         try:
             program = load_program_file(
-                root / "examples" / "underwood_elementary_space_summary.xlsx",
+                root / "examples" / "test_elementary_space_summary.xlsx",
                 config_path=root / "config" / "project.example.yaml",
             )
             session = StudySession(

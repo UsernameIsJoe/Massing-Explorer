@@ -35,7 +35,7 @@ from massing_explorer.tools import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-UNDERWOOD = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+TEST_ELEMENTARY = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 CORE = "CORE ACADEMIC"
@@ -128,7 +128,7 @@ class TestStepWeightResolution(unittest.TestCase):
         self._orig = session_mod.STUDIES_DIR
         self.tmp = tempfile.TemporaryDirectory()
         session_mod.STUDIES_DIR = Path(self.tmp.name) / "studies"
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.session = StudySession(
             study_id="weights", program=program, config_path=str(CONFIG)
         )
@@ -206,7 +206,7 @@ class TestSteppedSolve(unittest.TestCase):
         self._orig = session_mod.STUDIES_DIR
         self.tmp = tempfile.TemporaryDirectory()
         session_mod.STUDIES_DIR = Path(self.tmp.name) / "studies"
-        self.program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        self.program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
 
     def tearDown(self) -> None:
         import massing_explorer.session as session_mod
@@ -399,7 +399,7 @@ class TestSteppedSearch(unittest.TestCase):
         self._orig = session_mod.STUDIES_DIR
         self.tmp = tempfile.TemporaryDirectory()
         session_mod.STUDIES_DIR = Path(self.tmp.name) / "studies"
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.session = StudySession(
             study_id="stepped_search", program=program, config_path=str(CONFIG)
         )
@@ -494,7 +494,7 @@ class TestStepTools(unittest.TestCase):
         self._orig = session_mod.STUDIES_DIR
         self.tmp = tempfile.TemporaryDirectory()
         session_mod.STUDIES_DIR = Path(self.tmp.name) / "studies"
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.session = StudySession(
             study_id="step_tools", program=program, config_path=str(CONFIG)
         )

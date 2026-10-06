@@ -56,8 +56,8 @@ legals share nearly the same silhouette.
 ## Tips
 
 - Use the **tweaked** GSF example for tight three-mass regression:
-  `examples/Underwood_Elementary_Space_Summary_GSF_Tweaked.xlsx` with
-  `examples/underwood_3mass_brief.txt`.
+  `examples/Test_Elementary_Space_Summary_GSF_Tweaked.xlsx` with
+  `examples/test_elementary_3mass_brief.txt`.
 - CLI chat (`python -m massing_explorer chat …`) still works; A/B there is typed
   `A` / `B` instead of a click.
 - Do not leave multiple UI servers running on the same port.

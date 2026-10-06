@@ -16,7 +16,7 @@ from massing_explorer.load import load_program_file
 
 
 TRAINING = Path(r"c:\Users\tu\Downloads\llm_modality_training_50_sets.txt")
-EXAMPLE = Path(__file__).resolve().parents[1] / "examples" / "underwood_elementary_space_summary.xlsx"
+EXAMPLE = Path(__file__).resolve().parents[1] / "examples" / "test_elementary_space_summary.xlsx"
 
 _NUM = r"((?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?)"
 _WORD = r"(?:a|an|one|two|three|four|five|six|seven|eight|nine|ten|twelve|\d+)"
@@ -163,7 +163,7 @@ class ModalityTrainingSets(unittest.TestCase):
                     ):
                         failures.append(f"SET {sid}: mass_count_max missing")
 
-            # Keep together (Gym/Dining) — Art+Music is one Underwood dept
+            # Keep together (Gym/Dining) — Art+Music is one test elementary school dept
             if re.search(r"gym|dining", req, re.I) and re.search(
                 r"same mass|same building|together|share|grouped|adjacent", req, re.I
             ):

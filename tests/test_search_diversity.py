@@ -664,7 +664,7 @@ class TestCoverPartitionBudget(unittest.TestCase):
 
 
 ROOT = Path(__file__).resolve().parents[1]
-GSF_TWEAKED = ROOT / "examples" / "Underwood_Elementary_Space_Summary_GSF_Tweaked.xlsx"
+GSF_TWEAKED = ROOT / "examples" / "Test_Elementary_Space_Summary_GSF_Tweaked.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 class FeasBlendCellTests(unittest.TestCase):
@@ -728,10 +728,10 @@ def _story_patterns(n: int) -> list[tuple[int, ...]]:
     return out
 
 
-@unittest.skipUnless(GSF_TWEAKED.is_file(), "tweaked Underwood GSF not available")
-class UnderwoodShortlistYieldTests(unittest.TestCase):
+@unittest.skipUnless(GSF_TWEAKED.is_file(), "tweaked test elementary school GSF not available")
+class TestElementaryShortlistYieldTests(unittest.TestCase):
     """
-    The 3–4 mass Underwood brief must admit several *legal* organizations.
+    The 3–4 mass test elementary school brief must admit several *legal* organizations.
 
     Diversity is worthless if none of it can be built, so this walks the
     shortlist COVER would search and realizes each entry over a bounded

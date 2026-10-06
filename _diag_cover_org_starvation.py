@@ -34,7 +34,7 @@ from massing_explorer.load import load_program_file
 from massing_explorer.session import StudySession
 
 ROOT = Path(__file__).resolve().parent
-GSF = ROOT / "examples" / "Underwood_Elementary_Space_Summary_GSF_Tweaked.xlsx"
+GSF = ROOT / "examples" / "Test_Elementary_Space_Summary_GSF_Tweaked.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 BRIEF_34 = (
     "3-4 masses, max 3 floors. length max 60 meters. gym and dining together and "

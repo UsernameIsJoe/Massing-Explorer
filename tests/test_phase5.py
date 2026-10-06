@@ -22,7 +22,7 @@ from massing_explorer.tools import (
 from massing_explorer.visual import render_massing_visual
 
 ROOT = Path(__file__).resolve().parents[1]
-UNDERWOOD = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+TEST_ELEMENTARY = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 
@@ -308,7 +308,7 @@ class TestAllocator(unittest.TestCase):
         self.assertAlmostEqual(floor.utilization, 0.5, places=3)
 
 
-class TestUnderwoodAllocation(unittest.TestCase):
+class TestElementaryAllocation(unittest.TestCase):
     def setUp(self) -> None:
         import massing_explorer.session as session_mod
 
@@ -316,7 +316,7 @@ class TestUnderwoodAllocation(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         session_mod.STUDIES_DIR = Path(self.tmp.name) / "studies"
 
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.session = StudySession(
             study_id="phase5_demo", program=program, config_path=str(CONFIG)
         )

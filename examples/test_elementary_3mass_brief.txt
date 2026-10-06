@@ -1,6 +1,6 @@
-# Regression brief — Underwood Elementary (tweaked GSF)
-# Spreadsheet: examples/Underwood_Elementary_Space_Summary_GSF_Tweaked.xlsx
-# Source: C:\Users\tu\Downloads\Underwood_Elementary_Space_Summary_GSF_Tweaked.xlsx
+# Regression brief — test elementary school (tweaked GSF)
+# Spreadsheet: examples/Test_Elementary_Space_Summary_GSF_Tweaked.xlsx
+# Source: C:\Users\tu\Downloads\Test_Elementary_Space_Summary_GSF_Tweaked.xlsx
 #
 # Prompt (verbatim intent):
 # 3 masses, max 3 floors. length max 60 meters. gym and dining together and

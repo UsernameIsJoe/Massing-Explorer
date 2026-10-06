@@ -251,7 +251,7 @@ drift**.
 | Search sequence | CSP→COVER→REPAIR→MCTS→BO→REFINE | Has the parts | Procedural chain ≠ controller | **Main architectural drift** |
 | Skipped-space knowledge | CSP counts, attempts, some statuses | Partial transparency | Cannot answer “what remains under-tested and why” | **Major gap** |
 | Finalist confidence | Legal counts, org counts, scores | Evidence on found schemes | No stability / residual-opportunity report | **Major gap** |
-| Benchmarking | Underwood GSF vs 53c | Stable regression | `school_critical` / unlock patterns overfit risk | **Overfitting risk** |
+| Benchmarking | test elementary school GSF vs 53c | Stable regression | `school_critical` / unlock patterns overfit risk | **Overfitting risk** |
 | Recent yield | Full pipeline breadth above 53c on org count; COVER-only recovered | Engines can recover | Success from scheduling patches, not stated Priority(R) | **Good scoreboard; weak causal story** |
 
 ### Strongest fits to protect
@@ -265,7 +265,7 @@ BO as possible uncertainty-aware budget manager.
 1. **Pipeline as engine chain** instead of ledger ↔ controller.
 2. **Budget rules as patches** (floors, deepen fractions, school-critical
    first) without a general Priority(R).
-3. **Underwood overfitting** — school ontology and unlock stacks as if they
+3. **test elementary school overfitting** — school ontology and unlock stacks as if they
    were universal search law.
 4. **Incomplete knowledge of skipped space.**
 5. **Confidence = yield metrics** rather than stability + residual opportunity.
@@ -277,7 +277,7 @@ BO as possible uncertainty-aware budget manager.
 2. **Search controller** — reads the ledger; chooses CSP expansion, COVER
    probe, repair, deepen, MCTS, BO, step-back, or stop.
 
-Do not add many more Underwood-specific scheduling heuristics without pulling
+Do not add many more test elementary school-specific scheduling heuristics without pulling
 them under those two concepts.
 
 ---

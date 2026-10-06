@@ -13,7 +13,7 @@ from massing_explorer.brief import briefing_from_parsed, parse_brief  # noqa: E4
 from massing_explorer.load import load_program_file  # noqa: E402
 
 TRAINING = Path(r"c:\Users\tu\Downloads\llm_modality_training_50_sets.txt")
-EXAMPLE = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+EXAMPLE = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 
 _NUM = r"((?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?)"
 _WORD = r"(?:a|an|one|two|three|four|five|six|seven|eight|nine|ten|twelve|\d+)"
@@ -76,7 +76,7 @@ def expect_signals(kind: str, text: str) -> list[dict]:
         r"adjacent to|together and)",
         t,
     ) and re.search(r"gym|dining", t):
-        # Art+Music is a single Underwood department — skip same-dept pairs.
+        # Art+Music is a single test elementary school department — skip same-dept pairs.
         ex.append({"signal": "keep_together", "kind": kind, "family": "keep_together"})
     elif re.search(r"stay together|must stay together", t) and re.search(r"art|music", t):
         # Same combined department in the example program.

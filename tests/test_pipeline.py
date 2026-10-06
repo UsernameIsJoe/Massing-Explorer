@@ -14,7 +14,7 @@ from massing_explorer.solver import solve_massing_study
 from massing_explorer.tools import execute_tool, pair_masses, resize_mass, set_grouping
 
 ROOT = Path(__file__).resolve().parents[1]
-UNDERWOOD = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+TEST_ELEMENTARY = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 CORE = "CORE ACADEMIC"
@@ -44,7 +44,7 @@ class TestMatchDepartment(unittest.TestCase):
 
 class TestParseBrief(unittest.TestCase):
     def setUp(self) -> None:
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.names = [d.name for d in program.departments]
 
     def test_attached_to_and_paired_with(self) -> None:
@@ -231,7 +231,7 @@ class TestParseBrief(unittest.TestCase):
 
 class TestGrouping(unittest.TestCase):
     def setUp(self) -> None:
-        self.program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        self.program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
 
     def test_every_department_assigned(self) -> None:
         result = group_departments(self.program)
@@ -265,7 +265,7 @@ class TestApplyBrief(unittest.TestCase):
         self._orig = session_mod.STUDIES_DIR
         self.tmp = tempfile.TemporaryDirectory()
         session_mod.STUDIES_DIR = Path(self.tmp.name) / "studies"
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.session = StudySession(
             study_id="brief_run", program=program, config_path=str(CONFIG)
         )
@@ -436,7 +436,7 @@ class TestPairingAwareResize(unittest.TestCase):
         self._orig = session_mod.STUDIES_DIR
         self.tmp = tempfile.TemporaryDirectory()
         session_mod.STUDIES_DIR = Path(self.tmp.name) / "studies"
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.session = StudySession(
             study_id="pair_resize", program=program, config_path=str(CONFIG)
         )

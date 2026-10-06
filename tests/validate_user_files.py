@@ -12,16 +12,16 @@ CONFIG = Path(__file__).resolve().parents[1] / "config" / "project.example.yaml"
 
 FILES = {
     "TEST (MSBA variant)": Path(
-        r"c:\Users\tu\Downloads\Underwood_Elementary_Space_Summary_TEST.xlsx"
+        r"c:\Users\tu\Downloads\Test_Elementary_Space_Summary_TEST.xlsx"
     ),
     "Structured": Path(
-        r"c:\Users\tu\Downloads\Underwood_Elementary_Space_Summary_TEST_Structured.xlsx"
+        r"c:\Users\tu\Downloads\Test_Elementary_Space_Summary_TEST_Structured.xlsx"
     ),
     "Shuffled": Path(
-        r"c:\Users\tu\Downloads\Underwood_Elementary_Shuffled_Program_Test.xlsx"
+        r"c:\Users\tu\Downloads\Test_Elementary_Shuffled_Program_Test.xlsx"
     ),
     "Adversarial": Path(
-        r"c:\Users\tu\Downloads\Underwood_Elementary_Adversarial_Category_Pairing_Test.xlsx"
+        r"c:\Users\tu\Downloads\Test_Elementary_Adversarial_Category_Pairing_Test.xlsx"
     ),
 }
 

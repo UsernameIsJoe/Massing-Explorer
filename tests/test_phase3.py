@@ -22,7 +22,7 @@ from massing_explorer.report import format_massing_report
 from massing_explorer.visual import render_massing_visual
 
 ROOT = Path(__file__).resolve().parents[1]
-UNDERWOOD = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+TEST_ELEMENTARY = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 
@@ -107,8 +107,8 @@ class TestPhase3(unittest.TestCase):
         self.assertEqual(len(compromised), 1)
         self.assertEqual(compromised[0].room, "Gymnasium")
 
-    def test_underwood_solve_and_visual(self) -> None:
-        program = load_program_file(UNDERWOOD, config_path=CONFIG)
+    def test_test_elementary_solve_and_visual(self) -> None:
+        program = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         session = StudySession(
             study_id="phase3_demo",
             program=program,

@@ -14,10 +14,10 @@ Update this file at the end of every work session.
   [BLUEPRINT-search.md](BLUEPRINT-search.md) (MAP→…→STOP loop, region ledger,
   Priority(R), **evaluation fit/drift table**, next work = ledger + controller).
 - [DECISIONS.md](DECISIONS.md), [README.md](../README.md), [WORKFLOW.md](WORKFLOW.md)
-  updated to match; direction lock: no more Underwood-only scheduling piles
+  updated to match; direction lock: no more test elementary school-only scheduling piles
   without a shared search policy.
 - Earlier same day: round-robin per-P COVER floor + feas blend (`ffcdfc8`);
-  COVER-only ~6 orgs / full ~7 orgs / 3-mass 11 on Underwood vs 53c — good
+  COVER-only ~6 orgs / full ~7 orgs / 3-mass 11 on test elementary school vs 53c — good
   scoreboard, still heuristic causal story (called out in BLUEPRINT evaluation).
 
 ### Next steps
@@ -39,7 +39,7 @@ Update this file at the end of every work session.
   when deepen is also owed; `PROBE_FLOOR` aligned with story floor.
 - **CSP:** `feasibility_potential` as within-cell tie-break; school rank still
   primary for coverage seating.
-- **Same-budget Underwood harvest vs 53c / Try `6393b15`:**
+- **Same-budget test elementary school harvest vs 53c / Try `6393b15`:**
   - 3-mass: **8** legal (53c 3, Try 11) — above plan floor.
   - 3–4-mass: **27** legal / **4** orgs (53c 32/4, Try 19/2). Depth still
     thinner than 53c’s top family (~8 vs 19); org *set* differs.
@@ -60,7 +60,7 @@ Update this file at the end of every work session.
   stories by `preferred_stories`; CSP shortlist reserves quality slots and
   family-aware school-bar ranking so win orgs enter the P pool.
 - **P-pool status** stays on organization; archive insert syncs outcomes.
-- Underwood 3-mass fixture regress: current ≥ 53c legal three-mass on the same
+- test elementary school 3-mass fixture regress: current ≥ 53c legal three-mass on the same
   brief + tweaked GSF; COVER contributes legal regions again.
 - **Studio UI:** A/B max 5, click card to prefer (no Prefer A/B buttons);
   snappier picks (no full REFINE each click); pool/candidates show more
@@ -269,7 +269,7 @@ every floor with no area split.
 - **Report** lists area and utilization per level; the elevation drawing is now
   split horizontally by program share instead of one flat bar per floor.
 
-Underwood result — every floor exactly 100% utilised, departments contiguous:
+test elementary school result — every floor exactly 100% utilised, departments contiguous:
 
 ```
 Academic  L0 Core Academic 11,230 | L1 Core Academic 11,230
@@ -285,7 +285,7 @@ Support   L0 Media 3,655 + Admin 3,514 + Custodial 669
 | Test | Result | Notes |
 |------|--------|-------|
 | Conservation | pass | every department's GSF fully placed |
-| Floor capacity | pass | 100% on all Underwood floors, none over |
+| Floor capacity | pass | 100% on all test elementary school floors, none over |
 | Contiguity | pass | Core Academic L0–L1, SpEd alone on L2 |
 | Qty expansion | pass | 18 classrooms distribute across 3 floors |
 | Ground affinity | pass | dining/media low, academic/art high |
@@ -370,7 +370,7 @@ Also fixed the GSF label overlapping the plan axis label in the visual.
 | Paired width/lengths | pass | 12,000 + 8,000 SF in 280 ft → W 71.43, L 168 / 112 |
 | Areas preserved | pass | `W × Lᵢ` returns each input area |
 | Three-mass pairing | pass | 9,000 + 6,000 + 3,000 in 300 ft → W 60 |
-| Underwood pairing | pass | academic + support in 280 ft → W 68.1, 164.9 + 115.1 = 280.0 |
+| test elementary school pairing | pass | academic + support in 280 ft → W 68.1, 164.9 + 115.1 = 280.0 |
 | GSF held under pairing | pass | both paired masses still within ±3% |
 | Length over limit | pass | suggestion offers stories and width |
 | Story suggestion sanity | pass | never suggests the current story count |
@@ -435,9 +435,9 @@ Also fixed the GSF label overlapping the plan axis label in the visual.
 | Double-height void | pass | usable floor1 = plate - void |
 | GSF tolerance 2.5% vs 5% | pass | |
 | Compromise list | pass | names gym when too small |
-| Underwood solve + PNG | pass | 3 masses, GSF exact, gym fits |
+| test elementary school solve + PNG | pass | 3 masses, GSF exact, gym fits |
 
-### Checkpoint demo (Underwood)
+### Checkpoint demo (test elementary school)
 
 - Academic: 80 x 140.4 ft, 3 stories, 33,689 GSF
 - HPE/Dining: 100 x 132.2 ft, 2 stories, gym void on L1 (-6,000 SF)
@@ -514,14 +514,14 @@ Also fixed the GSF label overlapping the plan axis label in the visual.
 - Config loader (`config/project.example.yaml`)
 - CLI: `ingest` and `config` commands
 - Text report with department table, verification, room detail
-- Added `examples/underwood_elementary_space_summary.xlsx` (user-provided MSBA format)
+- Added `examples/test_elementary_space_summary.xlsx` (user-provided MSBA format)
 - Unit tests in `tests/test_phase1.py` (7 tests, all passing)
 
 ### Test results
 
 | Test | Result | Notes |
 |------|--------|-------|
-| Parse Underwood Excel | pass | 41 rooms, 9 departments |
+| Parse test elementary school Excel | pass | 41 rooms, 9 departments |
 | Department NFA totals | pass | All 9 departments match declared ±0 SF |
 | Building NFA | pass | Computed 40,462 = declared 40,462 SF |
 | File GFA | pass | Declared 60,693 = NFA × 1.5 grossing |
@@ -540,7 +540,7 @@ Also fixed the GSF label overlapping the plan axis label in the visual.
 
 - Parser picks best Excel sheet by room count among sheets matching space/program/summary keywords.
 - Department rows detected when row has area total but no per-room NFA.
-- Not hardcoded to Underwood — keyword column mapper handles similar MSBA-style layouts.
+- Not hardcoded to test elementary school — keyword column mapper handles similar MSBA-style layouts.
 
 ### Current phase
 
@@ -574,7 +574,7 @@ Superseded by Phase 1 completion above.
 
 ### Why this phase happened
 
-The user asked whether the three Underwood scenarios were produced by the script
+The user asked whether the three test elementary school scenarios were produced by the script
 alone or whether the assistant had intervened. Answering honestly surfaced a
 real limitation: **the engine had no solver.** It computed dimensions from widths
 and story counts the user supplied and then *checked* them, so the site limits

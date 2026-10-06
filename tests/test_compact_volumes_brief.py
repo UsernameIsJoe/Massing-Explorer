@@ -26,7 +26,7 @@ class TestCompactVolumesBrief(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         program = load_program_file(
-            ROOT / "examples" / "underwood_elementary_space_summary.xlsx",
+            ROOT / "examples" / "test_elementary_space_summary.xlsx",
             config_path=str(ROOT / "config" / "project.example.yaml"),
         )
         cls.names = [d.name for d in program.departments]

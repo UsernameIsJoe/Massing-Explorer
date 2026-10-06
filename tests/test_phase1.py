@@ -9,24 +9,24 @@ from massing_explorer.config import grossing_from_config, load_project_config
 from massing_explorer.load import load_program_file
 
 ROOT = Path(__file__).resolve().parents[1]
-UNDERWOOD = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+TEST_ELEMENTARY = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 CSV_EXAMPLE = ROOT / "examples" / "program.example.csv"
 CONFIG = ROOT / "config" / "project.example.yaml"
 
 
 class TestPhase1(unittest.TestCase):
-    def test_underwood_parse_room_count(self) -> None:
-        study = load_program_file(UNDERWOOD, config_path=CONFIG)
+    def test_test_elementary_parse_room_count(self) -> None:
+        study = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.assertEqual(len(study.rooms), 41)
         self.assertEqual(len(study.departments), 9)
 
-    def test_underwood_nfa_total(self) -> None:
-        study = load_program_file(UNDERWOOD, config_path=CONFIG)
+    def test_test_elementary_nfa_total(self) -> None:
+        study = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.assertAlmostEqual(study.totals["nfa_sf"], 40462, delta=1)
         self.assertAlmostEqual(study.totals["declared_nfa_sf"], 40462, delta=1)
 
-    def test_underwood_department_totals(self) -> None:
-        study = load_program_file(UNDERWOOD, config_path=CONFIG)
+    def test_test_elementary_department_totals(self) -> None:
+        study = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         for dept in study.departments:
             if dept.declared_total_sf is not None:
                 self.assertAlmostEqual(
@@ -34,14 +34,14 @@ class TestPhase1(unittest.TestCase):
                     msg=f"Department {dept.name}",
                 )
 
-    def test_underwood_grossing_from_file(self) -> None:
-        study = load_program_file(UNDERWOOD, config_path=CONFIG)
+    def test_test_elementary_grossing_from_file(self) -> None:
+        study = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         self.assertAlmostEqual(study.grossing.grossing_factor, 1.5, places=2)
         # File GFA = NFA * grossing
         self.assertAlmostEqual(study.totals["declared_gfa_sf"], 60693, delta=1)
 
     def test_gsf_calc_with_config(self) -> None:
-        study = load_program_file(UNDERWOOD, config_path=CONFIG)
+        study = load_program_file(TEST_ELEMENTARY, config_path=CONFIG)
         expected = 40462 * 1.15 * 1.50
         self.assertAlmostEqual(study.totals["target_gsf"], expected, delta=1)
 

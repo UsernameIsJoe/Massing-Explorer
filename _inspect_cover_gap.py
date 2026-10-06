@@ -1,4 +1,4 @@
-"""Inspect why COVER misses the 53c win combo on the Underwood brief."""
+"""Inspect why COVER misses the 53c win combo on the test elementary school brief."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ from massing_explorer.load import load_program_file
 from massing_explorer.session import StudySession
 
 ROOT = Path(__file__).resolve().parent
-GSF = ROOT / "examples" / "Underwood_Elementary_Space_Summary_GSF_Tweaked.xlsx"
+GSF = ROOT / "examples" / "Test_Elementary_Space_Summary_GSF_Tweaked.xlsx"
 CONFIG = ROOT / "config" / "project.example.yaml"
 BRIEF = (
     "3 masses, max 3 floors. length max 60 meters. gym and dining together and "

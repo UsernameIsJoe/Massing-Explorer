@@ -14,7 +14,7 @@ from massing_explorer.load import load_program_file
 
 SMOKE = Path(r"c:\Users\tu\Downloads\massing_llm_smoke_test_units_numbers_variations.txt")
 CONFIG = ROOT / "config" / "project.example.yaml"
-PROGRAM = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+PROGRAM = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 M = 3.280839895
 SQM = 10.76391041671
 

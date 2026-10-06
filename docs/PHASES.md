@@ -141,7 +141,7 @@ keyword heuristic that listed every department on every floor.
 | Test | Pass condition | Result |
 |------|----------------|--------|
 | Conservation | Every department's GSF fully placed | PASS |
-| Capacity | No floor allocated beyond usable area | PASS — 100% on all Underwood floors |
+| Capacity | No floor allocated beyond usable area | PASS — 100% on all test elementary school floors |
 | Contiguity | A department is not scattered to back-fill gaps | PASS — Core Academic L0–L1, SpEd L2 |
 | Qty expansion | 18 classrooms distribute across floors | PASS |
 | Ground affinity | Dining/media land low, academic/art land high | PASS |

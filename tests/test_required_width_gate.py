@@ -17,7 +17,7 @@ from massing_explorer.tools import set_grouping
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "config" / "project.example.yaml"
-EXAMPLE = ROOT / "examples" / "underwood_elementary_space_summary.xlsx"
+EXAMPLE = ROOT / "examples" / "test_elementary_space_summary.xlsx"
 CORE = "CORE ACADEMIC"
 SPED = "SPECIAL EDUCATION"
 ADMIN = "ADMINISTRATION & GUIDANCE"

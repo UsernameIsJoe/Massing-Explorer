@@ -18,7 +18,7 @@ from massing_explorer.ollama_client import OllamaClient
 from massing_explorer.session import StudySession
 from massing_explorer.tools import TOOL_DEFINITIONS, execute_tool, set_grouping
 
-PROGRAM = r"c:\Users\tu\Downloads\Underwood_Elementary_Space_Summary.xlsx"
+PROGRAM = r"c:\Users\tu\Downloads\Test_Elementary_Space_Summary.xlsx"
 CONFIG = "config/project.example.yaml"
 SYSTEM = Path("prompts/chat_system.txt").read_text(encoding="utf-8")
 

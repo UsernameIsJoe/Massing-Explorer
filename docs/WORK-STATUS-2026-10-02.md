@@ -24,7 +24,7 @@ sampling. Each selected organization records a selection explanation.
   mass-count stratum has enough seats. The archetype floor is ordered
   deterministically and does not hard-code department names.
 - Focused shortlist/landscape suite after the hybrid change: `33/33` passed,
-  including the Underwood 3–4-mass legal-yield regression.
+  including the test elementary school 3–4-mass legal-yield regression.
 - Full-suite result: 477 tests ran, with 21 failures, 10 errors, and 3
   skipped. Those failures span broader legacy/integration areas; the focused
   P-landscape/shortlist suite remains 33/33.

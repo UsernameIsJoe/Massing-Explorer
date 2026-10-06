@@ -9,14 +9,14 @@ from massing_explorer.brief import briefing_from_parsed, parse_brief
 from massing_explorer.load import load_program_file
 
 
-UNDERWOOD = Path(r"c:\Users\tu\Downloads\Underwood_Elementary_Space_Summary_TEST_Structured.xlsx")
-EXAMPLE = Path(__file__).resolve().parents[1] / "examples" / "underwood_elementary_space_summary.xlsx"
+TEST_ELEMENTARY = Path(r"c:\Users\tu\Downloads\Test_Elementary_Space_Summary_TEST_Structured.xlsx")
+EXAMPLE = Path(__file__).resolve().parents[1] / "examples" / "test_elementary_space_summary.xlsx"
 
 
 class ScopedDimensionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        path = UNDERWOOD if UNDERWOOD.exists() else EXAMPLE
+        path = TEST_ELEMENTARY if TEST_ELEMENTARY.exists() else EXAMPLE
         cls.names = [d.name for d in load_program_file(str(path)).departments]
 
     def test_for_dept_width_has_to_be(self) -> None:
