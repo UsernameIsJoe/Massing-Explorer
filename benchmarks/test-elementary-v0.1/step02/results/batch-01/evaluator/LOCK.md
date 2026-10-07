@@ -1,6 +1,10 @@
-# Fable evaluator lock — Step-01 batch-01
+# Fable evaluator record — Step-01 batch-01
 
-Status: **LOCKED BEFORE UNMASKING**
+Status: **IDENTITY-EXPOSED / NOT VALID AS A BLINDED EVALUATION**
+
+This batch was intended to be blinded before scoring. However, the shuffled evaluator input retained a `run_metadata` block inside every Rxx record containing the original model, condition (A0/A1), run number, reasoning setting, elapsed time, and related tags. The evaluator therefore had access to identity information even though the score outputs themselves did not repeat it.
+
+This was a preparation error in the shuffled file created for the evaluator.
 
 Source evaluator artifacts:
 - `Canonicalization Scoring.docx`
@@ -12,16 +16,19 @@ Audit result:
 - R01–R12 are present in both evaluator outputs.
 - Quality has four reviewer axes for every case; all detailed scores match its batch summary.
 - Behavior has all eleven protocol axes for every case; all detailed scores match its batch summary.
-- Representation status / representation expansion is `unknown` for all 12 because the Massing Explorer representation was intentionally not supplied to the evaluator. This is a deferred Layer-2 field, not missing evaluation work.
-- No case-level model, condition, or run identity appears in the evaluator score outputs.
+- Representation status / representation expansion is `unknown` for all 12 because the Massing Explorer representation was not supplied to the evaluator.
 - No score edits were made during this audit.
+- The score outputs state that model/condition were masked and not inferred, but the actual shuffled input file contradicts that methodological claim because identity metadata remained visible.
+
+Use restriction:
+- These scores may be retained as an identity-exposed evaluator pass.
+- They must **not** be described or cited as a blinded evaluator result.
+- They must **not** serve as the primary blinded comparison for ChatGPT vs Opus or A0 vs A1.
+- Any future valid blinded pass must use a sanitized input with all identity-bearing metadata removed and a fresh shuffle key.
 
 Protocol annotations preserved without score changes:
-1. Quality includes an L-arm applicability check; it is N/A/PASS across the batch and does not alter the locked results.
+1. Quality includes an L-arm applicability check; it is N/A/PASS across the batch and does not alter the evaluator scores.
 2. R05/R10 contain some dimension commitments that are asserted rather than independently test-fit. Quality preserves the evaluator's PASS judgments; behavior separately captures the weaker verification evidence.
 3. The behavior evaluator reconstructed a 12-item hard-requirement checklist because the brief was not attached. Its observable-behavior scores are preserved exactly as returned.
 
-Lock rule:
-After the shuffle key is revealed, these score values must not be changed because of model/condition identity or downstream results. A change is permitted only for a documented extraction or factual-reading error, with the original value retained in the audit trail.
-
-The two CSV files in this directory are exact transcriptions of the locked batch summary score tables and are the values used for downstream analysis.
+The two CSV files in this directory are exact transcriptions of this identity-exposed evaluator pass and are retained for auditability only.
