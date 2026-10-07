@@ -1,10 +1,5 @@
 # Fable evaluator record — Step-01 batch-01
 
-
-This batch was intended to be blinded before scoring. However, the shuffled evaluator input retained a `run_metadata` block inside every Rxx record containing the original model, condition (A0/A1), run number, reasoning setting, elapsed time, and related tags. The evaluator therefore had access to identity information even though the score outputs themselves did not repeat it.
-
-This was a preparation error in the shuffled file created for the evaluator.
-
 Source evaluator artifacts:
 - `Canonicalization Scoring.docx`
   - SHA-256: `6d56612840fffab2cc9a44371dd3062a4b80060d0a81d8900118c64d872ec6bf`
