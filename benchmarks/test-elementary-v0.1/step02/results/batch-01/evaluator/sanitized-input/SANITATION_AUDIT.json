@@ -1,0 +1,13 @@
+{
+  "source_sha256": "3b1e38330fde8138ec069409be83dd27e6495a28634102a0fb280225f529bee4",
+  "sanitized_docx_sha256": "15cdf5b3845844de1301e0b39e383bba5e7aa636040a4f795ec05bf1e4358e9a",
+  "sanitized_txt_sha256": "86520c29298241ee635933512b669cc4064e9b1b2ead0e883bd7ba57a20de667",
+  "records": 12,
+  "metadata_blocks_removed": 12,
+  "metadata_paragraphs_removed": 108,
+  "case_ids_preserved": true,
+  "non_metadata_paragraphs_unchanged": true,
+  "identity_string_scan": "PASS",
+  "package_metadata_scan": "PASS",
+  "note": "This sanitizes the evaluator input only. It does not change the status of the previous scoring pass. Existing Rxx IDs are retained."
+}

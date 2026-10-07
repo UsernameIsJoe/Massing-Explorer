@@ -1,0 +1,1146 @@
+
+R01
+strategy_summary
+value: A loose pinwheel of two 80 ft wide, 3-story learning/civic bars (A, B) connected at a compact central hinge, plus a 90 ft wide double-height community hall (C). Administration is at the hinge on B's ground floor. A is the quieter learning wing. C has an after-hours entrance and a service edge.
+provenance: explicit
+evidence: §2
+program_grouping
+value: 
+A: kindergarten, 8 general classrooms (4 on L2, 4 on L3), part of special education (1 self-contained + toilet, 1 resource).
+B: administration, medical, all art/music, 4 general classrooms, remaining special education (2 self-contained + toilets, resource, small group), media center, custodial (office, workshop, storage, storeroom), network/telecom.
+C: health/PE, dining/food service, plus receiving and recycling/trash.
+provenance: explicit
+evidence: §3; §7
+spatial_relationships
+value: 
+Two bars joined at the hinge, with C as a third mass, in a "pinwheel" (not parallel, not a closed courtyard). Compass orientation is unresolved.
+The administration is at the hinge on B L1, and the media is above it (B3 over B1 admin).
+Custodial service rooms are on B's rear portion adjoining C's service zone. Receiving and recycling are on C's kitchen/service edge. The service entrance is on the opposite edge from the public entrance.
+C's gym and dining share one mass. The east portion holds the dining complex.
+A "separately controllable" C route is from the hinge at ground level.
+provenance: explicit
+evidence: §2; §5; §6
+vertical_organization
+value: 
+A1 (5,230): 3 kindergarten, 1 self-contained special-ed + toilet, 1 resource. A2 (3,640): 4 general. A3 (3,640): 4 general.
+B1 (7,790): administration, medical, art/music, custodial office/workshop/storage/storeroom, telecom. B2 (5,560): 2 general + remaining special ed. B3 (4,620): 2 general + media.
+C1 (13,790): health/PE, dining/food service, receiving, recycling/trash. C is one occupied floor with ~28 ft double-height halls.
+Core academic is on L1–L3 (3,360 / 5,460 / 5,460). Special ed is on L1–L2 (1,870 / 3,740).
+provenance: explicit
+evidence: §3 table; §7
+massing_organization
+value: 
+3 masses.
+A: 80 × 128 ft, 3 floors, ~42 ft, 30,720 GFA.
+B: 80 × 128 ft, 3 floors, ~42 ft, 30,720 GFA.
+C: 90 × 188 ft, 1 occupied floor, ~28 ft halls, 16,920 GFA.
+Total 78,360 GFA. Longest dimension 188 ft = 57.3 m.
+Ratios: A and B 80:128 = 0.625; C 90:188 = 0.479.
+provenance: explicit
+evidence: §2 table; §9
+circulation_logic
+value: 
+The primary entrance enters B through a controlled vestibule visible from the general office. From the hinge, one route enters A, another rises through B, and a controlled ground-floor route reaches C.
+A and B use the 8 ft double-loaded corridor assumption (30 + 8 + 30 = 68 ft inside 80 ft, ~12 ft for walls, lockers, niches, breakout and tolerance).
+A central elevator serves the hinge, with remote stairs at the bar ends.
+C can be locked off from the school after hours. The service entrance is on the opposite/back edge from the public entrance.
+Stair count, separation, widths and fire ratings are stated as code-design tasks.
+provenance: explicit
+evidence: §4; §6
+requirement_response
+exactly 3 masses — stated response: satisfied ("exactly 3 principal masses"). provenance: explicit. evidence: §9.
+max 3 floors — stated response: satisfied. provenance: explicit. evidence: §9.
+preference for 3 floors — stated response: satisfied in both learning/civic masses. provenance: explicit. evidence: §9.
+max 60 m length — stated response: max 57.3 m. provenance: explicit. evidence: §2; §9.
+gym and dining together — stated response: satisfied in C. provenance: explicit. evidence: §9.
+gym and dining double height — stated response: gym satisfied and dining satisfied. provenance: explicit. evidence: §9.
+art/music preferred ground — stated response: satisfied (B1). provenance: explicit. evidence: §9.
+media preferred top floor above admin — stated response: B3 directly over the B1 admin zone. provenance: explicit. evidence: §9.
+administration required ground — stated response: entire department on B1. provenance: explicit. evidence: §9.
+core academic width 80 ft — stated response: both masses containing core academic/special ed are exactly 80 ft wide. provenance: explicit. evidence: §4; §9.
+special education width 80 ft — stated response: same (A and B). provenance: explicit. evidence: §4.
+mass ratio 2:5–5:8 — stated response: "conditionally satisfied; definition unresolved"; short-side ratios 0.625, 0.625, 0.479. The response also notes smaller-to-larger footprint-area ratio ~0.605 and GFA ratio ~0.551, and that a volume ratio could differ. provenance: explicit. evidence: §9.
+gym minimum 60 × 100 ft — stated response: ~65 × 100 ft clear. provenance: explicit. evidence: §5.
+cafeteria minimum 40 × 60 ft — stated response: 40 × 70 ft clear. provenance: explicit. evidence: §5.
+daylight preferred max width 90 ft — stated response: satisfied (80, 80, 90). provenance: explicit. evidence: §9.
+department split rule — stated response: satisfied for core academic and special ed (contiguous, above ~753 SF). provenance: explicit. evidence: §3; §9.
+program-area conservation — stated response: every CSV program line retained, including the zero-quantity Assistant Principal's Office. Total 44,270 NFA. provenance: explicit. evidence: §3; §7.
+gross-area / tolerance — stated response: 78,360 vs 76,365.75 (+2.61%, within ±3%; range 74,075–78,657). It is +18.0% over the 66,405 workbook figure and "does not match it." The response states that if 66,405 controls, the upper-floor plates "must be materially reduced." provenance: explicit. evidence: §8; §9.
+known_risks
+value: Mass-ratio definition and the controlling gross figure both need confirmation. The area basis used is the one paired with an explicit tolerance. Unspecified: site orientation and entry/service approach, structural grids and clear spans in C, accessibility/egress/fire-separation/plumbing/code analysis, acoustic separation around music/gym/dining, and actual wall thicknesses and building systems.
+provenance: explicit
+evidence: §8; §12
+stated_rationale
+value: The hybrid pinwheel retains two compliant 80 ft bars, puts public control at the junction, lets the community hall operate independently, and fits the 1.15 × 1.50 tolerance without forcing the hall to span between two bars. Stated merits: a clear zoning (quiet learning, civic/arts/administration, community/service), strong entrance supervision, arts at grade near the stage/community wing, special ed adjacent to general classrooms, media as a visible top-floor destination. Stated trade-off: gross-area efficiency, with significant circulation, learning commons, toilets, structure, MEP and contingency space in the 80 × 128 upper floors that "must not silently become additional scheduled rooms."
+provenance: explicit
+evidence: §10; §11
+representation_gap
+value: Explicitly described: a loose "pinwheel" with a central "hinge" rather than parallel bars or a closed courtyard; B as a mixed civic/arts/academic bar; special education and core academic distributed across two bars; a hall with two double-height rooms.
+provenance: explicit
+evidence: §2; §10
+contradictions_or_missing_information
+Gross-area basis: acknowledged unresolved conflict.
+The physical nature of the "hinge" (separate element vs shared corner) and the dimensions of the connections are not stated.
+C's physical attachment to the hinge/B is described by route only.
+Custodial rooms are divided between B1 (service edge) and C1 (recycling/receiving).
+The positions of rooms within each floor are not given beyond the zoning notes.
+Mass ratio is acknowledged as conditionally satisfied.
+R02
+strategy_summary
+value: A three-wing courtyard school around a controlled central hinge. C (entry/admin/media) is at the public entrance. A (academic, with art/music) extends from C as the secure wing. B (commons) is on the opposite side of the hinge/courtyard as the after-hours wing. Masses touch at circulation nodes without a fourth connecting mass.
+provenance: explicit
+evidence: "Recommended scheme"
+program_grouping
+value: 
+A: core academic (3 kindergarten, 12 general classrooms), all special education (3 self-contained, 3 toilets, 2 resource, 1 small group), all art/music.
+B: all health/PE and all dining/food service.
+C: administration/guidance, medical, custodial/support (all 7 rooms), media center.
+Custodial is split between C L1 and C L2.
+provenance: explicit
+evidence: Mass A/B/C tables
+spatial_relationships
+value: 
+C at the public entrance, with A extending from C. B is opposite the hinge/courtyard.
+Art/music occupy the end of A nearest B, so music/stage/assembly can share back-of-house access.
+Protected courtyard on the student side. Loading/kitchen/trash on the opposite service edge.
+Within B, gym with a side strip for storage/office/circulation; dining end; stage at the gym/dining interface; kitchen and serving along the service edge.
+C's upper block sits directly over the administration portion.
+Receiving, trash and workshop are at grade beside the service yard.
+No fixed orientation.
+provenance: explicit
+evidence: "Recommended scheme"; Mass A/B/C subsections; "Circulation and site logic"
+vertical_organization
+value: 
+A L1: 3 kindergarten, 2 general, 1 self-contained special-ed + toilet, art classroom/workroom, music classroom, 2 practice (9,440).
+A L2: 5 general, 1 self-contained special-ed + toilet, resource, small group (7,070).
+A L3: 5 general, 1 self-contained special-ed + toilet, resource (6,420).
+B: one occupied floor, double-height ~28 ft (13,100).
+C L1: administration/guidance and medical (3,240) plus custodial workshop, recycling, receiving (1,110).
+C L2: custodian's office, custodian's storage, storeroom, network/telecom (1,090).
+C L3: media center (2,800).
+Special education appears on A L1–L3.
+provenance: explicit
+evidence: "Floor-by-floor organization" tables
+massing_organization
+value: 
+3 masses.
+A: 80 × 169 ft, 3 occupied floors, ~42 ft, 40,560 SF, ratio 0.473, 169 ft = 51.5 m.
+B: 90 × 194 ft, 1 occupied floor, double-height ~28 ft, 17,460 SF, ratio 0.464, 194 ft = 59.1 m.
+C: ground 72 × 120 ft (ratio 0.600, 36.6 m); L2/L3 48 × 80 ft (0.600); 3-story stepped, ~42 ft, 16,320 SF.
+Total 74,340 SF.
+provenance: explicit
+evidence: "Recommended scheme" table; "Dimensional compliance"
+circulation_logic
+value: 
+The main public entrance passes into C. The general office controls the vestibule and sight lines to the central hinge. Medical and guidance are reachable without entering the academic bar.
+A has two remote stairs, with the principal vertical core/elevator at the C/A junction.
+C has its own protected second egress stair serving the media floor.
+B has its own after-hours entrance and multiple direct exterior exits.
+A's section is 30 + 20 + 30 ft, with an 8 ft clear double-loaded path in the central 20 ft band and the remainder for lockers, toilets, services, breakout niches and learning-street widening.
+provenance: explicit
+evidence: Mass A subsection; "Circulation and site logic"; Mass B subsection
+requirement_response
+exactly 3 masses — stated response: A, B, C (three-wing). provenance: explicit. evidence: "Recommended scheme".
+max 3 floors — stated response: A 3, C 3, B 1 occupied floor. provenance: explicit. evidence: table.
+preference for 3 floors — stated response: A 3 occupied floors; C 3-story. provenance: explicit. evidence: table.
+max 60 m length — stated response: all below 60 m; longest 194 ft = 59.1 m. provenance: explicit. evidence: "Dimensional compliance".
+gym and dining together — stated response: both in B. provenance: explicit. evidence: Mass B subsection.
+gym and dining double height — stated response: single occupied floor under a roughly two-story-height volume. provenance: explicit. evidence: same.
+art/music preferred ground — stated response: on A L1. provenance: explicit. evidence: Mass A.
+media preferred top floor above admin — stated response: C L3, upper block directly over the administration portion. provenance: explicit. evidence: Mass C.
+administration required ground — stated response: on C L1. provenance: explicit. evidence: Mass C table.
+core academic width 80 ft — stated response: A is 80 ft exactly. provenance: explicit. evidence: "Dimensional compliance".
+special education width 80 ft — stated response: same (A 80 ft). provenance: explicit. evidence: same.
+mass ratio 2:5–5:8 — stated response: interpreted as short:long (0.40–0.625), an assumption not given in the source. A 0.473, B 0.464, C ground/upper 0.600, all stated within range. provenance: explicit. evidence: same.
+gym minimum 60 × 100 ft — stated response: 60 × 100 clear court inside the 90 ft width. provenance: explicit. evidence: Mass B.
+cafeteria minimum 40 × 60 ft — stated response: ~40 × 70 ft. provenance: explicit. evidence: Mass B.
+daylight preferred max width 90 ft — stated response: B at 90 ft, "exactly at daylight preference"; A 80; C 72/48. provenance: explicit. evidence: table.
+department split rule — stated response: custodial split between C L1 and L2 is contiguous with each portion >~753 SF. No separate statement for core academic or special education spanning L1–L3. provenance: explicit. evidence: Mass C text.
+program-area conservation — stated response: full room program totals 44,270 SF NFA matching the schedule. The zero-quantity Assistant Principal's Office is retained at quantity 0. provenance: explicit. evidence: Mass C table notes.
+gross-area / tolerance — stated response: 44,270 × 1.15 × 1.50 = 76,365.75 target; ±3% ≈ 74,075–78,657; scheme 74,340 (≈2.65% below nominal, within tolerance). The workbook's 66,405 is stated to be 7,935 SF / 11.9% smaller. If 66,405 is a hard cap, the massing "must be materially compressed." provenance: explicit. evidence: "Area check".
+known_risks
+value: 
+76,366 is treated as controlling only as an explicit design assumption. The two gross conventions "cannot both be treated as the same target."
+Mass-ratio definition is an assumption.
+Site-dependent unknowns: solar orientation, fire access, drop-off/bus geometry, structure, egress occupant loads and exterior wall thicknesses.
+C L2 has relatively little scheduled NFA.
+Orientation not fixed.
+provenance: explicit
+evidence: "Area check"; "Architectural merits and trade-offs"; "Circulation and site logic"
+stated_rationale
+value: The 80 ft academic bar becomes a three-story learning wing. The 90 ft commons bar fits the gym/cafeteria within the daylight-width preference. Stepped administration/media gives a front door and the media-over-admin relationship. Kindergarten and arts have ground access; noisy/event functions sit together. Public and after-hours access can stop at the commons/admin zone. C L2 is proposed to hold part of the 15% planning adjustment (shared staff/project space, building support, circulation) rather than added scheduled rooms.
+provenance: explicit
+evidence: "Architectural merits and trade-offs"
+representation_gap
+value: Explicitly described: stepped C (72 × 120 ground, 48 × 80 upper); masses meeting "at circulation nodes rather than … a fourth architectural mass"; a protected courtyard formed on the student side; B as one occupied floor in a ~two-story-height volume; the media center described as a "lantern."
+provenance: explicit
+evidence: "Recommended scheme"; "Circulation and site logic"; Mass C
+contradictions_or_missing_information
+Gross-area basis is explicitly unresolved (66,405 vs 76,365.75).
+Whether A and B are in direct contact is not stated. Art/music "nearest Mass B" is stated, while the entry description is C → A and B on the opposite side of the hinge.
+Courtyard geometry and connection geometry are not specified.
+C L2 unscheduled area is not quantified.
+The split rule is stated for custodial only.
+Nurse/medical position within C L1 is stated only as part of "Admin/Health."
+R03
+strategy_summary
+value: A U-plan of three masses around a ~50 ft courtyard. A is a 3-story classroom wing and C is a 3-story civic/front bar, joined by a shared "knuckle" core. B is a 80 × 190 single-level double-height hall abutting C's east end. Both bars connect at a shared core on every floor.
+provenance: explicit
+evidence: §2 (F2 U, recommended); §3
+program_grouping
+value: 
+A: 3 kindergarten, art & music, custodial workshop/recycling/receiving (L1); all special education and 3 classrooms (L2); 6 classrooms (L3).
+C: administration, medical, custodian's office/storage/storeroom, network/telecom (L1); 3 classrooms (L2); media center (L3).
+B: health & PE, dining & food service.
+provenance: explicit
+evidence: §3 "Program by floor"
+spatial_relationships
+value: 
+A's south end abuts C's north face at C's west end ("knuckle": a shared no-daylight core with the main stair, elevator, student toilets, network/telecom and some custodial rooms).
+B abuts C's east end, offset so the lobby faces the gym, stage band and café together.
+Courtyard is ~50 ft wide, enclosed on three sides by A, C and B, with the café and art room opening onto it.
+B bands S to N: gym (100 × 65 + 15 ft side strip), stage band (20 ft), café (40 × 70), kitchen/staff lunch (30 ft) with loading at the north end.
+The main entry is on C's south face off a forecourt framed by the gym. The lobby is beside the admin general office. Kitchen and custodial loading share a service yard at the north.
+The kindergarten faces its own play yard away from the hall and loading.
+Overall footprint ~210 × 270 ft. Plan north is arbitrary.
+provenance: explicit
+evidence: §3; diagram
+vertical_organization
+value: 
+L1 (24,940 NSF / 36,000 GSF): A — K 3,360, art & music 3,040, custodial 1,110; C — admin 2,510, medical 730, custodial/network 1,090, lobby; B — health & PE 6,950, dining & food service 6,150.
+L2 (11,070 / 20,800): A — all special ed 5,610 + 3 classrooms 2,730; C — 3 classrooms 2,730; B — double-height void.
+L3 (8,260 / 20,800): A — 6 classrooms 5,460; C — media 2,800; B — none.
+Grade grouping: K on L1, grades 1–3 with special ed on L2, grades 4–6 with media on L3.
+Core academic spans L1–L3 (≥3,360 each). Special ed is on L2 only. Custodial is on L1 only.
+provenance: explicit
+evidence: §3 table; "Grade grouping"
+massing_organization
+value: 
+3 masses.
+A: 80 × 130 ft, 3 floors/42 ft, 31,200 GSF, ratio 0.615.
+C: 80 × 130 ft, 3 floors/42 ft, 31,200 GSF, ratio 0.615.
+B: 80 × 190 ft, one double-height level (28 ft), 15,200 GSF, ratio 0.421.
+Total 77,600 GSF.
+Section in A and C: 34 / 12 / 34 ft.
+provenance: explicit
+evidence: §3 "The three masses"; diagram note (scale: A, C 80 × 130, B 80 × 190)
+circulation_logic
+value: 
+Main entry is on C's south face. The lobby is the commons hinge, with the admin general office beside the secure vestibule. Gym, stage passage and café open off the lobby, so the community zone can be gated after hours.
+C's corridor and A's corridor meet at the knuckle on every floor, so classrooms connect horizontally with one elevator. Three stairs: knuckle stair, C's east stair and A's north stair. Runs are under ~130 ft.
+Kitchen/custodial loading share a service yard at the north.
+Single-elevator dependence for special ed on L2 is noted.
+provenance: explicit
+evidence: §3 "Circulation"; §4
+requirement_response
+exactly 3 masses — stated response: 3 masses. provenance: explicit. evidence: §4.
+max 3 floors — stated response: at most 3 floors. provenance: explicit. evidence: §4.
+preference for 3 floors — stated response: 3 floors preferred (A and C three floors; B one level). provenance: explicit. evidence: §4; §3.
+max 60 m length — stated response: every mass ≤196.85 ft, applied per mass. Applied to the whole building, the 60 m limit "cannot be met alongside the other rules." provenance: explicit. evidence: §1; §4.
+gym and dining together — stated response: share one double-height volume. provenance: explicit. evidence: §4.
+gym and dining double height — stated response: 28 ft, one extruded volume including over kitchen and stage. provenance: explicit. evidence: §4.
+art/music preferred ground — stated response: ground floor (A L1). provenance: explicit. evidence: §3 table; §4.
+media preferred top floor above admin — stated response: L3 directly above admin (C). provenance: explicit. evidence: §4.
+administration required ground — stated response: ground floor (C L1). provenance: explicit. evidence: §4.
+core academic width 80 ft — stated response: in 80 ft masses. provenance: explicit. evidence: §4.
+special education width 80 ft — stated response: same (A). provenance: explicit. evidence: §4.
+mass ratio 2:5–5:8 — stated response: per-mass plan proportion, 0.40–0.625 (0.615, 0.615, 0.421). provenance: explicit. evidence: §1; §3.
+gym minimum 60 × 100 ft — stated response: 100 × 65 ft. provenance: explicit. evidence: §3.
+cafeteria minimum 40 × 60 ft — stated response: 40 × 70 ft. provenance: explicit. evidence: §3.
+daylight preferred max width 90 ft — stated response: bars are 80 ft, "within the 90-ft daylight width." B is 80 ft wide. provenance: explicit. evidence: §3; §4.
+department split rule — stated response: contiguity and ≥753 SF per floor met; special ed and custodial each on a single floor. provenance: explicit. evidence: §3; §4.
+program-area conservation — stated response: all 41 room-program lines kept at their quantities and areas, with the Assistant Principal's Office at quantity 0. provenance: explicit. evidence: §3 after the table.
+gross-area / tolerance — stated response: 77,600 GSF, +1.6% vs 76,366 (project target, ±3% 74,075–78,657). It is 16.9% over the 66,405 workbook figure. A fallback single-bar scheme (F1, ~64,800 GSF) is described for the workbook target. provenance: explicit. evidence: §2; §4; §4 "Unresolved."
+known_risks
+value: 
+Which gross target governs is unresolved.
+~9,000–10,000 SF of daylit room zone is without program, mostly on L3, more than the ~6,600 SF of the 1.15 adjustment.
+The hall is ~86% net-to-gross (tight). A mechanical mezzanine (~+2,400 GSF) would exceed the tolerance, so mechanical is assumed on the roof.
+Kindergarten placement and grade-level rules need code checking.
+Special ed on L2 depends on a single elevator.
+Site and orientation unknown; court solar access depends on orientation.
+Margin to the upper tolerance limit is ~1,050 GSF.
+C's north rooms lose daylight where A attaches (used for cores).
+provenance: explicit
+evidence: §4 "Unresolved feasibility questions"; §5
+stated_rationale
+value: The deciding factors were the area target and connectivity. Under the project target, a single academic bar leaves ~10,000 GSF unbuilt. Once two 80 ft bars are needed, only an L/U arrangement lets them join on every floor. Turning the gym's 100 ft along the hall saved 1,000 GSF versus a 100 × 162 hall and widened the tolerance margin from 57 SF to ~1,050 SF. The 34/12/34 section is chosen because the brief's 80 ft overrides the 68 ft default. Stated merits: three legible volumes, one knuckle core connecting the bars on every floor, a lobby serving admin supervision and after-hours use, daylight to the gym on three sides, café opening to the court, kindergarten facing its own yard.
+provenance: explicit
+evidence: §2; §5
+representation_gap
+value: Explicitly described: a shared "knuckle" core at the A/C junction with no daylight; a U around a court with abutments at specified ends (A to C's north face at its west end; B to C's east end, offset); B as a single extruded double-height volume with an "(void)" over L2; departments (custodial) distributed across A and C on L1.
+provenance: explicit
+evidence: §3; diagram
+contradictions_or_missing_information
+Custodial rooms are in A L1 (workshop, recycling, receiving) and C L1 (office, storage, storeroom), while the service yard is described at the north of B. The route/position between the A-located receiving/recycling rooms and B's service yard is not stated.
+Gross basis conflict is acknowledged. The design is 16.9% over 66,405.
+The unassigned L3 band is stated as a range (~9,000–10,000 SF) rather than per floor.
+Diagram stacking shows "none" for B L3 and a void for B L2 (consistent with B's single level).
+A and C are both described as 3 floors, but the elevator count is one.
+R04
+strategy_summary
+value: An L-shaped grouping of three rectangular masses around a small south-facing court. A is a Learning Bar that also holds administration, medical and media. B is a double-height Commons. C is a single-storey Arts Pavilion. Main entry at the A/B junction on the north façade.
+provenance: explicit
+evidence: §1
+program_grouping
+value: 
+A: core academic, all special education, administration/guidance, medical, media center.
+B: health/PE, dining/food service, custodial/maintenance (incl. network/telecom).
+C: art and music.
+provenance: explicit
+evidence: §1; §3–5
+spatial_relationships
+value: 
+B is east of A. C attaches to B's west side and closes the court opposite A. The court is south-facing, and C's room zone faces north onto the court.
+The main entry is at the A/B junction on the north façade. The lobby opens directly into the cafeteria/commons.
+A L1 north side E to W: lobby; elevator/IDF; medical; teachers' work/mail/copy; stair; special-ed room + toilet; stair. South side: admin remainder; toilets; 3 kindergartens.
+Kindergartens open to a fenced yard west of the court. Media (80 × 35 ft) is full-width at A's east end over the lobby/admin.
+B bands N to S: dining, stage, gym, service, with a 12 ft circulation strip along B's west edge connecting the A lobby, gym and C.
+Gym and cafeteria are back to back with the stage between (operable wall to the gym). Kitchen and custodial share a service yard on B's east face, away from the entry.
+Music is at C's west end, art at its east end. The art workroom/kiln is near B's service side.
+Admin shares a wall with B's link lobby and stage storage.
+Assumes north is up. The whole composition can be rotated/mirrored.
+provenance: explicit
+evidence: §1, §3, §4, §5, §8(g)
+vertical_organization
+value: 
+A L1 (7,820 NFA): administration, medical, 3 kindergarten, 1 self-contained special-ed + toilet. A L2 (8,940): 2 self-contained special-ed + toilets, 2 resource, small group, 5 general. A L3 (9,170): media center (2,800), 7 general.
+Core academic is on L1–L3 (3,360 / 4,550 / 6,370). Special education is on L1–L2 (1,220 / 4,390).
+B: one GFA level, double height 28 ft (gym, stage, cafeteria; "extruded").
+C: one storey, 14 ft.
+provenance: explicit
+evidence: §3 table; §4; §5
+massing_organization
+value: 
+3 masses.
+A: 80 × 178 ft, 3 floors/42 ft, GFA 42,720, net 25,930, ratio 0.449, length 54.3 m.
+B: 112 × 180 ft, 1 GFA level double height/28 ft, GFA 20,160, net 15,300, ratio 0.622, length 54.9 m.
+C: 50 × 84 ft, 1 floor/14 ft, GFA 4,200, net 3,040, ratio 0.595, length 25.6 m.
+Total 67,080 GFA (net 44,270).
+The assembled A + B composition is ~88 m east–west.
+provenance: explicit
+evidence: §2 table; §8(a)
+circulation_logic
+value: 
+Single main entry at the A/B junction (office controls arrivals). The academic bar can be locked off for after-hours use of gym/cafeteria. B has an after-hours gym entry.
+A section: 32 + 16 + 32 ft. Two stairs each ~20 ft run, ~20 ft in from each end, an elevator, janitor's closet and IDF stack at the east end beside the lobby, and one student toilet group on the south side on each floor.
+C has an 8 ft corridor with a 10 ft support strip.
+Music is ~60 ft from the stage via the west circulation strip.
+Egress distances and two-stair adequacy of the 178 ft bar are not verified.
+provenance: explicit
+evidence: §1, §3, §4, §5, §7, §8(f)
+requirement_response
+exactly 3 masses — stated response: satisfied; A = 3 floors, B = double height, C = 1 floor. provenance: explicit. evidence: §6.
+max 3 floors — stated response: satisfied. provenance: explicit. evidence: §6.
+preference for 3 floors — stated response: satisfied for the academic mass; B and C are lower "by nature of their uses." provenance: explicit. evidence: §6.
+max 60 m length — stated response: satisfied per mass (max 54.9 m); open question on whole-building application. provenance: explicit. evidence: §6; §8(a).
+gym and dining together — stated response: same mass, linked through the stage. provenance: explicit. evidence: §6.
+gym and dining double height — stated response: gym, stage and cafeteria double height (28 ft). provenance: explicit. evidence: §4.
+art/music preferred ground — stated response: satisfied (C, single storey). provenance: explicit. evidence: §6.
+media preferred top floor above admin — stated response: A floor 3, over the lobby/admin end. provenance: explicit. evidence: §6.
+administration required ground — stated response: satisfied (A ground floor east end). provenance: explicit. evidence: §1; §6.
+core academic width 80 ft — stated response: satisfied (A 80 ft). provenance: explicit. evidence: §6.
+special education width 80 ft — stated response: satisfied. provenance: explicit. evidence: §6.
+mass ratio 2:5–5:8 — stated response: footprint width:length per mass; satisfied, B 0.622 close to the upper limit. provenance: explicit. evidence: §6; §8(b).
+gym minimum 60 × 100 ft — stated response: 65 × 100. provenance: explicit. evidence: §4; §6.
+cafeteria minimum 40 × 60 ft — stated response: 44 × 64 (table shows 64 × 44 = 2,816 SF). provenance: explicit. evidence: §4; §6.
+daylight preferred max width 90 ft — stated response: met by A (80) and C (50); not met by B (112), accepted. provenance: explicit. evidence: §6; §7.
+department split rule — stated response: satisfied; core academic spans L1–L3, special ed L1–L2; smallest portion 1,220 SF. provenance: explicit. evidence: §3; §6.
+program-area conservation — stated response: all 41 program lines carried at given quantities/areas, including the Assistant Principal's Office at quantity 0. provenance: explicit. evidence: §2.
+gross-area / tolerance — stated response: designed to the workbook 66,405 SF (±3%: 64,413–68,397). 67,080 is +1.0%. The 1.15 × 1.50 = 76,366 alternative is addressed in §8(c): A 80 × 196, B 118 × 196, C 60 × 100 give 76,168 GFA (−0.3%) with every mass at ~59.7 m and no growth margin. provenance: explicit. evidence: §2; §8(c).
+other stated item (L-shaped arm ≥ 20 ft) — stated response: not applicable, all footprints rectangular. provenance: explicit. evidence: §6.
+known_risks
+value: 
+60 m limit read per mass. If applied to the whole building, a more compact arrangement would be needed, compromising daylight to A.
+Mass ratio meaning assumed.
+1.15 adjustment alternative shown with no growth margin.
+Daylight in 32 ft deep rooms needs high window heads or light shelves.
+Gym clear height ~22–23 ft to be confirmed.
+Egress, two-stair adequacy, fire separation and fixture counts not verified.
+Site, orientation and access are assumed.
+M&E space is assumed within gross area (rooftop units on A, mezzanine in B), not separately programmed.
+B exceeds the 90 ft daylight preference.
+Admin shares a wall with the B link lobby/stage storage and needs acoustic separation.
+provenance: explicit
+evidence: §7; §8
+stated_rationale
+value: 
+Admin and media in the bar is stated as the only arrangement found that lets media sit on the top floor above admin while keeping every mass within the ratio and length limits. Large-span rooms are isolated in their own mass.
+The 80 ft width is split 32 + 16 + 32 because the brief's 80 ft takes precedence over 68 ft. 36 + 8 + 36 would give narrow 25 ft classrooms.
+Stated merits: clear zoning, a single controlled entry, a civic heart of lobby/cafeteria/stage, simple structure.
+B's width is accepted because only the gym and cafeteria occupy its deep zone. The 90 × 196 alternative fits only if part of custodial moves to a mezzanine or C, pushes B to 59.7 m and splits service functions.
+provenance: explicit
+evidence: §1; §3; §7
+representation_gap
+value: Explicitly described: an "L-shaped grouping" of three masses around a court; media center and administration inside the academic bar; B as one GFA level with a 28 ft extruded double-height volume organized in four bands; C's north-facing room zone closing the court; the A/B junction as the entry location; a corridor strip along B's west edge.
+provenance: explicit
+evidence: §1; §4; §5
+contradictions_or_missing_information
+Gross basis: the design uses 66,405; the 76,366 alternative is reported (acknowledged).
+Positions of the A/B junction and C's attachment, both on B's west side, are not dimensioned relative to each other.
+The court is called "south-facing," and its relation to the north-facing entry is by assumption (north up).
+B's custodial/network rooms are in the stage band and service band; the custodial department is distributed across two bands (not a contradiction, but specific positions are listed in §4).
+B is called "1 GFA level" while §8(h) mentions a possible mezzanine in B (not counted).
+60 m limit is per mass; the whole composition is ~88 m.
+R05
+strategy_summary
+value: Three connected masses organized around a protected outdoor court and a compact circulation junction. Mass A is an academic bar. Mass B is a gym/dining commons. Mass C is a stepped entry/arts/administration/media mass with a ground-floor plinth and a smaller upper bar. Separation of public, secure-student and after-hours/service zones is stated.
+provenance: explicit
+evidence: "Recommended concept"; "Circulation and operational zoning"
+program_grouping
+value: A holds core academic (3 kindergarten, 12 general classrooms) and all special education. B holds all health/PE and all dining/food service. C holds art/music, medical, administration/guidance and the Media Center. C also holds custodial/maintenance: custodian's office, workshop, recycling/trash and receiving on L1; custodial storage, storeroom and network/telecom on L2.
+provenance: explicit
+evidence: "Floor-by-floor program" table; Mass A/B/C subsections
+spatial_relationships
+value: Three masses meet at one controlled circulation junction. The public entrance is through C. A extends into the secure student zone. B branches from the same junction. C's service edge adjoins B, sharing a service court (receiving, trash, kitchen service, custodial). Within C, administration is at the entrance end with medical immediately adjacent. Art has an exterior/service edge for kiln and workroom. Music is acoustically separated from administration and can face the internal court. The C upper bar is positioned vertically above the L1 administrative zone. Relationships are relative, not compass-based.
+provenance: explicit
+evidence: "Recommended concept"; Mass C subsection; "Circulation and operational zoning"
+vertical_organization
+value: 
+A L1: 3 kindergarten, 1 self-contained special-ed classroom, 1 special-ed toilet, 1 resource room, 1 small-group room (5,880 NFA).
+A L2: 4 general classrooms, 2 self-contained special-ed classrooms, 2 special-ed toilets, 1 resource room (6,730).
+A L3: 8 general classrooms (7,280).
+B: one occupied floor, with gym and principal dining/assembly in a ~28 ft double-height volume (13,100). Kitchen/service rooms may have lower ceilings.
+C L1: art/music, medical, administration/guidance, active custodial/service rooms (7,570).
+C L2: custodial storage, storeroom, network/telecom (910), with remaining area held as an unscheduled planning/building-support reserve.
+C L3: Media Center (2,800).
+Special education spans A L1–L2.
+provenance: explicit
+evidence: "Floor-by-floor program" table; Mass A/B/C subsections
+massing_organization
+value: 
+3 masses.
+A: 80 × 156 ft, 3 floors, ratio 0.513, 37,440 GSF.
+B: 90 × 190 ft, one occupied floor with double-height volumes, ratio 0.474, 17,100 GSF.
+C ground: 80 × 128 ft, ratio 0.625, 10,240 GSF.
+C upper bar (L2–3): 60 × 96 ft, ratio 0.625, 11,520 GSF.
+Total 76,300 GSF.
+Longest dimension 190 ft ≈ 57.9 m.
+Connected masses (physical connection type not specified).
+provenance: explicit
+evidence: "Massing and gross area" table
+circulation_logic
+value: 
+Visitors enter C into an administration-controlled lobby, from which access is released separately to the academic bar, the commons or the upper media center.
+A has an 8 ft double-loaded corridor, two remote enclosed stairs and an elevator at the A/C junction.
+C's stair/elevator core aligns with A at upper levels for movement to the L3 media center without returning to ground.
+B has two circulation systems: a student/public edge connecting gym, cafeteria and stage, and a back-of-house link to kitchen, receiving, custodial workshop, trash and service yard.
+Gym, cafeteria and stage can operate after hours while A and most of C stay secured.
+Stair widths, travel distances, toilets and fire separations are stated to need code confirmation.
+provenance: explicit
+evidence: "Mass A — academic organization"; "Circulation and operational zoning"
+requirement_response
+exactly 3 masses — stated response: satisfied; A, B, C. provenance: explicit. evidence: "Requirements satisfied and remaining questions".
+max 3 floors — stated response: satisfied (A 3 floors, C 3 levels, B 1 occupied floor). provenance: explicit. evidence: same; massing table.
+preference for 3 floors — stated response: listed as satisfied. provenance: explicit. evidence: same.
+max 60 m length — stated response: longest dimension 190 ft ≈ 57.9 m, below 60 m. provenance: explicit. evidence: "Massing and gross area".
+gym and dining together — stated response: all health/PE and dining/food service in B in one connected volume. provenance: explicit. evidence: Mass B subsection.
+gym and dining double height — stated response: ~28 ft double-height volume (2 × 14 ft). provenance: explicit. evidence: Mass B subsection.
+art and music preferred on ground floor — stated response: complete art/music program on C L1. provenance: explicit. evidence: Mass C subsection.
+media preferred on top floor above administration — stated response: media on C L3, with the upper bar positioned vertically above the L1 administrative zone. provenance: explicit. evidence: Mass C subsection.
+administration required on ground floor — stated response: all 2,510 SF of administration/guidance on C L1. provenance: explicit. evidence: Mass C subsection.
+core academic width 80 ft — stated response: A is exactly 80 ft wide. provenance: explicit. evidence: massing text.
+special education width 80 ft — stated response: special education is in the 80 ft A. provenance: explicit. evidence: Mass A subsection.
+mass ratio 2:5 to 5:8 — stated response: interpreted as shorter ÷ longer plan dimension. Every primary rectangle is stated to be between 0.400 and 0.625. provenance: explicit (interpretation also stated as an assumption). evidence: "Massing and gross area"; final section.
+gym minimum 60 × 100 ft — stated response: gym provided at not less than 60 × 100 ft clear; scheduled 6,500 SF. provenance: explicit. evidence: Mass B subsection.
+cafeteria minimum 40 × 60 ft — stated response: ~40 × 70 ft clear. provenance: explicit. evidence: Mass B subsection.
+daylight preferred maximum width 90 ft — stated response: B held to 90 ft; preference stated as maintained for academic and commons masses. provenance: explicit. evidence: Mass B subsection; final section.
+department split rule — stated response: special education occupies contiguous L1–L2, each portion substantially above 753 SF. The general statement says the floor-contiguity/minimum-area rule is satisfied. provenance: explicit. evidence: Mass A subsection; final section.
+program-area conservation — stated response: the 44,270 SF net program is preserved. The Assistant Principal's Office is kept at quantity zero with no physical room added. All 41 supplied program lines are stated as unchanged. provenance: explicit. evidence: opening paragraph; Mass C subsection; closing paragraph.
+gross-area / tolerance — stated response: 44,270 × 1.15 × 1.50 = 76,365.75 GSF is treated as the controlling massing calculation. Proposed 76,300 GSF is ~66 SF (0.09%) below, within ±3%. The workbook's 66,405 GSF is noted as a separate value to be confirmed, not reconciled. provenance: explicit. evidence: "Massing and gross area".
+known_risks
+value: Mass-ratio metric is not defined in the source, so the plan short/long ratio is assumed. Two gross-area bases (66,405 vs 1.15 × 1.50) are unreconciled. No site geometry, orientation, access, structural criteria or building-code information is supplied. Solar orientation, final entry/service placement, egress, fire separation, plumbing counts, accessibility, kitchen exhaust, acoustics and structural bay sizing remain feasibility checks. Stair widths, travel distances and toilets need code confirmation.
+provenance: explicit
+evidence: "Requirements satisfied and remaining questions"; Mass A subsection
+stated_rationale
+value: 
+The academic/special-ed wing is organized as a 3-story 80 ft bar.
+Large-span gym/dining functions are removed from that grid into their own double-height mass.
+Public entry, administration, nurse, arts and media form a third mass.
+Stated separations: classrooms from the gym/kitchen loading zone; art kiln and custodial on a shared service edge; music from administration; gym/dining mass independently securable.
+The stepped C avoids deep upper floors and creates potential roof terraces over portions of the L1 plinth.
+The 80 ft width is described as using the supplied 30 + 8 + 30 = 68 ft section, with ~12 ft remaining for walls, lockers, niches and shafts.
+provenance: explicit
+evidence: "Architectural merits"; Mass A subsection
+representation_gap
+value: Explicitly described: C as a single mass with a larger ground plinth and a smaller offset upper bar on L2–3 (60 × 96 over 80 × 128); B as one occupied floor with double-height assembly volumes plus lower-ceiling service areas; a "protected outdoor court" and a circulation junction where the three masses meet; relative (non-compass) placement.
+provenance: explicit
+evidence: "Recommended concept"; "Massing and gross area"; Mass B subsection
+contradictions_or_missing_information
+Gross-area basis: the response retains 66,405 and 76,365.75 as unreconciled (acknowledged).
+Physical connection type among A, B and C (abutting vs link) is not specified. Placement of the court relative to the masses is not specified.
+Offset position of the C upper bar over the ground plinth is not dimensioned beyond "above administration."
+Unscheduled reserve area on C L2 is not quantified.
+The department split statement refers to special education. Per-floor rule statements for custodial (C L1/L2) and core academic (A L1–L3) are not given separately.
+Door/entry location of A and B relative to the junction is not dimensioned.
+R06
+strategy_summary
+value: A U-plan of three abutting masses: C "Front House," a 3-story 80 ft bar along the arrival edge; A "Early Learning wing," a 2-story 80 ft bar running back from C's west end; B "Commons Hall," a double-height mass on C's east end. A courtyard sits between A and B, closed on the south by C.
+provenance: explicit
+evidence: "Recommendation in brief"
+program_grouping
+value: 
+A: kindergarten, special education (3 self-contained + toilets on L1; 2 resource + small group on L2), 4 general classrooms (grades 1–2).
+C: entry lobby, administration, medical, art & music, network/telecom, 8 general classrooms (grades 3–4 on L2 and 5–6 on L3), media center.
+B: cafeteria, stage, gym and storage/office, kitchen, staff lunch, custodial.
+provenance: explicit
+evidence: "Floor-by-floor organization"
+spatial_relationships
+value: 
+C is along the front. A attaches to C's north face at its west end. B attaches to C's east end and extends back to the north. A ~56 ft wide courtyard lies between A and B.
+C L1: south (front) side holds entry lobby, administration and medical; north (courtyard) side holds art, music and network/telecom.
+A L1: kindergarten on the courtyard side, special ed on the outer side.
+Media is on the south side of C L3, directly over administration and medical.
+The main entrance is in C's east bay, at the joint with B. The same lobby is the after-hours entrance to the hall, music and art.
+B: a 70 ft hall band on the courtyard side (cafeteria, stage, gym front to back) and a 46 ft support band on the outer side (kitchen next to the cafeteria, staff lunch, receiving/dock, recycling, custodial, gym storeroom, health office). Service access stays out of the courtyard.
+Overall plan ~252 × 212 ft.
+provenance: explicit
+evidence: "Recommendation in brief"; "Circulation and key dimensions"
+vertical_organization
+value: 
+L1 (28,600 NSF / 43,944 GSF): A — 3 kindergarten (3,360) + 3 self-contained special ed (3,660); C — admin 2,510, medical 730, art & music 3,040, network 250; B — cafeteria, stage, storage, gym, storeroom/health office, kitchen, staff lunch, custodial.
+L2 (9,230 / 21,440): A — 4 general + 2 resource + small group; C — 4 general (north), learning commons/toilets/planning (south); B — upper half of the double-height volume.
+L3 (6,440 / 10,880): C — media (2,800) and 4 general; A — none; B — none.
+Core academic spans L1–L3 (3,360 / 7,280 / 3,640). Special ed spans L1–L2 (3,660 / 1,950).
+provenance: explicit
+evidence: "Floor-by-floor organization" table; text
+massing_organization
+value: 
+3 masses.
+A: 80 × 132 ft, ratio 0.61, 40.2 m, 2 floors/28 ft, 21,120 GFA.
+B: 116 × 194 ft, ratio 0.60, 59.1 m, 1 double-height/28 ft, 22,504 GFA.
+C: 80 × 136 ft, ratio 0.59, 41.5 m, 3 floors/42 ft, 32,640 GFA.
+Total 76,264 GFA. Overall plan ~252 × 212 ft.
+Section A and C: 34 / 12 / 34 ft.
+provenance: explicit
+evidence: "The three masses" table; "Circulation and key dimensions"
+circulation_logic
+value: 
+A and C corridors meet at C's west bay, which holds the main stair, elevator and toilets. The elevator is stated to serve A2, C2 and C3. Additional stairs are at A's north end and C's east end. B exits directly to grade.
+The main entrance in C's east bay is supervised by the general office. The same lobby is the after-hours entrance to the hall, music and art. The rest of the school can be closed off at the C1 corridor.
+B has a 70 ft hall band and a 46 ft support band. The stage opens to the cafeteria, and an operable partition joins the gym to form one assembly volume ~185 ft long.
+Toilet counts, egress travel distances and mechanical room location are not verified.
+provenance: explicit
+evidence: "Circulation and key dimensions"; "Unresolved feasibility questions"
+requirement_response
+exactly 3 masses — stated response: met. provenance: explicit. evidence: "Requirements status".
+max 3 floors — stated response: met. provenance: explicit. evidence: same.
+preference for 3 floors — stated response: "partly met": C has 3, A has 2. Making both bars 3 storeys is stated to exceed the area band. provenance: explicit. evidence: same; "Trade-offs".
+max 60 m length — stated response: met per mass. The overall plan is ~77 m (see interpretations). provenance: explicit. evidence: same.
+gym and dining together — stated response: met, one continuous 28 ft volume joined by the stage and an operable wall. provenance: explicit. evidence: same.
+gym and dining double height — stated response: same statement (28 ft). provenance: explicit. evidence: same.
+art/music preferred ground — stated response: met (C L1). provenance: explicit. evidence: same.
+media preferred top floor above admin — stated response: met (C L3 directly over administration). provenance: explicit. evidence: same.
+administration required ground — stated response: met. provenance: explicit. evidence: same.
+core academic width 80 ft — stated response: met in both A and C. provenance: explicit. evidence: same.
+special education width 80 ft — stated response: met (A). provenance: explicit. evidence: same.
+mass ratio 2:5–5:8 — stated response: read as per-mass plan aspect ratio, with ratios 0.59–0.61. The 0.625 boundary is avoided in case bounds are exclusive. provenance: explicit. evidence: same; "Interpretations."
+gym minimum 60 × 100 ft — stated response: 100 × 65 clear. provenance: explicit. evidence: "Mass B layout."
+cafeteria minimum 40 × 60 ft — stated response: ~43 × 65 clear. provenance: explicit. evidence: same.
+daylight preferred max width 90 ft — stated response: met for A and C (80 ft). B is 116 ft wide, with the gym and cafeteria on the courtyard face with clerestories and non-daylit support in the back band. provenance: explicit. evidence: "Requirements status"; "Trade-offs".
+department split rule — stated response: met. Core academic is on L1, L2, L3 (3,360 / 7,280 / 3,640) and special ed on L1, L2 (3,660 / 1,950), contiguous and above 753 SF. provenance: explicit. evidence: "Floor-by-floor organization".
+program-area conservation — stated response: the full 41-line program is preserved, with the Assistant Principal's Office at quantity 0 and not built. provenance: explicit. evidence: same.
+gross-area / tolerance — stated response: designed to 44,270 × 1.15 × 1.50 = 76,366 GSF. 76,264 is −0.1%. It is ~15% over the 66,405 workbook figure. A fallback "E2" at ~66,900 GFA is described for the case where 66,405 governs. provenance: explicit. evidence: "Interpretations I made"; "Requirements status"; "Exploration account".
+known_risks
+value: 
+Gym clear height ~22–24 ft depends on the 65 ft roof span and needs structural confirmation.
+Toilet fixture counts, egress travel distances and mechanical room location are within the gross area but not verified.
+Orientation is unresolved, so the courtyard's south-facing quality depends on site.
+The courtyard is narrow (56 ft facing B's 28 ft wall, obstruction angle ~27°).
+C L2 carries about 34% scheduled rooms. The remainder is learning commons, toilets and planning space. It is the obvious place for growth or program revision.
+Which gross target governs is the "single most important decision" for the client.
+A is only 2 storeys.
+B exceeds the 90 ft preference.
+provenance: explicit
+evidence: "Unresolved feasibility questions"; "Merits and trade-offs"
+stated_rationale
+value: E3 is stated to be the only allocation family found that hits the ±3% band while meeting every hard requirement and the art/music and media preferences together. Its costs (2-storey A and slack area on C L2) are attributed to the area target. The 34/12/34 section is chosen over 30/8/30 with a dead 12 ft zone. Stated merits: ground-floor placement of kindergarten (secure courtyard), self-contained special ed (evacuation, with resource suite above), administration controlling the single entrance, art facing the courtyard, music beside the community lobby and near the stage; media "crowns" the front house; after-hours separation; compact U; service traffic outside the courtyard.
+provenance: explicit
+evidence: "Merits and trade-offs"; "Exploration account"
+representation_gap
+value: Explicitly described: a U-plan of abutting masses with specified attachment locations (A to C's north face at its west end; B to C's east end, extending north); B as a continuous double-height volume with an operable partition between cafeteria and gym; a lightly programmed C L2 holding learning commons and planning space.
+provenance: explicit
+evidence: "Recommendation in brief"; "Mass B layout"; "Trade-offs"
+contradictions_or_missing_information
+Gross-area basis: acknowledged conflict (fallback E2 described separately).
+The elevator is stated to serve A2, C2 and C3. Service at L1 is not stated.
+The 60 m limit is applied per mass; the overall plan (~77 m) is acknowledged.
+"Mass B is on the east end of C" and "main entrance is in C's east bay at the joint with B" are both stated. Their relative positions are not dimensioned.
+Custodial (1,950 in B) and network/telecom (250 in C) are in different masses.
+Unscheduled area on C L2 (≈66% of plate) is acknowledged but not itemized.
+R07
+strategy_summary
+value: A three-mass U-shaped scheme of two 3-story 80 ft learning bars (A and B), both projecting from the long side of a ground-floor double-height commons/assembly bar (C), leaving a 30 ft court/light slot between the bars. C closes the south side of the U as the shared public/after-hours zone.
+provenance: explicit
+evidence: §1; §5
+program_grouping
+value: 
+A: administration/guidance, medical, 3 kindergarten, general classrooms (5 on L2, 4 on L3), media center.
+B: art/music, custodial/maintenance, special education (3 self-contained + toilets, 2 resource, small group), general classrooms (1 on L2, 2 on L3).
+C: health/PE, dining/food service.
+provenance: explicit
+evidence: §1; §3; §4
+spatial_relationships
+value: 
+A and B are parallel 80 × 128 ft bars. Their south ends open directly into C, with the bars projecting from C's 190 ft side.
+The two bars are separated by a 30 ft open court (south end defined by C, north end open).
+The primary public entry is where A meets C. Visitors enter into administration before the academic bars. Circulation branches north into A, across the commons edge to B, and into the cafeteria/gym lobby.
+Administration is entirely on A L1. The media center is on A L3, over the administration zone in plan, with L2 classrooms between.
+Art/music are on B L1.
+Within C, the gym is along one end with a ~30 ft strip beside it, and the cafeteria/stage/kitchen/storage/staff lunch occupy the remaining ~82 ft.
+Orientation is not fixed.
+provenance: explicit
+evidence: §1; §3; §5; §6
+vertical_organization
+value: 
+A L1 (6,600): administration, medical, 3 kindergarten. A L2 (4,550): 5 general. A L3 (6,440): media, 4 general.
+B L1 (5,240): art/music, custodial. B L2 (4,570): 3 self-contained special-ed + toilets, 1 general. B L3 (3,770): 2 resource, small group, 2 general.
+C L1 (13,100): gym/PE and dining/food service, double height (~28 ft gym and main cafeteria; kitchen/support need not consume the entire volume).
+Core academic spans L1–L3 (3,360 / 5,460 / 5,460). Special education spans B L2–L3 (3,660 / 1,950).
+provenance: explicit
+evidence: §3 table; §4
+massing_organization
+value: 
+3 masses.
+A: 80 × 128 ft, 3 floors, 30,720 GSF, ratio 0.625.
+B: 80 × 128 ft, 3 floors, 30,720 GSF, ratio 0.625.
+C: 90 × 190 ft, ground floor with double-height major rooms, 17,100 GSF, ratio 0.474.
+Total 78,540 GSF. Longest 190 ft ≈ 57.9 m.
+provenance: explicit
+evidence: §1; §2
+circulation_logic
+value: 
+Each academic bar uses the supplied section: 30 + 8 + 30 = 68 ft inside the 80 ft width, with ~12 ft total for walls, structure, lockers, corridor widening, alcoves and façade.
+Stairs at both ends of each bar. Accessible vertical circulation concentrated near the junction with C.
+Primary entry at the A/C junction into administration. Cafeteria/gym lobby reached directly. The gym/dining zone can operate after hours without opening the academic bars.
+Egress, elevator configuration, fire separation and travel distance are not verified (no code supplied).
+provenance: explicit
+evidence: §5
+requirement_response
+exactly 3 masses — stated response: satisfied. provenance: explicit. evidence: §8.
+max 3 floors — stated response: satisfied. provenance: explicit. evidence: §8.
+preference for 3 floors — stated response: satisfied strongly for both learning masses; the commons is a double-height one-level mass. provenance: explicit. evidence: §8.
+max 60 m length — stated response: max 190 ft / 57.9 m. provenance: explicit. evidence: §8.
+gym and dining together — stated response: satisfied (C). provenance: explicit. evidence: §8.
+gym and dining double height — stated response: satisfied for the gym and main dining room (~28 ft). The scope of "dining" support rooms is stated to require interpretation. provenance: explicit. evidence: §3; §8.
+art/music preferred ground — stated response: B L1. provenance: explicit. evidence: §3; §8.
+media preferred top floor above admin — stated response: A L3 over administration in plan. provenance: explicit. evidence: §3; §8.
+administration required ground — stated response: A L1. provenance: explicit. evidence: §3.
+core academic width 80 ft — stated response: satisfied (A and B are 80 ft). provenance: explicit. evidence: §5; §8.
+special education width 80 ft — stated response: satisfied (B, 80 ft). provenance: explicit. evidence: §8.
+mass ratio 2:5–5:8 — stated response: 0.625 (A, B) and 0.474 (C), satisfied under the short/long interpretation. The "relative area or volume between masses" reading is stated to be unresolved. provenance: explicit. evidence: §1.
+gym minimum 60 × 100 ft — stated response: ~60 × 108.3 ft clear (6,500 SF). provenance: explicit. evidence: §6.
+cafeteria minimum 40 × 60 ft — stated response: e.g. 70 × 40 ft (2,800 SF). provenance: explicit. evidence: §6.
+daylight preferred max width 90 ft — stated response: satisfied for the instructional masses (80 ft). provenance: explicit. evidence: §5; §8.
+department split rule — stated response: core academic (3 levels) and special ed (L2–L3) are contiguous, with all portions above 753 SF. provenance: explicit. evidence: §3.
+program-area conservation — stated response: department totals preserved. All 41 lines kept, with the Assistant Principal's Office retained at quantity zero. provenance: explicit. evidence: §3; §4.
+gross-area / tolerance — stated response: 78,540 vs project range 74,075–78,657 (+2.85%, ~117 SF below the upper limit). It is stated to be ~18.3% larger than the 66,405 workbook figure and does not match it. provenance: explicit. evidence: §2; §8.
+known_risks
+value: 
+Gross-area convention (66,405 vs 76,366) must be confirmed. The scheme is near the upper tolerance limit.
+Mass-ratio meaning needs confirmation.
+The commons test-fit is a dimensional test, not a layout.
+No site, orientation, terrain or access, so the U cannot yet be oriented.
+Structural bays, assembly egress, plumbing, mechanical, accessibility, fire separation, kitchen logistics and wall thicknesses need test fits.
+Scope of "double height" for dining support rooms needs interpretation.
+provenance: explicit
+evidence: §2; §6; §8; §9; Conclusion
+stated_rationale
+value: 128 ft is stated to be the shortest rectangular bar length compatible with an 80 ft width and a 5:8 ratio. This minimizes the two three-story masses. The 90 × 190 commons supplies dimensional relief and the 30 ft court. The design is stated to favor the adjusted gross target and the three-floor preference over the smaller workbook figure. Stated outcomes: daylit learning bars, a 30 ft exterior court, a commons as the shared civic/after-hours face, administration controlling entry, media as a top-floor destination.
+provenance: explicit
+evidence: §7; Conclusion
+representation_gap
+value: Explicitly described: a U-shaped composition with a 30 ft open court between bars; core academic and special education spread across two bars; a commons where only some rooms (gym, main dining) are double height; the media over administration with intervening classroom floors.
+provenance: explicit
+evidence: §1; §3; §5; §8
+contradictions_or_missing_information
+Gross-area basis: acknowledged conflict. The scheme does not match 66,405.
+Whether B (without an administration/entry function) connects to A on upper floors is not stated; the stated connections are via C.
+The "commons edge" crossing from the entry to B is not dimensioned.
+Custodial is on B L1 while the kitchen service is in C. The shared-service relationship is not stated here.
+The "double height" scope for dining support rooms is flagged by the response as needing interpretation.
+Position of the stage and kitchen along C's remaining ~82 ft is not dimensioned beyond the example.
+R08
+strategy_summary
+value: School split into an academic side (A, 3-story 80 ft bar incl. administration and media) and a community side (B, double-height hall), with the front door in between. C is a low one-floor link holding the main lobby, nurse's suite, art and music.
+provenance: explicit
+evidence: "The recommendation in one paragraph"; diagram
+program_grouping
+value: 
+A: core academic, special education, administration/guidance, media center.
+B: health & PE, dining & food service, custodial (1,950 SF, service end).
+C: art & music, medical, network/telecom (250 SF, a custodial-department room).
+provenance: explicit
+evidence: "Department distribution" table
+spatial_relationships
+value: 
+Linear west-to-east arrangement (diagram): A, C, B. Overall extent ≈ 394 ft west end of A to far side of B.
+Administration is at A's east end on L1 and the media center is above it on L3.
+C is between A and B. A's corridor axis runs straight into C's lobby.
+Within C, west to east: lobby with vestibule, medical suite and telecom room, art with kiln workroom, music with two practice rooms. Music is at the east end next to the stage.
+Within B, north to south: gym, stage, dining/kitchen, service; receiving/recycling at a loading dock on the far side from the courts.
+Entry court and play court are on either side of C. Kindergarten faces the south play court.
+Special-ed rooms form a cluster at A's quiet west end, with L2 special-ed support stacked above.
+Orientation is assumed with A running east–west.
+provenance: explicit (diagram, text)
+evidence: Diagram; "Mass A floor-by-floor"; "Mass B"; "Mass C"; "Assumptions"
+vertical_organization
+value: 
+A: L1 core 3,360 + special ed 3,660 + administration 2,510. L2 core 5,460 + special ed 1,950. L3 core 5,460 + media 2,800. L2/L3 each have ~1,500–2,400 SF unassigned band counted as gross.
+B: one double-height level (~28 ft).
+C: one floor (14 ft stated; 18–20 ft noted as preferable for art/music).
+Ground-floor footprint 40,184 SF. L2 and L3 are 13,600 SF each, all in A.
+A L1 north band, E to W: stair, admin suite (74 ft), two self-contained special-ed rooms, stair. South band: core/link (28 ft), three kindergartens, third self-contained special-ed room.
+provenance: explicit
+evidence: "The three masses"; "Department distribution"; "Mass A floor-by-floor"
+massing_organization
+value: 
+3 masses.
+A: 80 × 170 ft, ratio 0.47, 51.8 m, 3 × 14 = 42 ft, GFA 40,800, NFA 25,200.
+B: 108 × 186 ft, ratio 0.58, 56.7 m, 1 double-height ~28 ft, GFA 20,088, NFA 15,050.
+C: 56 × 116 ft, ratio 0.48, 35.4 m, 1 floor, GFA 6,496, NFA 4,020.
+Total 67,384 GFA.
+Ratio is labeled W:L.
+provenance: explicit
+evidence: "The three masses" table
+circulation_logic
+value: 
+One supervised front door at C's lobby, next to administration and the nurse. After hours, A is locked off at the lobby while gym, stage, dining, art and music stay open.
+A section: 34 ft rooms + 12 ft corridor + 34 ft rooms = 80 ft. Two enclosed stairs at the bar ends. A central core holds toilets, elevator, shafts and IDF closet and forms the connection to C.
+C has a 10 ft glazed gallery along the play court.
+All single-storey parts connect at one level.
+Egress: ~85 ft maximum to a stair along the corridor (stated as needing code check).
+B has a community entry and a loading dock at the service end.
+provenance: explicit
+evidence: "The recommendation in one paragraph"; "Mass A"; "Mass B"; "Mass C"; "Assumptions and open questions"
+requirement_response
+exactly 3 masses — stated response: three masses. provenance: explicit. evidence: "Requirements check".
+max 3 floors — stated response: max three floors; A reaches three. provenance: explicit. evidence: same.
+preference for 3 floors — stated response: applied to the building (reached in A); B and C deliberately low. provenance: explicit. evidence: "Assumptions and open questions".
+max 60 m length — stated response: every mass shorter than 60 m (applied per mass). provenance: explicit. evidence: table; assumptions.
+gym and dining together — stated response: together in one double-height volume. provenance: explicit. evidence: "Requirements check"; "Mass B".
+gym and dining double height — stated response: ~28 ft. provenance: explicit. evidence: table.
+art/music preferred ground — stated response: C, ground. provenance: explicit. evidence: "Department distribution".
+media preferred top floor above admin — stated response: A L3 directly above administration. provenance: explicit. evidence: same.
+administration required ground — stated response: A L1 east end. provenance: explicit. evidence: same.
+core academic width 80 ft — stated response: in an 80 ft wide mass. provenance: explicit. evidence: "Requirements check".
+special education width 80 ft — stated response: same. provenance: explicit. evidence: same.
+mass ratio 2:5–5:8 — stated response: read as plan width-to-length; ratios 0.47, 0.58, 0.48, all stated between 0.40 and 0.625. provenance: explicit. evidence: table; assumptions.
+gym minimum 60 × 100 ft — stated response: clear court 65 × 100 ft. provenance: explicit. evidence: "Mass B".
+cafeteria minimum 40 × 60 ft — stated response: 48 × 62 dining room. provenance: explicit. evidence: "Mass B".
+daylight preferred max width 90 ft — stated response: A (80 ft) is "within the 90-ft daylight limit." B is 108 ft wide per table; no explicit statement addresses B against 90 ft. provenance: explicit. evidence: "Requirements check"; table.
+department split rule — stated response: departments spanning floors use contiguous floors with portions well above 753 SF (core 3,360/5,460/5,460; special ed 3,660/1,950). provenance: explicit. evidence: "Department distribution"; text.
+program-area conservation — stated response: all 41 program lines kept at given quantities and areas, including the Assistant Principal's Office at quantity zero. provenance: explicit. evidence: after "Department distribution".
+gross-area / tolerance — stated response: designed to the workbook's 66,405 SF. 67,384 SF is 1.5% above it and within ±3%. If the 1.15 adjustment also applies (target 76,366), the scheme "would be 12% short." A scale-up (A to 196 ft, C two storeys 56 × 96) is stated to give ~77,900 (+2%), but the extra C floor "would need a program." provenance: explicit. evidence: paragraph; "Assumptions and open questions".
+known_risks
+value: 
+Gross-area basis is the largest uncertainty.
+Mass-ratio, 60 m (per mass) and "prefer 3 floors" readings are interpretations.
+A L1 has essentially no spare length.
+34 ft deep rooms need tall window heads or light shelves.
+Extruding B at double height over kitchen/custodial is a volume inefficiency. A mechanical mezzanine would add GFA.
+C is shown at 14 ft but art/music would benefit from ~18–20 ft.
+Telecom was moved to C for the 90 m cable limit.
+Upper-floor teachers are one or two floors from the teachers' work room.
+Code review is needed.
+Orientation assumed.
+provenance: explicit
+evidence: "Assumptions and open questions"; "Merits and trade-offs"
+stated_rationale
+value: Quiet teaching is concentrated in one compact bar and noisy/public spaces in another mass, with a single supervised front door between them next to administration and the nurse. Media stacked over administration forms a vertical "heart" at the entry. Kindergarten, special ed and arts are on grade. The stage supports assemblies at either side. The 34/12/34 section is chosen over 30/8/30 because the brief's 80 ft width takes priority and the extra width supports deeper rooms and a 12 ft corridor with cubbies. The 30/20/30 alternative is stated to need ~187 ft of L1 length and exceed the area tolerance.
+provenance: explicit
+evidence: "Mass A floor-by-floor"; "Merits and trade-offs"
+representation_gap
+value: Explicitly described: C as a low single-floor link between A and B; named exterior court spaces (entry court, play court); B extruded double height over mixed program, with a possible mechanical mezzanine; custodial department split across B and C; department rooms placed in A (admin, media) within the academic bar.
+provenance: explicit
+evidence: Diagram; "Mass B"; "Department distribution"
+contradictions_or_missing_information
+Gross-area basis: designed to 66,405; the 76,366 alternative is reported separately (acknowledged).
+The stated interpretation of the 60 m limit is per mass. The overall linear extent (~394 ft) is acknowledged.
+Diagram labels A's east block "Admin/media"; the text states admin L1 east end and media L3 above it, consistent in intent but the dimensions differ in granularity.
+Number/location of vertical cores beyond "two stairs at the ends, central core" is not specified.
+The medical suite is placed in C, beside the lobby; its position relative to special-ed cluster (A's west end) is not stated.
+C's height is stated as 14 ft while noting 18–20 ft would be better (unresolved).
+R09
+strategy_summary
+value: A U-arrangement around a courtyard of three abutting masses: A is a 3-story 80 ft learning bar that also holds administration, medical and media; B is a double-height commons hall; C is a one-floor arts wing (with an unprogrammed central MEP plant). A single controlled entry joins A and B.
+provenance: explicit
+evidence: §2 (Stage D, "P4"); §3
+program_grouping
+value: 
+A: core academic, all special education, administration/guidance, medical, media.
+B: health/PE, dining/food service, custodial (entire suite), telecom room.
+C: art & music; an unprogrammed MEP plant.
+provenance: explicit
+evidence: §2 (P4); §3
+spatial_relationships
+value: 
+A runs east–west (assumed), with the admin/media zone at A's east end (38 ft). A's corridor connects at the east gable straight into B's lobby (the single controlled entry), supervised from admin reception.
+The courtyard (diagram: 110 × 50 ft) is enclosed by A, B and C. Kindergarten (A's west end) opens to the courtyard.
+B: north band holds the lobby and commons, public toilets, gym storeroom, health instructor's office and telecom (at the A/B joint). The gym (70 × 104 zone) is on the east side. The cafeteria (48 × 66) is along the west façade, daylit from the courtyard, sharing a long wall with the gym, with an operable partition recommended. The stage is at the cafeteria's south end, backing onto C's music room. The south band (52 ft) holds the kitchen, staff lunch, storage and custodial, with a shared loading/trash yard.
+C is double-loaded on an 8 ft corridor: music at the east end next to the stage, two practice rooms, art with kiln on south light, plant room at the west end.
+Diagram: C's east end abuts the block labeled "Kitchen · custodial shared loading."
+Orientation assumed so that A can face roughly north/south.
+provenance: explicit
+evidence: §3; diagram; §4
+vertical_organization
+value: 
+A F1 (10,260): administration, medical, 3 self-contained special-ed + toilets, 3 kindergarten. A F2 (7,410): 6 general (grades 1–3), 2 resource, small group, teacher planning/storage. A F3 (8,260): media (2,800), 6 general (grades 4–6).
+B: one GFA level, double height 28 ft.
+C: 1 floor/14 ft.
+Core academic spans F1–F3 (3,360 / 5,460 / 5,460). Special ed spans F1–F2 (3,660 / 1,950).
+provenance: explicit
+evidence: §3 "Mass A, floor by floor"; "Department checks"
+massing_organization
+value: 
+3 masses.
+A: 80 × 190 ft (57.9 m), W:L 0.421, 3 floors/42 ft, 45,600 GSF, net housed 25,930.
+B: 118 × 190 ft (57.9 m), 0.621, 1 GFA level double height/28 ft, 22,420 GSF, net 15,300.
+C: 60 × 110 ft (33.5 m), 0.545, 1 floor/14 ft, 6,600 GSF, net 3,040.
+Total 74,620 GSF. Overall U footprint ≈ 308 × 190 ft.
+Section A: 34 | 12 | 34 ft.
+provenance: explicit
+evidence: §3 table; §6
+circulation_logic
+value: 
+Two stairs in A (west end; a second ~40 ft from the east end with the elevator and toilet core), about 150 ft apart.
+The corridor connects at the east gable into B's lobby, the single controlled entry. Admin → medical → special ed → elevator cluster sits at the single entry.
+The public/after-hours zone (gym, dining, stage, music) can be locked off from the classrooms.
+One service yard serves kitchen and custodial. The courtyard provides a protected kindergarten play area.
+A dead-end corridor at A's east end on F2 needs a code check.
+provenance: explicit
+evidence: §3; §4; §5
+requirement_response
+exactly 3 masses — stated response: 3 masses. The response assumes "touching volumes still count as three masses." provenance: explicit. evidence: §4.
+max 3 floors — stated response: A at 3 floors. provenance: explicit. evidence: §4.
+preference for 3 floors — stated response: met only by A; two of three masses are low. provenance: explicit. evidence: §5.
+max 60 m length — stated response: ≤60 m per mass (≤196.85 ft); applied per mass. provenance: explicit. evidence: §1; §4.
+gym and dining together — stated response: adjacent, with an operable partition recommended. provenance: explicit. evidence: §3; §4.
+gym and dining double height — stated response: 28 ft (2 × 14 ft). provenance: explicit. evidence: §1; §4.
+art/music preferred ground — stated response: ground floor (C). provenance: explicit. evidence: §4.
+media preferred top floor above admin — stated response: building floor 3 over admin. provenance: explicit. evidence: §4.
+administration required ground — stated response: ground floor (A F1). provenance: explicit. evidence: §4.
+core academic width 80 ft — stated response: in an 80 ft mass. provenance: explicit. evidence: §4.
+special education width 80 ft — stated response: same. provenance: explicit. evidence: §4.
+mass ratio 2:5–5:8 — stated response: plan width:length per mass (0.400–0.625). An inter-mass reading is stated to fail (C:B footprint ratio 0.29). provenance: explicit. evidence: §1; §6.
+gym minimum 60 × 100 ft — stated response: 66 × 100 clear. provenance: explicit. evidence: §3.
+cafeteria minimum 40 × 60 ft — stated response: 48 × 66. provenance: explicit. evidence: §3.
+daylight preferred max width 90 ft — stated response: A and C ≤90 ft. B is 118 ft, over the preference, with the gym relying on clerestory/top light. provenance: explicit. evidence: §4.
+department split rule — stated response: contiguity and the 753 SF minimum met for both split departments. provenance: explicit. evidence: §4.
+program-area conservation — stated response: the 41-line program is preserved, including the Assistant Principal's office at quantity 0. provenance: explicit. evidence: §4.
+gross-area / tolerance — stated response: the target is 44,270 × 1.15 × 1.50 = "76,376" GSF, ±3% (74,085–78,667). 74,620 is −2.3%. If 66,405 is intended, the design is 12% over (a ~66,100 GSF variant is described). provenance: explicit. evidence: §1; §3; §6.
+known_risks
+value: 
+A F1 is tight (~94% of façade frontage), with fallbacks 36/8/36 or moving one self-contained special-ed room to F2.
+B is 118 ft wide (over 90 ft). A 90-ft B drops the building ~7% under the area target.
+The 0.621 ratio of B is close to 0.625.
+Dead-end corridor, acoustic separation between music and stage/plant, and whether the gym counts as "daylit instructional" are open.
+34 ft room depth needs ceiling height/glazing study.
+The 60 m limit applied to the whole building would make the U layout fail. A mass-ratio inter-mass reading would need rebalancing.
+No site, no CAD, no code check.
+The MEP plant is placed in C (assumption).
+provenance: explicit
+evidence: §4; §6; opening paragraph
+stated_rationale
+value: Program partition P4 was selected because it is stated to be the only partition screened that met every stated requirement and preference without an empty floor or oversized mass. The 34/12/34 section is chosen because it fits frontage with a 12 ft corridor for cubbies/breakout. The U around a courtyard was selected for a protected kindergarten/play court, a single entry joint and a shared service yard. Stated merits: one stacked bar for daylit teaching spaces by grade band, a clustered admin/medical/special-ed/elevator at the entry, a lockable public zone, a shared service yard.
+provenance: explicit
+evidence: §2; §5; §6
+representation_gap
+value: Explicitly described: three masses that touch/abut; a U arrangement around a courtyard; a gross-only MEP plant in C that is unprogrammed; an admin/media zone as a 38 ft segment inside A; B counted as one GFA level with a 28 ft volume.
+provenance: explicit
+evidence: §1; §3
+contradictions_or_missing_information
+The target gross value stated as 76,376 differs from the product of the stated factors (44,270 × 1.15 × 1.50 = 76,365.75). The design percentage (−2.3%) is stated against 76,376.
+Diagram shows C's east end against the kitchen/custodial block, while the text states the stage backs onto C's music room at C's east end.
+The 60 m interpretation (per mass) and U overall extent (~308 × 190 ft) are both stated.
+Mass B exceeds the 90 ft daylight preference (acknowledged).
+C's gross-to-net of 2.17 is attributed to an unprogrammed MEP plant of ~1,500–2,000 SF.
+The location of the mechanical plant is an assumption.
+R10
+strategy_summary
+value: A three-mass pinwheel/T-shaped school around a central civic/creative hinge. Mass A is a learning bar, Mass B a civic/creative bar (front door and circulation hinge), and Mass C an assembly/service hall (gym, dining, service). Stated zoning: B controlled entry, A secure academic wing, C after-hours/community wing.
+provenance: explicit
+evidence: §1
+program_grouping
+value: A: core academic (3 kindergarten, 8 general) and all special education. B: administration/guidance, medical, art/music, 4 general classrooms, media center. C: health/PE, dining/food service, custodial/maintenance (incl. network/telecom).
+provenance: explicit
+evidence: §3 table; §4 table
+spatial_relationships
+value: 
+B is the controlled front door and hinge.
+Art and music occupy B's ground floor "toward Mass C," adjacent to stage/dining/community functions.
+From the controlled lobby one direction leads into A and the other toward art/music and C.
+On L2/L3, A and the reduced upper portion of B meet at a controlled circulation joint.
+Within C, the longitudinal sequence is: gym zone → shared assembly/stage seam → dining zone → kitchen/service/receiving zone.
+The stage is at or near the gym/dining seam.
+Kitchen, receiving, storage, trash/recycling, workshop and custodial form a service edge with an independent approach.
+Mass B's L3 plate is positioned over the administration end of L1.
+The arrangement is described as rotatable (no site).
+provenance: explicit
+evidence: §1, §3, §5, §8
+vertical_organization
+value: 
+A L1 (6,450 NFA): 3 kindergarten, 2 self-contained special-ed classrooms with toilets, 1 resource room.
+A L2 (6,160): 4 general, 1 self-contained special-ed with toilet, 1 resource room, small-group room.
+A L3 (3,640): 4 general.
+B L1 (6,280): administration/guidance, medical, art/music.
+B L2 (3,640): 4 general.
+B L3 (2,800): media center.
+C L1 (15,300): gym/PE, dining/food service, all custodial/maintenance. C is one occupied level within a double-height volume.
+Special education spans A L1–L2. Core academic spans L1–L3 continuously, including B L2.
+provenance: explicit
+evidence: §3 table; §4 table
+massing_organization
+value: 
+3 masses.
+A: 80 × 129 ft, 3 floors, 30,960 GSF, ratio 0.620, 129 ft / 39.3 m.
+B: L1 80 × 129, L2 80 × 84, L3 80 × 70 ft, 3 stepped floors, 22,640 GSF, ratio 0.620 (envelope), 129 ft / 39.3 m.
+C: 118 × 193 ft, 1 occupied level in a double-height hall volume, 22,774 GSF, ratio 0.611, 193 ft / 58.8 m.
+Total 76,374 GSF.
+Massing heights: A and B ≈ 42 ft, C ≈ 28 ft (stated as massing heights, not clear heights).
+provenance: explicit
+evidence: §2 table
+circulation_logic
+value: 
+Main entry is at B through a secure vestibule to the general office/waiting area, then a controlled lobby.
+Three stated regimes: normal day (B as hinge), after-hours/community (C plus ground-floor art/music of B operable with A secured), service (route at C not crossing the principal entrance).
+The elevator is at the A/B hinge serving both three-story masses.
+Independent enclosed egress routes are to be developed at opposite ends of the upper-floor circulation, with stair number and travel distance subject to code.
+A's section is the default double-loaded 30 + 8 + 30 = 68 ft inside an 80 ft width, with ~12 ft for walls, lockers, doors, support zones and service elements.
+provenance: explicit
+evidence: §3 "Mass A"; §5
+requirement_response
+exactly 3 masses — stated response: satisfied; A, B, C. provenance: explicit. evidence: §6.
+max 3 floors — stated response: A/B = 3; C = one occupied floor in a double-height volume. provenance: explicit. evidence: §6.
+preference for 3 floors — stated response: both primary occupied bars are 3 stories. provenance: explicit. evidence: §6.
+max 60 m length — stated response: longest mass 193 ft ≈ 58.8 m. provenance: explicit. evidence: §2, §6.
+gym and dining together — stated response: directly adjoining within C, with an acoustically separable boundary. provenance: explicit. evidence: §3 "Mass C"; §6.
+gym and dining double height — stated response: "satisfied in massing concept"; heights are massing heights, not promised clear heights. provenance: explicit. evidence: §2, §6.
+art/music preferred ground — stated response: all in B L1. provenance: explicit. evidence: §4, §6.
+media preferred top floor above administration — stated response: B L3 over the administration end of B L1. provenance: explicit. evidence: §3 "Mass B"; §6.
+administration required ground floor — stated response: entire department in B L1. provenance: explicit. evidence: §6.
+core academic width 80 ft — stated response: all core academic is in 80 ft wide A or B. provenance: explicit. evidence: §6.
+special education width 80 ft — stated response: all special education in 80 ft A. provenance: explicit. evidence: §6.
+mass ratio 2:5–5:8 — stated response: interpreted as short-side/long-side; A/B 0.620, C 0.611. provenance: explicit. evidence: §2, §6.
+gym minimum 60 × 100 ft — stated response: "reserved in C"; footprint stated large enough to reserve at least 60 × 100 ft clear. provenance: explicit. evidence: §3 "Mass C"; §6.
+cafeteria minimum 40 × 60 ft — stated response: "reserved in C" (at least 40 × 60 ft clear). provenance: explicit. evidence: same.
+daylight preferred max width 90 ft — stated response: instructional A/B are 80 ft. C's width is 118 ft per table. provenance: explicit. evidence: §6; §2.
+department split rule — stated response: core academic L1–L3 and special education L1–L2 are contiguous. Portions are stated to exceed ~753 SF per floor. provenance: explicit. evidence: §3; §6.
+program-area conservation — stated response: every source program line is preserved, including the zero-quantity Assistant Principal's Office (retained at B-L1, no built NFA). Total scheduled NFA 44,270. provenance: explicit. evidence: §3 table; §4; §8.
+gross-area / tolerance — stated response: 44,270 × 1.15 × 1.50 = 76,365.75; proposal 76,374 GSF, within ±3% (≈74,075–78,657). The 66,405 workbook value is not replaced, and reconciliation is left as a project decision. provenance: explicit. evidence: §2.
+known_risks
+value: 
+"Mass ratio" is treated as plan aspect ratio and needs confirmation.
+The two stated gross-area bases need confirmation.
+No site boundary, orientation, topography or access; the arrangement is rotatable.
+Not code-complete. Structural grids, wall thicknesses, plumbing counts, accessibility, fire separation, egress travel, kitchen loading, acoustics, mechanical plant and gym clear height are to be verified.
+Stated heights are massing heights only.
+Residual gross area is described as intentional (area adjustment, circulation, stairs, toilets, shafts, tolerance), not additional room program.
+provenance: explicit
+evidence: §2, §3, §8
+stated_rationale
+value: The three-mass requirement is used to separate learning, civic/creative and assembly/service uses joined at one controlled hinge. The 80 ft bars are stated to avoid conflict with the daylight width preference. Kindergarten and most special education are at grade. Administration controls entry. Art/music have ground access and proximity to stage/assembly. Noisy/heavily serviced uses are consolidated in C. B's stepped upper floors avoid repeating unnecessary upper-floor area.
+provenance: explicit
+evidence: §7
+representation_gap
+value: Explicitly described: stepped B (L1 80 × 129, L2 80 × 84, L3 80 × 70); C as one occupied level within a double-height volume subdivided into a longitudinal gym–stage seam–dining–service sequence; "pinwheel/T-shaped" hinge arrangement; core academic spread over two masses on L2.
+provenance: explicit
+evidence: §1, §2, §3
+contradictions_or_missing_information
+Gross-area basis: 66,405 vs 76,365.75 unreconciled (acknowledged).
+"Pinwheel/T-shaped" is given without a defined plan geometry or connection type among A, B and C.
+Mass B's L2/L3 plate positions relative to L1 are stated only for L3 (over the administration end).
+C's width (118 ft) is not addressed against the 90 ft daylight statement, which is limited to instructional A/B.
+Exact stair count/positions not specified.
+The scheduled-area allocation of the 80 × 84 L2 plate (3,640 NFA) is given, but unscheduled area is not quantified.
+R11
+strategy_summary
+value: Three-bar T/pinwheel of an academic bar (A), a stepped arrival/administration/arts/media bar (B) and a double-height commons/PE bar (C). B is the arrival hinge. A is secured. C has a separate after-hours entrance. B L2 has no scheduled program (reserved for the area adjustment).
+provenance: explicit
+evidence: §3, §5
+program_grouping
+value: 
+A: core academic, all special education.
+B: art/music, medical, administration/guidance, media center, all custodial/maintenance incl. network/telecom.
+C: health/PE and dining/food service.
+provenance: explicit
+evidence: §4 table
+spatial_relationships
+value: 
+A's short end connects to one long side of B, giving an academic-to-administration/media junction on all three levels. C attaches to the opposite side of B at grade.
+The administration end of B is the controlled public entrance. The custodial/receiving end of B and the kitchen service end of C share a service side.
+In C, the gym occupies the first ~100 ft with a side strip; the dining/stage/kitchen group occupies the remainder. The dining room adjoins the gym zone with an acoustically separable wall.
+Art/music are at the opposite ground-floor portion of B from administration.
+The media center is over the administration zone.
+"Front" and "service side" are diagrammatic (no site).
+provenance: explicit
+evidence: §3; §5
+vertical_organization
+value: 
+A ground (5,880): 3 kindergarten, 1 self-contained special-ed, special-ed toilet, resource room, small-group room. A L2 (7,330): 6 general, 1 self-contained, toilet, resource. A L3 (6,680): 6 general, 1 self-contained, toilet.
+B ground (8,480): art/music, medical, administration, custodial, network/telecom. B L2: no scheduled rooms. B L3: media (2,800).
+C ground (13,100): gym, dining, support. C is one occupied level with a two-story-height volume (28 ft).
+Core academic: 3,360 / 5,460 / 5,460 on A L1–L3. Special ed: 2,520 / 1,870 / 1,220 on A L1–L3.
+provenance: explicit
+evidence: §4
+massing_organization
+value: 
+3 masses.
+A: 80 × 150 ft, 3 floors, 12,000 SF/floor, 36,000 GSF, ratio 0.533, 45.7 m.
+B: ground 80 × 130 ft (10,400), L2 60 × 100 (6,000), L3 60 × 100 (6,000), total 22,400 GSF, ratios 0.615 / 0.600, max length 39.6 m.
+C: 90 × 194 ft, one occupied level, nominal two-story-height volume, 17,460 GSF, ratio 0.464, 59.13 m.
+Total 75,860 GSF.
+provenance: explicit
+evidence: §3, §6
+circulation_logic
+value: 
+Two separated stairs at opposite ends of A, another stair associated with B, and an accessible elevator at the A/B junction.
+Student circulation: an 8 ft double-loaded spine in A, a broader arrival/cross-circulation spine through B, and a side gallery along C reaching gym/dining without routing through either large room.
+C has a separate after-hours/community entrance.
+A section: 30 + 6 (support/locker) + 8 + 6 + 30 = 80 ft.
+Stair count, exit widths and travel distance are stated as unverifiable (no jurisdiction/construction type given).
+provenance: explicit
+evidence: §3; §5
+requirement_response
+exactly 3 masses — stated response: satisfied (academic, arrival/arts/media, commons/PE). provenance: explicit. evidence: §7.
+max 3 floors — stated response: satisfied; A and B reach three levels, C one occupied floor. provenance: explicit. evidence: §7.
+preference for 3 floors — stated response: "substantially satisfied"; both principal masses have three floors. provenance: explicit. evidence: §7.
+max 60 m length — stated response: longest is C at 194 ft / 59.13 m. provenance: explicit. evidence: §7.
+gym and dining together — stated response: directly adjacent within C. provenance: explicit. evidence: §7.
+gym and dining double height — stated response: satisfied conceptually; nominal 28 ft; final clear heights need structural confirmation. provenance: explicit. evidence: §7.
+art/music preferred ground — stated response: B ground. provenance: explicit. evidence: §7.
+media preferred top floor above admin — stated response: B L3 over the administration zone. provenance: explicit. evidence: §7.
+administration required ground — stated response: B ground at the controlled entry. provenance: explicit. evidence: §7.
+core academic width 80 ft — stated response: contained in 80 ft A. provenance: explicit. evidence: §7.
+special education width 80 ft — stated response: same. provenance: explicit. evidence: §7.
+mass ratio 2:5–5:8 — stated response: satisfied only under the short/long interpretation (0.464–0.615 stated). The source's definition is flagged as missing. provenance: explicit. evidence: §1; §7.
+gym minimum 60 × 100 ft — stated response: 65 × 100 ft. provenance: explicit. evidence: §3 table.
+cafeteria minimum 40 × 60 ft — stated response: 40 × 70 ft. provenance: explicit. evidence: §3 table.
+daylight preferred max width 90 ft — stated response: A 80; B 80/60; C 90. provenance: explicit. evidence: §7.
+department split rule — stated response: core academic (3 floors) and special ed (3 floors) are contiguous, with all portions above ~753 SF. provenance: explicit. evidence: §4; §7.
+program-area conservation — stated response: room types, quantities and NFA are preserved (44,270), including the Assistant Principal's Office at quantity zero. provenance: explicit. evidence: §4.
+gross-area / tolerance — stated response: used 44,270 × 1.15 × 1.50 = 76,365.75 (±3% ≈ 74,075–78,657). 75,860 is −506 SF / −0.66%. It is ~14.2% larger than 66,405, which is unresolved. provenance: explicit. evidence: §1; §6.
+known_risks
+value: 
+Mass-ratio definition needs confirmation (other readings need re-check).
+Gross-area basis needs resolution.
+C is close to 60 m, so wall build-ups and projections should not push the controlling dimension beyond 60 m.
+B L2 has no scheduled program and is the place to absorb the area adjustment, with its use to be resolved in later programming.
+No site, jurisdiction, construction type, sprinkler or occupant-load criteria.
+Final clear heights need structural confirmation.
+provenance: explicit
+evidence: §1; §5; §7; §8
+stated_rationale
+value: The recommended version was chosen because it avoids solving one requirement by creating a more serious problem. It does not squeeze ground-floor administration/art, does not exceed the 90 ft planning width, and keeps enough commons depth for the double-height rooms and service functions. Stated strengths: a regular daylit academic bar, a controlled arrival/arts/media hinge, a long-span community commons, kindergarten at grade, special ed contiguous, administration controlling the entrance, media visible at the top, noisy/community uses away from the classroom bar. The stepped B is preferred over a full three-story rectangle because its ground floor needs substantially more area.
+provenance: explicit
+evidence: §2; §8
+representation_gap
+value: Explicitly described: a "T/pinwheel" arrangement; stepped B (ground 80 × 130, upper 60 × 100) with an unscheduled L2; C as a one-level mass with a nominal two-story-height volume; the 6 ft support/locker bands inside A's 80 ft section; a side gallery along C.
+provenance: explicit
+evidence: §3; §5
+contradictions_or_missing_information
+"T/pinwheel" is stated without a plan geometry distinguishing the two.
+Offset of B's 60 × 100 upper plates over the 80 × 130 ground plate is not dimensioned (stated as over administration).
+Position of C's attachment relative to A's connection on B (opposite sides) is stated; the location along B is not.
+Custodial/receiving functions are in B while "kitchen service end of C" shares the service side; the physical receiving location is not specified.
+B L2 use unresolved (acknowledged).
+Gross basis unresolved (acknowledged).
+Exact stair/elevator positions beyond those stated are not given.
+R12
+strategy_summary
+value: Three rectangular masses in a west-to-east line (B Commons west, C Hub center, A Learning Bar east), meeting at shared walls without separate link buildings. Security zoning: the hub lobby is the one place community and student traffic meet.
+provenance: explicit
+evidence: "Proposal: three masses"
+program_grouping
+value: 
+A: core academic, all special education.
+B: gym, stage, cafeteria, kitchen, chair/table storage, PE support, art & music, custodial suite, receiving, staff lunch room.
+C: administration/guidance, network/telecom, media center. Medical is listed in the hub L1 NFA, but the text also says the nurse suite is placed next to the special-ed classrooms in the bar.
+provenance: explicit (nurse suite location ambiguous)
+evidence: "Floor-by-floor organization"; "Hub (C), level 1"
+spatial_relationships
+value: 
+Plan is in a west-to-east line: B, C, A.
+The hub steps ~10 ft forward of the Commons and ~20 ft forward of the bar.
+The Commons' south zone (70 ft deep) holds the gym, stage and cafeteria. An 8 ft corridor separates it from a 42 ft band on the north wall.
+The north band, W to E: PE support/toilets/stair; custodial suite and receiving; music with two practice rooms (door into the stage wing); kitchen and staff lunch (opening to the servery); art and kiln workroom next to the hub lobby.
+The stage is between gym and cafeteria, with an operable wall to the gym.
+Service/loading is along the Commons' north face. Main entry and drop-off are on the south face of the hub; the gym/community entry is at the west.
+The bar runs east–west with every classroom facing north or south.
+Media sits directly above administration.
+The site composition is assumed (no site given).
+provenance: explicit
+evidence: "Site composition (assumed)"; "Commons (B)"; "Hub (C)"
+vertical_organization
+value: 
+B: ground level only (NFA 18,090); gym/stage/cafeteria are 28 ft double-height; kitchen and custodial have 14 ft ceilings with an unfloored plenum/rooftop equipment above, not counted in GFA.
+C L1 (NFA 3,490): lobby 60 × 24, administration, network/telecom. C L2 (NFA 2,800): media center with stair, elevator, toilets, open reading space.
+A L1 (7,020): 3 kindergarten, 3 self-contained special-ed with toilets (west end). A L2 (7,410): 6 general (grades 1–3), 2 resource, small group. A L3 (5,460): 6 general (grades 4–6) and a learning commons at the east end.
+The hub's L2 connects at grade to A's floor 2.
+provenance: explicit
+evidence: "Floor-by-floor organization"; "Learning Bar (A)"
+massing_organization
+value: 
+3 masses.
+A: 80 × 168 ft, ratio 0.476, long side 51.2 m, 3 floors/42 ft, GFA 40,320, NFA 19,890.
+B: 120 × 194 ft, ratio 0.619, 59.1 m, "2-storey volume"/28 ft, GFA 23,280, NFA 18,090.
+C: 60 × 100 ft, ratio 0.600, 30.5 m, 2 floors/28 ft, GFA 12,000, NFA 6,290.
+Total 75,600 GFA. Overall length ~422 ft.
+provenance: explicit
+evidence: "Area basis" table
+circulation_logic
+value: 
+The hub's secure vestibule/lobby is the only public daytime entry. After hours, the Commons and lobby stay open and A is closed off at the hub junction.
+A section: 30 ft rooms + 20 ft "learning street" (8 ft clear egress + 12 ft breakout) + 30 ft rooms, with 336 ft of frontage per floor (~60 ft per floor for stairs/toilets).
+Stairs: one at each end of the bar. One elevator at the hub/bar junction serving bar floors 1–3 and hub levels 1–2.
+Media-level egress is via the hub stair or along A floor 2 to the bar stairs.
+The gym has its own community entrance.
+provenance: explicit
+evidence: "Proposal"; "Learning Bar (A)"; "Merits and trade-offs"
+requirement_response
+exactly 3 masses — stated response: three masses, all rectangular. provenance: explicit. evidence: "Requirements check".
+max 3 floors — stated response: maximum three floors. provenance: explicit. evidence: same.
+preference for 3 floors — stated response: not separately addressed. Masses are A 3, C 2, B one occupied level in a 28 ft volume. provenance: unknown (statement) / explicit (floor counts). evidence: table.
+max 60 m length — stated response: every long side ≤ 60 m (Commons closest at 59.1 m). provenance: explicit. evidence: "Requirements check".
+gym and dining together — stated response: adjacent through the stage. provenance: explicit. evidence: same.
+gym and dining double height — stated response: both double height (28 ft). provenance: explicit. evidence: same.
+art/music preferred ground — stated response: on the ground floor (in B). provenance: explicit. evidence: same.
+media preferred top floor above admin — stated response: partially met. Media is on the top floor of its mass, directly above administration, but on level 2, not the building's level 3. provenance: explicit. evidence: "Partially met or unresolved".
+administration required ground — stated response: entirely on the ground floor. provenance: explicit. evidence: "Requirements check".
+core academic width 80 ft — stated response: in the 80 ft bar. provenance: explicit. evidence: same.
+special education width 80 ft — stated response: same. provenance: explicit. evidence: same.
+mass ratio 2:5–5:8 — stated response: short ÷ long; every mass between 0.400 and 0.625. provenance: explicit. evidence: table; "Interpretations."
+gym minimum 60 × 100 ft — stated response: clear floor 100 × 65 ft (6,500 SF). provenance: explicit. evidence: "Commons (B)".
+cafeteria minimum 40 × 60 ft — stated response: clear dining ~46 × 68 ft (≈3,000 SF). provenance: explicit. evidence: same.
+daylight preferred max width 90 ft — stated response: not met by the Commons (120 ft wide); the gym's 100 ft clear dimension is stated to make <90 ft impossible. Instructional rooms in B (art, music) are on the exterior north wall. A is 80 ft. provenance: explicit. evidence: "Partially met or unresolved".
+department split rule — stated response: contiguous floors, each portion >753 SF (core 3,360/5,460/5,460; special ed 3,660/1,950). provenance: explicit. evidence: "Requirements check".
+program-area conservation — stated response: all 41 schedule lines preserved; NFA reconciles to 44,270. The Assistant Principal's Office is kept at quantity 0 / 0 SF. provenance: explicit. evidence: same; "Hub (C), level 1".
+gross-area / tolerance — stated response: designed to the project parameters 44,270 × 1.15 × 1.50 = 76,366 SF, ±3% (74,075–78,657). Total 75,600 is 1.0% below the target and 13.8% above the workbook's 66,405. If 66,405 governs, the bar would shrink to ~140 ft, which is stated to fail the floor-1 frontage unless the corridor drops to 8 ft (which "breaks the 80-ft width rule"). provenance: explicit. evidence: "Area basis"; "Partially met or unresolved".
+known_risks
+value: 
+Media is not on the building's L3. A three-storey hub would leave L2 without legitimate program, and the response states it prefers the two-storey hub.
+The Commons is 120 ft wide, over the 90 ft preference. It is close to both the length and ratio limits and cannot absorb more program (growth would go to the bar, ~28 ft of length left).
+Gross basis to be confirmed.
+Network room is separate from the rest of custodial (planning choice).
+Stairs, egress and elevator counts need code check.
+The 422 ft overall length needs site testing.
+Site, orientation and access are assumed.
+Long-span roofs over gym/cafeteria.
+provenance: explicit
+evidence: "Partially met or unresolved"; "Merits and trade-offs"
+stated_rationale
+value: Clear zoning and short daily trips; classrooms have single-sided north/south daylight at 30 ft depth; the 20 ft learning street converts surplus gross area into breakout space; special education is next to the nurse and entry (as stated); kindergarten has direct ground access; the cafeteria, lobby and stage serve evening events; the hub vestibule is the only daytime public entry; most of the area overrun is placed in the bar. The 30/20/30 section is chosen over 36/8/36 because deeper rooms reach daylight less well. The two-storey hub is described as the better trade over alternatives that move art/music upstairs or special ed out of the 80 ft bar. Costs stated: long linear plan (~420 ft), grade 6 has the longest trip, long-span roofs, no growth room in the Commons.
+provenance: explicit
+evidence: "Interpretations and assumptions"; "Partially met or unresolved"; "Merits and trade-offs"
+representation_gap
+value: Explicitly described: the Commons as one tall storey whose north band has lower ceilings under an unfloored plenum/rooftop equipment not counted in GFA, with a 28 ft gym/cafeteria "2-storey volume"; the hub forward steps (~10 ft and ~20 ft); a 20 ft "learning street" with an 8 ft egress clear plus 12 ft breakout; media on the top floor of its own (2-storey) mass rather than the building's top floor.
+provenance: explicit
+evidence: "Site composition"; "Interpretations and assumptions"; "Partially met or unresolved"
+contradictions_or_missing_information
+Nurse suite: listed within hub L1 NFA (3,490, consistent with admin 2,510 + medical + network), but the text also places it "next to the special education classrooms in the bar." Both preserved.
+Stage 924 SF, chair/table storage 440 SF and clear dining ~3,000 SF are given as drawn dimensions. The response also states that all 41 schedule lines are preserved at their quantities. Scheduled areas for those rooms are not stated in this response.
+Preference for 3 floors is not explicitly addressed.
+The media-on-top-floor preference is stated as "partially met."
+The Commons is described both as "2-storey volume" and as one occupied ground level.
+Placement of C's lobby relative to the stage wing is not dimensioned.
+ASCII diagram is stated as "not to scale."
