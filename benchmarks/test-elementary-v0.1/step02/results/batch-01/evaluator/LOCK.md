@@ -1,6 +1,5 @@
 # Fable evaluator record — Step-01 batch-01
 
-Status: **IDENTITY-EXPOSED / NOT VALID AS A BLINDED EVALUATION**
 
 This batch was intended to be blinded before scoring. However, the shuffled evaluator input retained a `run_metadata` block inside every Rxx record containing the original model, condition (A0/A1), run number, reasoning setting, elapsed time, and related tags. The evaluator therefore had access to identity information even though the score outputs themselves did not repeat it.
 
