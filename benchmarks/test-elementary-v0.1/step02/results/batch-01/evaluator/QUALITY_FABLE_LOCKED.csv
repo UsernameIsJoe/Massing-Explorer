@@ -1,0 +1,13 @@
+case,hard_feasibility,hard_failures,materially_unverified,program_coherence,preference_alignment,performance_efficiency,robustness_flexibility,representation_status
+R01,PASS,0,0,2,4,1,1,unknown
+R02,PASS,0,0,3,4,2,2,unknown
+R03,PASS,0,0,3,4,1,2,unknown
+R04,PASS,0,0,3,3,3,3,unknown
+R05,PASS,0,0,3,4,2,2,unknown
+R06,PASS,0,0,3,3,2,3,unknown
+R07,PASS,0,0,2,4,1,1,unknown
+R08,PASS,0,0,3,3,3,2,unknown
+R09,PASS,0,0,3,3,2,2,unknown
+R10,PASS,0,0,3,3,2,2,unknown
+R11,PASS,0,0,3,4,2,3,unknown
+R12,PASS,0,0,2,2,2,1,unknown
