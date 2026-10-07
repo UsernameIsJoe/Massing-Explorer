@@ -1,0 +1,13 @@
+case,problem_structuring,search_space_framing,exploration_breadth,exploration_diversity,comparative_evaluation,constraint_verification,revision_backtracking,tradeoff_reasoning,selection_stopping_logic,representation_expansion,uncertainty_handling
+R01,3,2,2,2,1,3,0,2,2,unknown,3
+R02,2,0,0,0,0,2,0,1,1,unknown,2
+R03,3,3,3,3,3,3,2,3,2,unknown,3
+R04,3,1,1,1,1,3,0,2,1,unknown,3
+R05,2,0,0,0,0,2,0,1,1,unknown,2
+R06,3,3,3,3,3,3,0,3,2,unknown,3
+R07,3,2,2,1,2,3,0,3,2,unknown,3
+R08,2,1,1,1,1,3,0,2,1,unknown,3
+R09,3,3,3,3,3,3,1,3,3,unknown,3
+R10,2,0,0,0,0,2,0,1,1,unknown,2
+R11,3,2,2,1,2,3,0,3,2,unknown,2
+R12,3,1,1,1,1,3,0,2,1,unknown,3
